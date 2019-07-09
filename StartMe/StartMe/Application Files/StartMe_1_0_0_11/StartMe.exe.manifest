@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="StartMe.exe" version="1.0.0.11" publicKeyToken="b0e30c099fe059d0" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="boot.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="StartMe" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="StartMe.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="StartMe.exe" size="207792">
+      <assemblyIdentity name="StartMe" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>kfGW04ZpTe9ps8kh+cjObtzdXO+abIRVYCBIuAizNOc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="boot.ico" size="67646">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>lM91TFVAtHJxUod4930dTbsgnSweBpyzfQZDXe4Gfkc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icon1.ico" size="45451">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>VT5YQgA5CY9Sq+vPjRUHcEk7FZvl5nTFwUNmqQacgy8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="StartMe.exe.config" size="11333">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>DTiAhkGBHBqH+WzVcTMRhjcjcZwQCo2Br4iE4Xq6xnY=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=MIKE-HAM\mike" issuerKeyHash="00090721bbeaf1db8db0467d9ac6504f5aec1b1d" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>drFtTfOuBix5jT0ZFQJcLfqSzvffbAbZQu1Of8s4xso=</DigestValue></Reference></SignedInfo><SignatureValue>t9FmC8bsOi18wW6bFVu2V64t/rQlA1naYaHUwvN5edR2TAD5HA7qDTCeDx4GQv+uHxCtcJSJ8y61wnlHVX64+QQBbIqop6kMA0oY+Upr8GhRem7EsUb6qJtVP+t63u24B+T+rT+8iYXvUAlLElKOgayovq8/T4QUKetKBY0URDw=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>7K3mmL/8tthcOsEOcWtXppgOKBikk4xnrA8G9W6kuaSmV5eKddDuHwyhdevNObwk8GxxpfL9d8yXQsLia3xiz65yKIdFXXu/0nnizyZG+Za24oSA2aNxHUDJNCMg/DUbkHrj0UjiBSznvWSXCa2diV45xeEHE5gW7iKb/Yrjgz0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="cac638cb7f4eed42d9066cdff7ce92fa2d5c0215193d8d792c06aef34d6db176" Description="" Url=""><as:assemblyIdentity name="StartMe.exe" version="1.0.0.11" publicKeyToken="b0e30c099fe059d0" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=MIKE-HAM\mike</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>d/yCWihQIjHB+yaShtBwN88QKgiQbKtPW1xh198/krM=</DigestValue></Reference></SignedInfo><SignatureValue>phl3jd7yOLn9wvigip6LVxynUWPdaMML6k2dKHlMbfHvj9EAH+c95eXQlNbcvDl6UTUQmTExpBoHDWxsSO5jlSA4k9/ZV0uNh4ozU8feUPs8PkBFvBn5WE6NtnCyt67roUs8G61L5KSyBvKgyBE52ava2+WBQKjt9paU1NWpdr0=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>7K3mmL/8tthcOsEOcWtXppgOKBikk4xnrA8G9W6kuaSmV5eKddDuHwyhdevNObwk8GxxpfL9d8yXQsLia3xiz65yKIdFXXu/0nnizyZG+Za24oSA2aNxHUDJNCMg/DUbkHrj0UjiBSznvWSXCa2diV45xeEHE5gW7iKb/Yrjgz0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBzTCCATagAwIBAgIQHLiTl166oo1EcX+SSU1RfjANBgkqhkiG9w0BAQsFADAlMSMwIQYDVQQDHhoATQBJAEsARQAtAEgAQQBNAFwAbQBpAGsAZTAeFw0xODA0MTgxODI5MzdaFw0xOTA0MTkwMDI5MzdaMCUxIzAhBgNVBAMeGgBNAEkASwBFAC0ASABBAE0AXABtAGkAawBlMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDsreaYv/y22Fw6wQ5xa1emmA4oGKSTjGesDwb1bqS5pKZXl4p10O4fDKF16805vCTwbHGl8v13zJdCwuJrfGLPrnIoh0Vde7/SeeLPJkb5lrbihIDZo3EdQMk0IyD8NRuQeuPRSOIFLOe9ZJcJrZ2JXjnF4QcTmBbuIpv9iuODPQIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAL66O+PJACd3vQSz9C+5HH/KzN+txGACvus5f1XuL2cjgaxJYSYv8woCHgEjV/rRwbKyAjOxbOFY/Rx1+x3OqbmUn3QTqlOVa4KtYBnp1/wop8ZCSPlIY87fhwietv07Ej/+gv94SOcs3Np8qQr8JKxnUt0Y60P9As6j+mHXxCIn</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

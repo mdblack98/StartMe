@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="StartMe.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+    </startup>
+    <userSettings>
+        <StartMe.Properties.Settings>
+            <setting name="Path1" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path2" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path3" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path4" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path5" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path6" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path7" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path8" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Path9" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="StartDelay1" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay2" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay3" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay4" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay5" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay6" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay7" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay8" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StartDelay9" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay1" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay2" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay3" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay4" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay5" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay6" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay7" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay8" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="StopDelay9" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="KeysStart1" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart2" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart3" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart4" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart5" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart6" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart7" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart8" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStart9" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="AutoStart1" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart2" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart3" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart4" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart5" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart6" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart7" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart8" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="AutoStart9" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Start1After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start2After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start3After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start4After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start5After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start6After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start7After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start8After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Start9After" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop1" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop2" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop3" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop4" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop5" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop6" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop7" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop8" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="KeysStop9" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="CPU1" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU2" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU3" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU4" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU5" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU6" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU7" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU8" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="CPU9" serializeAs="String">
+                <value>10</value>
+            </setting>
+            <setting name="Args1" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args2" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args3" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args4" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args5" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args6" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args7" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args8" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Args9" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="Minimize1" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize2" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize3" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize4" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize5" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize6" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize7" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize8" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="Minimize9" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="SettingsName" serializeAs="String">
+                <value />
+            </setting>
+        </StartMe.Properties.Settings>
+    </userSettings>
+</configuration>
