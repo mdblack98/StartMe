@@ -558,6 +558,7 @@ namespace StartMe
                 //                processID[n] = process[n].Id;
                 processId.Text = process[n].Id.ToString();
                 ProcessSetId(n, process[n].Id);
+                labelWindowTitle.Text = p2.MainWindowTitle;
                 // MDB temp for debugging
                 if (name.ToLower().Contains("jtalert"))
                 {
@@ -1206,6 +1207,7 @@ namespace StartMe
                 return;
             }
 
+            labelStatusMessage.Text = "Waiting for CPU%";
             TimeSpan ttime;
             TimeSpan ttimeDiff;
             cpu *= 10;  // Conver CPU % to millseconds
@@ -1213,25 +1215,13 @@ namespace StartMe
             { // sleep for 200ms and wait for < desired CPU time
                 ttime = process[n].TotalProcessorTime;
                 Thread.Sleep(200);
+                Application.DoEvents();
                 TimeSpan ttime2 = process[n].TotalProcessorTime;
                 ttimeDiff = ttime2.Subtract(ttime);
             } while (ttimeDiff.TotalMilliseconds * 5 > (int)cpu);
             buttonStop1.Enabled = true;
-            /*  Changing logic to use sequence # instead of next to keep it the same as the stop value
-            try
-            {
-                int inext = int.Parse(next);
-                if (!modifierKeys.HasFlag(Keys.Shift))
-                {
-                    processNext((inext + 1).ToString());
-                }
-            }
-            catch
-            {
-                // nothing to do really -- string might be empty/invalid
-            }
-            */
-            //richTextBox1.AppendText("Process#" + n + ", HandleCount=" + process[n].HandleCount);
+            labelStatusMessage.Text = "Done";
+            Application.DoEvents();
         }
 
         private bool ProcessStop(int n, Keys modifierKeys)
@@ -1707,6 +1697,22 @@ namespace StartMe
             SettingsSave(Properties.Settings.Default.SettingsKeyCurrent);
         }
 
+        private void SetPid(int pidNum, string pidText, string windowTitle)
+        {
+            switch(pidNum)
+            {
+                case 1: pid1.Text = pidText; labelWindowTitle1.Text = windowTitle; break;
+                case 2: pid2.Text = pidText; labelWindowTitle2.Text = windowTitle; break;
+                case 3: pid3.Text = pidText; labelWindowTitle3.Text = windowTitle; break;
+                case 4: pid4.Text = pidText; labelWindowTitle4.Text = windowTitle; break;
+                case 5: pid5.Text = pidText; labelWindowTitle5.Text = windowTitle; break;
+                case 6: pid6.Text = pidText; labelWindowTitle6.Text = windowTitle; break;
+                case 7: pid7.Text = pidText; labelWindowTitle7.Text = windowTitle; break;
+                case 8: pid8.Text = pidText; labelWindowTitle8.Text = windowTitle; break;
+                case 9: pid9.Text = pidText; labelWindowTitle9.Text = windowTitle; break;
+            }
+        }
+
         private void ProcessUpdate()
         {
             for (int i = 1; i < 10; ++i)
@@ -1734,15 +1740,15 @@ namespace StartMe
                 }
                 switch (i)
                 {
-                    case 1: buttonStart1.Enabled = !running; buttonStop1.Enabled = running; break;
-                    case 2: buttonStart2.Enabled = !running; buttonStop2.Enabled = running; break;
-                    case 3: buttonStart3.Enabled = !running; buttonStop3.Enabled = running; break;
-                    case 4: buttonStart4.Enabled = !running; buttonStop4.Enabled = running; break;
-                    case 5: buttonStart5.Enabled = !running; buttonStop5.Enabled = running; break;
-                    case 6: buttonStart6.Enabled = !running; buttonStop6.Enabled = running; break;
-                    case 7: buttonStart7.Enabled = !running; buttonStop7.Enabled = running; break;
-                    case 8: buttonStart8.Enabled = !running; buttonStop8.Enabled = running; break;
-                    case 9: buttonStart9.Enabled = !running; buttonStop9.Enabled = running; break;
+                    case 1: buttonStart1.Enabled = !running; buttonStop1.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 2: buttonStart2.Enabled = !running; buttonStop2.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 3: buttonStart3.Enabled = !running; buttonStop3.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 4: buttonStart4.Enabled = !running; buttonStop4.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 5: buttonStart5.Enabled = !running; buttonStop5.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 6: buttonStart6.Enabled = !running; buttonStop6.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 7: buttonStart7.Enabled = !running; buttonStop7.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 8: buttonStart8.Enabled = !running; buttonStop8.Enabled = running; if (!running) SetPid(i, "", ""); break;
+                    case 9: buttonStart9.Enabled = !running; buttonStop9.Enabled = running; if (!running) SetPid(i, "", ""); break;
                 }
             }
         }
@@ -1935,7 +1941,6 @@ namespace StartMe
             Properties.Settings.Default.AutoStart7 = checkBoxAutoStart7.Checked;
             Properties.Settings.Default.AutoStart8 = checkBoxAutoStart8.Checked;
             Properties.Settings.Default.AutoStart9 = checkBoxAutoStart9.Checked;
-            AutoStartUpdate();
 
             //4
             Properties.Settings.Default.Minimize1 = checkBoxMinimize1.Checked;
@@ -3081,63 +3086,49 @@ namespace StartMe
             return false;
         }
 
-        private void AutoStartUpdate()
-        {
-            textBoxStart1Sequence.Enabled = checkBoxAutoStart1.Checked;
-            textBoxStart2Sequence.Enabled = checkBoxAutoStart2.Checked;
-            textBoxStart3Sequence.Enabled = checkBoxAutoStart3.Checked;
-            textBoxStart4Sequence.Enabled = checkBoxAutoStart4.Checked;
-            textBoxStart5Sequence.Enabled = checkBoxAutoStart5.Checked;
-            textBoxStart6Sequence.Enabled = checkBoxAutoStart6.Checked;
-            textBoxStart7Sequence.Enabled = checkBoxAutoStart7.Checked;
-            textBoxStart8Sequence.Enabled = checkBoxAutoStart8.Checked;
-            textBoxStart9Sequence.Enabled = checkBoxAutoStart9.Checked;
-
-        }
-
         private void CheckBoxAutoStart1_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart2_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart3_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart4_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart5_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart6_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart7_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart8_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void CheckBoxAutoStart9_CheckedChanged(object sender, EventArgs e)
         {
-            AutoStartUpdate();
+            //AutoStartUpdate();
         }
 
         private void ButtonStartAll_Click(object sender, EventArgs e)
