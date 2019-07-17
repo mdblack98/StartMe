@@ -1284,7 +1284,6 @@ namespace StartMe
                     if (!ok || kill)
                     {
                         process[n].Kill();
-                        process[n].Dispose();
                     }
                     Thread.Sleep(1000);
                     ProcessSendKeys(n, false);
