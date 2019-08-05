@@ -38,7 +38,7 @@ namespace StartMe
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ShowWindow(IntPtr hWnd, ShowWindowEnum flags);
 
-        bool autoStartDone = true;
+        bool autoStartDone = false;
         String settingsKey = "";
         List<String> settingsKeys = new List<string>();
         readonly String[] processArgs = new string[10];
@@ -388,8 +388,7 @@ namespace StartMe
             SettingsLoad(settingsKey);
             comboBoxSettingsKey.SelectedIndex = comboBoxSettingsKey.Items.IndexOf(settingsKey);
             comboBoxSettingsKey.Enabled = true;
-            if (checkBoxMinimize.Checked) this.WindowState = FormWindowState.Minimized;
-            ProcessInit();
+            // Window height/width/position restore
             this.Top = Properties.Settings.Default.RestoreBounds.Top;
             this.Left = Properties.Settings.Default.RestoreBounds.Left;
             this.Height = Properties.Settings.Default.RestoreBounds.Height;
@@ -407,6 +406,9 @@ namespace StartMe
             {
                 this.Left = 0;
             }
+
+            if (checkBoxMinimize.Checked) this.WindowState = FormWindowState.Minimized;
+            ProcessInit();
         }
 
 
@@ -816,8 +818,6 @@ namespace StartMe
         private void ProcessInit()
         {
             ProcessFindName(textBoxPath1.Text, textBoxArgs1.Text, 1, ref pid1, ref labelWindowTitle1);
-            //if (pid1.Text.Length == 0 && checkBoxAutoStart1.Checked)
-            //    processStart(1, Keys.None);
             ProcessFindName(textBoxPath2.Text, textBoxArgs2.Text, 2, ref pid2, ref labelWindowTitle2);
             ProcessFindName(textBoxPath3.Text, textBoxArgs3.Text, 3, ref pid3, ref labelWindowTitle3);
             ProcessFindName(textBoxPath4.Text, textBoxArgs4.Text, 4, ref pid4, ref labelWindowTitle4);
@@ -832,7 +832,7 @@ namespace StartMe
         }
 
         #pragma warning disable IDE0060 // Remove unused parameter
-        private bool ProcessIsRunning(String path, String args, int n, ref Process myProcess)
+        private bool ProcessIsRunning(string path, string args, int n, ref Process myProcess)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             // we will use our current pid
@@ -851,7 +851,6 @@ namespace StartMe
             }
             SetPathColor(n, Color.Black);
             SetEZName(n);
-            string pName = "Bug!!";
             try
             {
                 if (process[n] != null && process[n].Id > 0)
@@ -859,15 +858,15 @@ namespace StartMe
                     int pid = 0;
                     switch (n)
                     {
-                        case 1: pid = Convert.ToInt32(pid1.Text); pName = textBoxPath1.Text; break;
-                        case 2: pid = Convert.ToInt32(pid2.Text); pName = textBoxPath2.Text; break;
-                        case 3: pid = Convert.ToInt32(pid3.Text); pName = textBoxPath3.Text; break;
-                        case 4: pid = Convert.ToInt32(pid4.Text); pName = textBoxPath4.Text; break;
-                        case 5: pid = Convert.ToInt32(pid5.Text); pName = textBoxPath5.Text; break;
-                        case 6: pid = Convert.ToInt32(pid6.Text); pName = textBoxPath6.Text; break;
-                        case 7: pid = Convert.ToInt32(pid7.Text); pName = textBoxPath7.Text; break;
-                        case 8: pid = Convert.ToInt32(pid8.Text); pName = textBoxPath8.Text; break;
-                        case 9: pid = Convert.ToInt32(pid9.Text); pName = textBoxPath9.Text; break;
+                        case 1: pid = Convert.ToInt32(pid1.Text); break;
+                        case 2: pid = Convert.ToInt32(pid2.Text); break;
+                        case 3: pid = Convert.ToInt32(pid3.Text); break;
+                        case 4: pid = Convert.ToInt32(pid4.Text); break;
+                        case 5: pid = Convert.ToInt32(pid5.Text); break;
+                        case 6: pid = Convert.ToInt32(pid6.Text); break;
+                        case 7: pid = Convert.ToInt32(pid7.Text); break;
+                        case 8: pid = Convert.ToInt32(pid8.Text); break;
+                        case 9: pid = Convert.ToInt32(pid9.Text); break;
                     }
                     try
                     {
@@ -878,6 +877,7 @@ namespace StartMe
                         }
                         else
                         {
+                            SetStartStop(n, false, true);
                             return true;
                         }
                     }
@@ -890,12 +890,16 @@ namespace StartMe
             }
             catch (Exception)
             {
-                Process[] p1 = Process.GetProcessesByName(pName);
-                SetStartStop(n, false, false);
-                if (p1.Count() > 0)
+                Process p1 = GetProcessByFileName(n);
+                if (p1 != null)
+                {
+                    SetPid(n, p1.Id.ToString(), "");
+                    SetStartStop(n, false, true);
+                    return true;
+                }
+                else
                 {
                     SetStartStop(n, true, false);
-                    return true;
                 }
             }
             return false;
@@ -1610,6 +1614,8 @@ namespace StartMe
             while (next <= 9)
             {
                 String snext = next.ToString();
+                // Allow skipping of stop if requested with "0", "n" "N", "n*", or "N*"
+                if (snext.Equals("0") || snext.ToUpper()[0] == 'N') continue;
                 labelStatusMessage.Text = "Stopping task#" + snext;
                 Application.DoEvents();
                 if (snext.Equals(textBoxStart1Stop.Text))
@@ -1881,7 +1887,7 @@ namespace StartMe
                         continue;
                     }
                 }
-                SetStartStop(i, !running, running);
+                //SetStartStop(i, !running, running);
                 if (!running) SetPid(i, "", "");
             }
         }
@@ -3365,6 +3371,7 @@ namespace StartMe
             string s = text1.Text;
             text1.Text = text2.Text;
             text2.Text = s;
+        }
         void SwapTaskParameters(int swap1, int swap2)
         {
             TextBox text1 = null, text2 = null;
