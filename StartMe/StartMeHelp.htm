@@ -15,16 +15,16 @@ xmlns="http://www.w3.org/TR/REC-html40">
  <o:DocumentProperties>
   <o:Author>Black</o:Author>
   <o:LastAuthor>Michael Black</o:LastAuthor>
-  <o:Revision>7</o:Revision>
-  <o:TotalTime>18383</o:TotalTime>
+  <o:Revision>12</o:Revision>
+  <o:TotalTime>18401</o:TotalTime>
   <o:Created>2018-06-25T18:55:00Z</o:Created>
-  <o:LastSaved>2019-07-25T04:23:00Z</o:LastSaved>
-  <o:Pages>2</o:Pages>
-  <o:Words>291</o:Words>
-  <o:Characters>1663</o:Characters>
-  <o:Lines>13</o:Lines>
-  <o:Paragraphs>3</o:Paragraphs>
-  <o:CharactersWithSpaces>1951</o:CharactersWithSpaces>
+  <o:LastSaved>2019-08-05T12:16:00Z</o:LastSaved>
+  <o:Pages>3</o:Pages>
+  <o:Words>416</o:Words>
+  <o:Characters>2372</o:Characters>
+  <o:Lines>19</o:Lines>
+  <o:Paragraphs>5</o:Paragraphs>
+  <o:CharactersWithSpaces>2783</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -888,7 +888,8 @@ p.MsoTitleCxSpLast, li.MsoTitleCxSpLast, div.MsoTitleCxSpLast
 	letter-spacing:.25pt;
 	mso-font-kerning:14.0pt;}
 a:link, span.MsoHyperlink
-	{mso-style-priority:99;
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
 	color:blue;
 	mso-themecolor:hyperlink;
 	text-decoration:underline;
@@ -1334,7 +1335,7 @@ ul
 <div style='mso-element:para-border-div;border:none;border-bottom:solid #4F81BD 1.0pt;
 mso-border-bottom-themecolor:accent1;padding:0in 0in 4.0pt 0in'>
 
-<p class=MsoTitle>StartMe 0.9</p>
+<p class=MsoTitle>StartMe 0.10</p>
 
 </div>
 
@@ -1344,7 +1345,7 @@ href="http://qrz.com/db/W9MDB">http://qrz.com/db/W9MDB</a></p>
 
 <p class=MsoNormal>StartMe is a task management program that allows you to
 manage up to 9 tasks per configuration and a virtually unlimited number of
-configuratios.<span style='mso-spacerun:yes'>  </span>You can: </p>
+configurations.<span style='mso-spacerun:yes'>  </span>You can: </p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
@@ -1395,7 +1396,8 @@ shutdown</p>
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Stop in a required sequence</p>
+</span></span></span><![endif]>Stop in a required sequence (default to
+reversing startup sequence)</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
@@ -1416,11 +1418,13 @@ automatically when StartMe is started.</p>
 
 <p class=MsoNormal>#3 Set a sequence number to control the order of
 startup.<span style='mso-spacerun:yes'>  </span>If you don’t put a sequence
-number in then all autostart programs will try to start at once.</p>
+number in then autostart will simply follow the task sequence 1-9.</p>
 
 <p class=MsoNormal>#4 An easy way to prevent disk thrashing is to use the CPU %
-control to wait until the CPU dies down below some value (like 5% or 10%).<span
-style='mso-spacerun:yes'>  </span></p>
+control to wait until the CPU dies down below some value (like 5% or 10% or
+whatever the idle state shows for CPU usage).</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <span style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
 minor-latin;mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
@@ -1445,72 +1449,97 @@ this format:</p>
 <p class=MsoNormal>“WindowName” KEY KEY KEY KEY…..</p>
 
 <p class=MsoNormal>“WindowName” must be the starting characters of any window
-to make it unique.</p>
+enough to make it unique.</p>
 
 <p class=MsoNormal>Some programs do not recognize standard shutdown commands
-and require key strokes to shut down politely.</p>
+and require key strokes to shut down politely or have to activate certain
+windows.</p>
 
 <p class=MsoNormal>Some examples known need this and working entries:</p>
 
-<p class=MsoNormal><span style='mso-tab-count:1'>               </span>&quot;JTAlertX.
+<p class=MsoNormal><span style='mso-tab-count:1'>               </span>&quot;JTAlertX
 &quot; ALT+A DELAY UP ENTER</p>
 
 <p class=MsoNormal><span style='mso-tab-count:1'>               </span>&quot;flrig&quot;
 ALT+F DELAY x</p>
 
+<p class=MsoNormal><span style='mso-spacerun:yes'>              </span>For
+Log4OM - &quot;Awaiting confirmation&quot; DELAY DELAY ENTER</p>
+
 <p class=MsoNormal>Known key entries (if you need more keys please send request
 to <a href="mailto:mdblack98@yahoo.com">mdblack98@yahoo.com</a>).</p>
 
-<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>Cursor keys DOWN,UP,RIGHT,LEFT</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>ENTER</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>DELAY (delays 1 second)</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>TAB</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>ALT</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>ALT+A</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>ALT+F</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>ALT+X</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>ALT+F4</p>
 
-<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l1 level1 lfo5'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>Any keys entered not in the above list will be
 as-is</p>
+
+<h1>More than 9 tasks</h1>
+
+<p class=MsoNormal>You can have multiple “Settings” to allow many more than 9
+tasks.<span style='mso-spacerun:yes'>  </span>Each setting will have its own
+page of 9 tasks.<span style='mso-spacerun:yes'>  </span>During startup all
+settings will be examined for autostart and the first setting name will be made
+the visible one after all tasks have been started.<span
+style='mso-spacerun:yes'>  </span>You can switch between settings from the
+“Settings Name” pulldown.</p>
+
+<p class=MsoNormal>To create a new settings page just type a name in the
+Settings Name box and hit enter.</p>
+
+<h1>Reordering Tasks</h1>
+
+<p class=MsoNormal>If you want to rearrange the tasks you can right-click in
+the Path and you will get the option to swap with one of the other tasks.<span
+style='mso-spacerun:yes'>  </span>All settings will be swapped between them.<o:p></o:p></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h1>Source Code</h1>
 
@@ -1519,7 +1548,7 @@ href="https://github.com/mdblack98/StartMe.git">https://github.com/mdblack98/Sta
 
 <h1>Change Log</h1>
 
-<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
+<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l2 level1 lfo6'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>N/A until after release 1.0</p>

@@ -300,6 +300,7 @@
             this.textBoxPath1.Size = new System.Drawing.Size(444, 22);
             this.textBoxPath1.TabIndex = 1;
             this.textBoxPath1.Text = "C:\\Program Files (x86)\\IW3HMH\\Log4OM\\LogOMUI.exe";
+            this.textBoxPath1.MouseEnter += new System.EventHandler(this.TextBoxPath1_MouseEnter);
             // 
             // buttonStart1
             // 
@@ -482,6 +483,7 @@
             this.textBoxPath6.Name = "textBoxPath6";
             this.textBoxPath6.Size = new System.Drawing.Size(447, 22);
             this.textBoxPath6.TabIndex = 86;
+            this.textBoxPath6.MouseEnter += new System.EventHandler(this.TextBoxPath6_MouseEnter);
             // 
             // label3A
             // 
@@ -575,6 +577,7 @@
             this.textBoxPath2.Size = new System.Drawing.Size(444, 22);
             this.textBoxPath2.TabIndex = 18;
             this.textBoxPath2.Text = "C:\\Program Files (x86)\\HamApps\\JTAlert\\JTAlert.exe";
+            this.textBoxPath2.MouseEnter += new System.EventHandler(this.TextBoxPath2_MouseEnter);
             // 
             // label4A
             // 
@@ -667,6 +670,7 @@
             this.textBoxPath3.Name = "textBoxPath3";
             this.textBoxPath3.Size = new System.Drawing.Size(447, 22);
             this.textBoxPath3.TabIndex = 35;
+            this.textBoxPath3.MouseEnter += new System.EventHandler(this.TextBoxPath3_MouseEnter);
             // 
             // label5A
             // 
@@ -759,6 +763,7 @@
             this.textBoxPath4.Name = "textBoxPath4";
             this.textBoxPath4.Size = new System.Drawing.Size(447, 22);
             this.textBoxPath4.TabIndex = 52;
+            this.textBoxPath4.MouseEnter += new System.EventHandler(this.TextBoxPath4_MouseEnter);
             // 
             // label6A
             // 
@@ -851,6 +856,7 @@
             this.textBoxPath5.Name = "textBoxPath5";
             this.textBoxPath5.Size = new System.Drawing.Size(447, 22);
             this.textBoxPath5.TabIndex = 69;
+            this.textBoxPath5.MouseEnter += new System.EventHandler(this.TextBoxPath5_MouseEnter);
             // 
             // label7A
             // 
@@ -943,6 +949,7 @@
             this.textBoxPath7.Name = "textBoxPath7";
             this.textBoxPath7.Size = new System.Drawing.Size(447, 22);
             this.textBoxPath7.TabIndex = 103;
+            this.textBoxPath7.MouseEnter += new System.EventHandler(this.TextBoxPath7_MouseEnter);
             // 
             // label8A
             // 
@@ -1035,6 +1042,7 @@
             this.textBoxPath8.Name = "textBoxPath8";
             this.textBoxPath8.Size = new System.Drawing.Size(447, 22);
             this.textBoxPath8.TabIndex = 120;
+            this.textBoxPath8.MouseEnter += new System.EventHandler(this.TextBoxPath8_MouseEnter);
             // 
             // label9A
             // 
@@ -1127,6 +1135,7 @@
             this.textBoxPath9.Name = "textBoxPath9";
             this.textBoxPath9.Size = new System.Drawing.Size(447, 22);
             this.textBoxPath9.TabIndex = 137;
+            this.textBoxPath9.MouseEnter += new System.EventHandler(this.TextBoxPath9_MouseEnter);
             // 
             // textBoxStart9
             // 
@@ -1760,9 +1769,9 @@
             this.label14.Location = new System.Drawing.Point(1535, 15);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 17);
+            this.label14.Size = new System.Drawing.Size(36, 17);
             this.label14.TabIndex = 172;
-            this.label14.Text = "Delay";
+            this.label14.Text = "Wait";
             // 
             // label15
             // 
@@ -1805,6 +1814,7 @@
             this.comboBoxSettingsKey.Size = new System.Drawing.Size(160, 24);
             this.comboBoxSettingsKey.TabIndex = 154;
             this.comboBoxSettingsKey.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSettingsName_SelectedIndexChanged);
+            this.comboBoxSettingsKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ComboBoxSettingsKey_KeyUp);
             this.comboBoxSettingsKey.Leave += new System.EventHandler(this.ComboBoxSettingsName_Leave);
             // 
             // buttonStopAll
@@ -2193,6 +2203,7 @@
             this.labelWindowTitle1.Size = new System.Drawing.Size(84, 17);
             this.labelWindowTitle1.TabIndex = 175;
             this.labelWindowTitle1.Text = "WindowTitle";
+            this.labelWindowTitle1.Visible = false;
             // 
             // labelWindowTitle2
             // 
@@ -2203,6 +2214,7 @@
             this.labelWindowTitle2.Size = new System.Drawing.Size(84, 17);
             this.labelWindowTitle2.TabIndex = 178;
             this.labelWindowTitle2.Text = "WindowTitle";
+            this.labelWindowTitle2.Visible = false;
             // 
             // labelWindowTitle3
             // 
@@ -2214,6 +2226,7 @@
             this.labelWindowTitle3.TabIndex = 181;
             this.labelWindowTitle3.Text = "WindowTitle";
             this.labelWindowTitle3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelWindowTitle3.Visible = false;
             // 
             // labelWindowTitle4
             // 
@@ -2224,6 +2237,7 @@
             this.labelWindowTitle4.Size = new System.Drawing.Size(84, 17);
             this.labelWindowTitle4.TabIndex = 184;
             this.labelWindowTitle4.Text = "WindowTitle";
+            this.labelWindowTitle4.Visible = false;
             // 
             // labelWindowTitle5
             // 
@@ -2235,6 +2249,7 @@
             this.labelWindowTitle5.TabIndex = 187;
             this.labelWindowTitle5.Text = "WindowTitle";
             this.labelWindowTitle5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.labelWindowTitle5.Visible = false;
             // 
             // labelWindowTitle6
             // 
@@ -2245,6 +2260,7 @@
             this.labelWindowTitle6.Size = new System.Drawing.Size(84, 17);
             this.labelWindowTitle6.TabIndex = 190;
             this.labelWindowTitle6.Text = "WindowTitle";
+            this.labelWindowTitle6.Visible = false;
             // 
             // labelWindowTitle7
             // 
@@ -2255,6 +2271,7 @@
             this.labelWindowTitle7.Size = new System.Drawing.Size(84, 17);
             this.labelWindowTitle7.TabIndex = 193;
             this.labelWindowTitle7.Text = "WindowTitle";
+            this.labelWindowTitle7.Visible = false;
             // 
             // labelWindowTitle8
             // 
@@ -2265,6 +2282,7 @@
             this.labelWindowTitle8.Size = new System.Drawing.Size(84, 17);
             this.labelWindowTitle8.TabIndex = 196;
             this.labelWindowTitle8.Text = "WindowTitle";
+            this.labelWindowTitle8.Visible = false;
             // 
             // labelWindowTitle9
             // 
@@ -2992,9 +3010,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "StartMe v0.9";
+            this.Text = "StartMe v0.10";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1Closing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay1Before)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelayStop1)).EndInit();

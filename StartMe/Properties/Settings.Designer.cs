@@ -1786,5 +1786,17 @@ namespace StartMe.Properties {
                 this["StartDelay9After"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
+        public global::System.Drawing.Rectangle RestoreBounds {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["RestoreBounds"]));
+            }
+            set {
+                this["RestoreBounds"] = value;
+            }
+        }
     }
 }

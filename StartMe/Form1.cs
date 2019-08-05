@@ -20,13 +20,25 @@ namespace StartMe
 {
     public sealed partial class Form1 : Form
     {
+        private enum ShowWindowEnum
+        {
+            Hide = 0,
+            ShowNormal = 1, ShowMinimized = 2, ShowMaximized = 3,
+            Maximize = 3, ShowNormalNoActivate = 4, Show = 5,
+            Minimize = 6, ShowMinNoActivate = 7, ShowNoActivate = 8,
+            Restore = 9, ShowDefault = 10, ForceMinimized = 11
+        };
         [DllImport("User32.dll")]
         static extern bool SetForegroundWindow(IntPtr point);
         [DllImport("User32.dll")]
         static extern bool GetForegroundWindow();
         [DllImport("User32.dll")]
         static extern IntPtr FindWindow(string lpClass, String lpWindowName);
-        bool autoStartDone = false;
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ShowWindow(IntPtr hWnd, ShowWindowEnum flags);
+
+        bool autoStartDone = true;
         String settingsKey = "";
         List<String> settingsKeys = new List<string>();
         readonly String[] processArgs = new string[10];
@@ -34,11 +46,24 @@ namespace StartMe
         //int[] processID = new int[10];
         //String[] windowTitle = new string[10];
         static int jtalerts = 0;
+        private int selectedTask;
         readonly bool settingsSave = false;
         public Form1()
         {
             InitializeComponent();
             this.KeyPreview = true;
+
+            // set up our context menu for swapping task info with right-click
+            textBoxPath1.ContextMenu = MenuGen(1);
+            textBoxPath2.ContextMenu = MenuGen(2);
+            textBoxPath3.ContextMenu = MenuGen(3);
+            textBoxPath4.ContextMenu = MenuGen(4);
+            textBoxPath5.ContextMenu = MenuGen(5);
+            textBoxPath6.ContextMenu = MenuGen(6);
+            textBoxPath7.ContextMenu = MenuGen(7);
+            textBoxPath8.ContextMenu = MenuGen(8);
+            textBoxPath9.ContextMenu = MenuGen(9);
+
             ToolTip toolTip = new ToolTip
             {
                 UseAnimation = true,
@@ -272,6 +297,17 @@ namespace StartMe
             toolTip.SetToolTip(textBoxStop8, tip);
             toolTip.SetToolTip(textBoxStop9, tip);
 
+            tip = "Process ID";
+            toolTip.SetToolTip(pid1, tip);
+            toolTip.SetToolTip(pid2, tip);
+            toolTip.SetToolTip(pid3, tip);
+            toolTip.SetToolTip(pid4, tip);
+            toolTip.SetToolTip(pid5, tip);
+            toolTip.SetToolTip(pid6, tip);
+            toolTip.SetToolTip(pid7, tip);
+            toolTip.SetToolTip(pid8, tip);
+            toolTip.SetToolTip(pid9, tip);
+
             toolTip.SetToolTip(checkBoxMinimize, "Minimize StartMe window after startup");
             toolTip.SetToolTip(buttonStopAll, "Stop all tasks now");
             toolTip.SetToolTip(checkBoxStopAll, "Stop all tasks when program exits");
@@ -353,9 +389,24 @@ namespace StartMe
             comboBoxSettingsKey.SelectedIndex = comboBoxSettingsKey.Items.IndexOf(settingsKey);
             comboBoxSettingsKey.Enabled = true;
             if (checkBoxMinimize.Checked) this.WindowState = FormWindowState.Minimized;
-            ProcessCheck();
             ProcessInit();
-
+            this.Top = Properties.Settings.Default.RestoreBounds.Top;
+            this.Left = Properties.Settings.Default.RestoreBounds.Left;
+            this.Height = Properties.Settings.Default.RestoreBounds.Height;
+            this.Width = Properties.Settings.Default.RestoreBounds.Width;
+            if (this.Height <= 50 || this.Width <= 50)
+            {
+                this.Height = 100;
+                this.Width = 500;
+            }
+            if (this.Top > Screen.PrimaryScreen.WorkingArea.Height)
+            {
+                this.Top = 0;
+            }
+            if (this.Left > Screen.PrimaryScreen.WorkingArea.Width)
+            {
+                this.Left = 0;
+            }
         }
 
 
@@ -555,7 +606,7 @@ namespace StartMe
             Process p2 = GetProcessByFileName(n);
             if (p2 == null)
             {
-                process[n] = null;
+                //process[n] = null;
                 SetStartStop(n, true, false);
                 return false;
             }
@@ -780,28 +831,7 @@ namespace StartMe
 
         }
 
-        private void ProcessCheck()
-        {
-            Process[] pAll = Process.GetProcesses();
-            foreach (Process p in pAll)
-            {
-                if (p.MainWindowTitle.Equals("")) continue;
-                try
-                {
-                    ProcessModule mainModule = p.MainModule;
-                    String mainWindowTitle = p.MainWindowTitle;
-                    if (mainWindowTitle.Contains("JTAlert"))
-                    {
-                    }
-                }
-                catch (Exception)
-                {
-                    //MessageBox.Show("Here6");
-                    continue;
-                }
-            }
-        }
-#pragma warning disable IDE0060 // Remove unused parameter
+        #pragma warning disable IDE0060 // Remove unused parameter
         private bool ProcessIsRunning(String path, String args, int n, ref Process myProcess)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
@@ -839,20 +869,15 @@ namespace StartMe
                         case 8: pid = Convert.ToInt32(pid8.Text); pName = textBoxPath8.Text; break;
                         case 9: pid = Convert.ToInt32(pid9.Text); pName = textBoxPath9.Text; break;
                     }
-                    //pid++;
-                    //Boolean start = false, stop = true;
                     try
                     {
-                        //Process p1 = Process.GetProcessById(pid);
                         bool didExit = process[n].WaitForExit(20); 
                         if (didExit)
                         {
                             SetStartStop(n, true, false);
-                            process[n] = null;
                         }
                         else
                         {
-                            //SetStartStop(n, false, true);
                             return true;
                         }
                     }
@@ -860,7 +885,6 @@ namespace StartMe
                     {
                         // if we get exception than it's not running anymore
                         SetStartStop(n, true, false);
-                        process[n] = null;
                     }
                 }
             }
@@ -875,94 +899,6 @@ namespace StartMe
                 }
             }
             return false;
-            /*
-            int index = path.LastIndexOf('\\');
-            String exe = path.Substring(index + 1).Replace(".exe", "");
-            Process[] p = Process.GetProcessesByName(exe);
-            if (p.Length == 0)
-            {
-                return false;
-            }
-            for (int i = 0; i < p.Length; ++i)
-            {
-                bool isTheProcess = false;
-                String title = p[i].MainWindowTitle.Split(']').First();
-                if (n == 1 && labelWindowTitle1.Equals("")) labelWindowTitle1.Text = p[i].MainWindowTitle;
-                else if (n == 2 && labelWindowTitle2.Text.Equals(""))
-                    labelWindowTitle2.Text = title;
-                else if (n == 3 && labelWindowTitle3.Text.Equals(""))
-                    labelWindowTitle3.Text = title;
-                else if (n == 4 && labelWindowTitle4.Text.Equals(""))
-                    labelWindowTitle4.Text = title;
-                else if (n == 5 && labelWindowTitle5.Text.Equals(""))
-                    labelWindowTitle5.Text = title;
-                else if (n == 6 && labelWindowTitle6.Text.Equals(""))
-                    labelWindowTitle6.Text = title;
-                else if (n == 7 && labelWindowTitle7.Text.Equals(""))
-                    labelWindowTitle7.Text = title;
-                else if (n == 8 && labelWindowTitle8.Text.Equals(""))
-                    labelWindowTitle8.Text = title;
-                else if (n == 9 && labelWindowTitle9.Text.Equals(""))
-                    labelWindowTitle9.Text = title;
-                if (n == 1 && p[i].MainWindowTitle.Equals(labelWindowTitle1.Text))
-                {
-                    if (pid1.Text.Equals("")) pid1.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 2 && p[i].MainWindowTitle.Equals(labelWindowTitle2.Text))
-                {
-                    if (pid2.Text.Equals("")) pid2.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 3 && p[i].MainWindowTitle.Equals(labelWindowTitle3.Text))
-                {
-                    if (pid3.Text.Equals("")) pid3.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 4 && p[i].MainWindowTitle.Equals(labelWindowTitle4.Text))
-                {
-                    if (pid4.Text.Equals("")) pid4.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 5 && p[i].MainWindowTitle.Equals(labelWindowTitle5.Text))
-                {
-                    if (pid5.Text.Equals("")) pid5.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 6 && p[i].MainWindowTitle.Equals(labelWindowTitle6.Text))
-                {
-                    if (pid6.Text.Equals("")) pid6.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 7 && p[i].MainWindowTitle.Equals(labelWindowTitle7.Text))
-                {
-                    if (pid7.Text.Equals("")) pid7.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 8 && p[i].MainWindowTitle.Equals(labelWindowTitle8.Text))
-                {
-                    if (pid8.Text.Equals("")) pid8.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                else if (n == 9 && p[i].MainWindowTitle.Equals(labelWindowTitle9.Text))
-                {
-                    if (pid9.Text.Equals("")) pid9.Text = p[i].Id.ToString();
-                    isTheProcess = true;
-                }
-                //if (processArgs[n].Equals(args) && p[i].Id==processID[n])
-                if (isTheProcess)
-                {
-                    if (myProcess != null)
-                    {
-                        myProcess = p[i];
-                    }
-                    setStartStop(n, false, true);
-                    return true;
-                }
-            }
-            setStartStop(n, true, false);
-            return false;
-            */
         }
 
         private void ProcessSendKeys(int n, bool start)
@@ -1005,37 +941,25 @@ namespace StartMe
 
             }
             if (tokens.Length < 2) return; // no keys to send
-            //if (tokens[0].Length == 0) return;
-            //if (tokens.Length != 3)
-            //{
-            //    MessageBox.Show("Improper use of Key sending...see Help","StartMe Error",MessageBoxButtons.OK);
-            //    return;
-            //}
             windowName = tokens[1];
             keys = tokens[2];
             tokens = keys.Split(' ');
             if (keys.Length == 0) return;
+
+            SetForegroundWindow(process[n].MainWindowHandle);
+            Application.DoEvents();
+            Thread.Sleep(2000);
             var h = FindWindowsWithText(windowName);
             if (h.Count() > 1)
             {
                 MessageBox.Show("Window name '" + windowName + "' matchs more then one window");
                 return;
             }
-            if (h == null || h.Count() == 0)
+            if (h == null || h.Count() == 0 && ProcessIsRunning(n))
             {
                 MessageBox.Show("Window name '" + windowName + "' not found", "StartMe Error", MessageBoxButtons.OK);
                 return;
             }
-            int nloop = 10;
-            while(nloop > 0 && GetForegroundWindow().GetHashCode() != h.First().GetHashCode()) {
-                SetForegroundWindow(h.First());
-                Thread.Sleep(100);
-                --nloop;
-            }
-            //if (nloop == 0)
-            //{
-            //    MessageBox.Show("Timeout waiting for '" + windowName + "' to become active window");
-            //}
             foreach (String s in tokens)
             {
                 // Shift = "+"
@@ -1167,7 +1091,7 @@ namespace StartMe
                 case 8: buttonStart8.Enabled = start; buttonStop8.Enabled = stop; break;
                 case 9: buttonStart9.Enabled = start; buttonStop9.Enabled = stop; break;
                 default:
-                    MessageBox.Show("Start/Stop buttuon#" + n + " not found");
+                    MessageBox.Show("Start/Stop button#" + n + " not found");
                     break;
             }
             //Application.DoEvents();
@@ -1403,20 +1327,20 @@ namespace StartMe
 
         private bool ProcessStop(int n, Keys modifierKeys)
         {
+            timer1.Stop();
             labelStatusMessage.Text = "Stopping Task " + n;
             Application.DoEvents();
             if (!ProcessIsRunning(n)) // don't need to stop it then
             {
+                timer1.Start();
                 return true;
             }
-            timer1.Stop();
             Cursor.Current = Cursors.WaitCursor;
             if (modifierKeys.HasFlag(Keys.Control) && ProcessIsRunning(n) && !modifierKeys.HasFlag(Keys.Alt))
             {
                 if (MessageBox.Show("This will impolitely stop this task.  Are you sure?", "StartMe", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     process[n].Kill();
-                    //process[n].Close();
                 }
                 Cursor.Current = Cursors.Default;
                 timer1.Start();
@@ -1443,17 +1367,18 @@ namespace StartMe
             {
                 try
                 {
-                    ProcessSendKeys(n, false);
-                    Thread.Sleep(1000);
                     //ProcessUpdate();
                     // We might have close with the SendKeys
                     // So we set ok to true here and maybe change it false if CloseMainWindow fails
                     bool ok = true;
                     if (ProcessIsRunning(n))
                         ok = process[n].CloseMainWindow();
-                    if (!ok || kill)
+                    ProcessSendKeys(n, false);
+                    Thread.Sleep(1000);
+                    if (kill)
                     {
-                        process[n].Kill();
+                        //process[n].Kill();
+                        return false;
                     }
                     while (loops < sleep && ProcessIsRunning(n))
                     {
@@ -1468,6 +1393,7 @@ namespace StartMe
                 {
                     MessageBox.Show("Problem stopping task#" + n + "\n" + ex.Message);
                     //timeout = true;
+                    timer1.Start();
                     return false;
                 }
                 //return true;
@@ -1478,11 +1404,11 @@ namespace StartMe
                 MessageBox.Show("Task " + process[n].ProcessName + " did not terminate", "StartMe warning", MessageBoxButtons.OK);
                 Cursor.Current = Cursors.Default;
                 labelStatusMessage.Text = "Task " + n + " did not stop?";
-                //timer1.Start();
+                timer1.Start();
                 return false;
             }
             Cursor.Current = Cursors.Default;
-            //timer1.Start();
+            timer1.Start();
             labelStatusMessage.Text = "Task " + n + " stopped";
             return true;
         }
@@ -1952,22 +1878,11 @@ namespace StartMe
                     }
                     catch (Exception)
                     {
-                        //MessageBox.Show("Here3");
                         continue;
                     }
                 }
-                switch (i)
-                {
-                    case 1: SetStartStop(1, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 2: SetStartStop(2, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 3: SetStartStop(3, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 4: SetStartStop(4, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 5: SetStartStop(5, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 6: SetStartStop(6, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 7: SetStartStop(7, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 8: SetStartStop(8, !running, running); if (!running) SetPid(i, "", ""); break;
-                    case 9: SetStartStop(9, !running, running); if (!running) SetPid(i, "", ""); break;
-                }
+                SetStartStop(i, !running, running);
+                if (!running) SetPid(i, "", "");
             }
         }
 
@@ -2012,7 +1927,7 @@ namespace StartMe
             var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
             if (!File.Exists(userConfig))
             {
-                MessageBox.Show("Cnfig file doesn't exist?\n" + userConfig);
+                MessageBox.Show("Config file doesn't exist?\n" + userConfig);
                 return null;
             }
             XDocument doc = XDocument.Load(userConfig);
@@ -2500,9 +2415,8 @@ namespace StartMe
             timer1.Enabled = true;
         }
 
-        private void ComboBoxSettingsName_SelectedIndexChanged(object sender, EventArgs e)
+        private void SettingsAdd(string item)
         {
-            String item = comboBoxSettingsKey.SelectedItem.ToString();
             if (settingsKeys.Contains(item))
             {
                 String s1 = Properties.Settings.Default.SettingsKeyCurrent;
@@ -2521,10 +2435,24 @@ namespace StartMe
                 Properties.Settings.Default.SettingsKeyCurrent = item;
                 SettingsLoad(Properties.Settings.Default.SettingsKeyCurrent);
             }
+
+        }
+        private void ComboBoxSettingsName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SettingsAdd(comboBoxSettingsKey.Text);
         }
 
         private void ComboBoxSettingsName_Leave(object sender, EventArgs e)
         {
+            if (comboBoxSettingsKey.Text == "")
+            {
+                comboBoxSettingsKey.SelectedIndex = 0;
+                comboBoxSettingsKey.Refresh();
+                Application.DoEvents();
+                SettingsLoad(comboBoxSettingsKey.Text);
+                return;
+            }
+
             SettingsSave(Properties.Settings.Default.SettingsKeyCurrent); // save the old one
             String item = comboBoxSettingsKey.Text;
             if (!settingsKeys.Contains(item))
@@ -2536,8 +2464,20 @@ namespace StartMe
                     {
                         Properties.Settings.Default.Reset();
                     }
+                    else
+                    {
+                        comboBoxSettingsKey.SelectedIndex = 0;
+                        item = "Default";
+                    }
                     SettingsLoad(item);
                     comboBoxSettingsKey.Items.Add(item);
+                }
+                else
+                {
+                    comboBoxSettingsKey.SelectedIndex = 0;
+                    comboBoxSettingsKey.Refresh();
+                    Application.DoEvents();
+                    SettingsLoad(comboBoxSettingsKey.Text);
                 }
             }
         }
@@ -3307,5 +3247,965 @@ namespace StartMe
                 MessageBox.Show("user.config = " + userConfig);
             }
         }
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RestoreBounds = this.Bounds;
+            Properties.Settings.Default.Save();
+        }
+
+        private void ComboBoxSettingsKey_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                MessageBox.Show("Delete key not implemented yet");
+                //if (MessageBox.Show("Do you want to delete this setting?", "StartMe Settings", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //{
+                    //SettingsDelete(comboBoxSettingsKey.Text);
+                //}
+
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                SettingsAdd(comboBoxSettingsKey.Text);
+            }
+        }
+
+        private void TextBoxPath1_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 1;
+        }
+
+        private void TextBoxPath2_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 2;
+        }
+
+        private void TextBoxPath3_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 3;
+        }
+
+        private void TextBoxPath4_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 4;
+        }
+
+        private void TextBoxPath5_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 5;
+        }
+
+        private void TextBoxPath6_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 6;
+        }
+
+        private void TextBoxPath7_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 7;
+        }
+
+        private void TextBoxPath8_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 8;
+        }
+
+        private void TextBoxPath9_MouseEnter(object sender, EventArgs e)
+        {
+            selectedTask = 9;
+        }
+
+        void SwapTaskPath(int swap1, int swap2)
+        {
+            TextBox text1=null, text2=null;
+            switch(swap1)
+            {
+                case 1:
+                    text1 = textBoxPath1; break;
+                case 2:
+                    text1 = textBoxPath2; break;
+                case 3:
+                    text1 = textBoxPath3; break;
+                case 4:
+                    text1 = textBoxPath4; break;
+                case 5:
+                    text1 = textBoxPath5; break;
+                case 6:
+                    text1 = textBoxPath6; break;
+                case 7:
+                    text1 = textBoxPath7; break;
+                case 8:
+                    text1 = textBoxPath8; break;
+                case 9:
+                    text1 = textBoxPath9; break;
+            }
+            switch(swap2)
+            {
+                case 1:
+                    text2 = textBoxPath1; break;
+                case 2:
+                    text2 = textBoxPath2; break;
+                case 3:
+                    text2 = textBoxPath3; break;
+                case 4:
+                    text2 = textBoxPath4; break;
+                case 5:
+                    text2 = textBoxPath5; break;
+                case 6:
+                    text2 = textBoxPath6; break;
+                case 7:
+                    text2 = textBoxPath7; break;
+                case 8:
+                    text2 = textBoxPath8; break;
+                case 9:
+                    text2 = textBoxPath9; break;
+
+            }
+            string s = text1.Text;
+            text1.Text = text2.Text;
+            text2.Text = s;
+        void SwapTaskParameters(int swap1, int swap2)
+        {
+            TextBox text1 = null, text2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    text1 = textBoxArgs1; break;
+                case 2:
+                    text1 = textBoxArgs2; break;
+                case 3:
+                    text1 = textBoxArgs3; break;
+                case 4:
+                    text1 = textBoxArgs4; break;
+                case 5:
+                    text1 = textBoxArgs5; break;
+                case 6:
+                    text1 = textBoxArgs6; break;
+                case 7:
+                    text1 = textBoxArgs7; break;
+                case 8:
+                    text1 = textBoxArgs8; break;
+                case 9:
+                    text1 = textBoxArgs9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    text2 = textBoxArgs1; break;
+                case 2:
+                    text2 = textBoxArgs2; break;
+                case 3:
+                    text2 = textBoxArgs3; break;
+                case 4:
+                    text2 = textBoxArgs4; break;
+                case 5:
+                    text2 = textBoxArgs5; break;
+                case 6:
+                    text2 = textBoxArgs6; break;
+                case 7:
+                    text2 = textBoxArgs7; break;
+                case 8:
+                    text2 = textBoxArgs8; break;
+                case 9:
+                    text2 = textBoxArgs9; break;
+
+            }
+            string s = text1.Text;
+            text1.Text = text2.Text;
+            text2.Text = s;
+        }
+
+        void SwapTaskAuto(int swap1, int swap2)
+        {
+            CheckBox box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = checkBoxAutoStart1; break;
+                case 2:
+                    box1 = checkBoxAutoStart2; break;
+                case 3:
+                    box1 = checkBoxAutoStart3; break;
+                case 4:
+                    box1 = checkBoxAutoStart4; break;
+                case 5:
+                    box1 = checkBoxAutoStart5; break;
+                case 6:
+                    box1 = checkBoxAutoStart6; break;
+                case 7:
+                    box1 = checkBoxAutoStart7; break;
+                case 8:
+                    box1 = checkBoxAutoStart8; break;
+                case 9:
+                    box1 = checkBoxAutoStart9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = checkBoxAutoStart1; break;
+                case 2:
+                    box2 = checkBoxAutoStart2; break;
+                case 3:
+                    box2 = checkBoxAutoStart3; break;
+                case 4:
+                    box2 = checkBoxAutoStart4; break;
+                case 5:
+                    box2 = checkBoxAutoStart5; break;
+                case 6:
+                    box2 = checkBoxAutoStart6; break;
+                case 7:
+                    box2 = checkBoxAutoStart7; break;
+                case 8:
+                    box2 = checkBoxAutoStart8; break;
+                case 9:
+                    box2 = checkBoxAutoStart9; break;
+
+            }
+            bool b = box1.Checked;
+            box1.Checked = box2.Checked;
+            box2.Checked = b;
+
+        }
+        void SwapTaskMinimize(int swap1, int swap2)
+        {
+            CheckBox box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = checkBoxMinimize1; break;
+                case 2:
+                    box1 = checkBoxMinimize2; break;
+                case 3:
+                    box1 = checkBoxMinimize3; break;
+                case 4:
+                    box1 = checkBoxMinimize4; break;
+                case 5:
+                    box1 = checkBoxMinimize5; break;
+                case 6:
+                    box1 = checkBoxMinimize6; break;
+                case 7:
+                    box1 = checkBoxMinimize7; break;
+                case 8:
+                    box1 = checkBoxMinimize8; break;
+                case 9:
+                    box1 = checkBoxMinimize9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = checkBoxMinimize1; break;
+                case 2:
+                    box2 = checkBoxMinimize2; break;
+                case 3:
+                    box2 = checkBoxMinimize3; break;
+                case 4:
+                    box2 = checkBoxMinimize4; break;
+                case 5:
+                    box2 = checkBoxMinimize5; break;
+                case 6:
+                    box2 = checkBoxMinimize6; break;
+                case 7:
+                    box2 = checkBoxMinimize7; break;
+                case 8:
+                    box2 = checkBoxMinimize8; break;
+                case 9:
+                    box2 = checkBoxMinimize9; break;
+
+            }
+            bool b = box1.Checked;
+            box1.Checked = box2.Checked;
+            box2.Checked = b;
+
+        }
+        void SwapTaskAdmin(int swap1, int swap2)
+        {
+            CheckBox box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = checkBoxAdmin1; break;
+                case 2:
+                    box1 = checkBoxAdmin2; break;
+                case 3:
+                    box1 = checkBoxAdmin3; break;
+                case 4:
+                    box1 = checkBoxAdmin4; break;
+                case 5:
+                    box1 = checkBoxAdmin5; break;
+                case 6:
+                    box1 = checkBoxAdmin6; break;
+                case 7:
+                    box1 = checkBoxAdmin7; break;
+                case 8:
+                    box1 = checkBoxAdmin8; break;
+                case 9:
+                    box1 = checkBoxAdmin9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = checkBoxAdmin1; break;
+                case 2:
+                    box2 = checkBoxAdmin2; break;
+                case 3:
+                    box2 = checkBoxAdmin3; break;
+                case 4:
+                    box2 = checkBoxAdmin4; break;
+                case 5:
+                    box2 = checkBoxAdmin5; break;
+                case 6:
+                    box2 = checkBoxAdmin6; break;
+                case 7:
+                    box2 = checkBoxAdmin7; break;
+                case 8:
+                    box2 = checkBoxAdmin8; break;
+                case 9:
+                    box2 = checkBoxAdmin9; break;
+
+            }
+            bool b = box1.Checked;
+            box1.Checked = box2.Checked;
+            box2.Checked = b;
+
+        }
+        void SwapTaskPriority(int swap1, int swap2)
+        {
+            ComboBox box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = comboBoxPriority1; break;
+                case 2:
+                    box1 = comboBoxPriority2; break;
+                case 3:
+                    box1 = comboBoxPriority3; break;
+                case 4:
+                    box1 = comboBoxPriority4; break;
+                case 5:
+                    box1 = comboBoxPriority5; break;
+                case 6:
+                    box1 = comboBoxPriority6; break;
+                case 7:
+                    box1 = comboBoxPriority7; break;
+                case 8:
+                    box1 = comboBoxPriority8; break;
+                case 9:
+                    box1 = comboBoxPriority9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = comboBoxPriority1; break;
+                case 2:
+                    box2 = comboBoxPriority2; break;
+                case 3:
+                    box2 = comboBoxPriority3; break;
+                case 4:
+                    box2 = comboBoxPriority4; break;
+                case 5:
+                    box2 = comboBoxPriority5; break;
+                case 6:
+                    box2 = comboBoxPriority6; break;
+                case 7:
+                    box2 = comboBoxPriority7; break;
+                case 8:
+                    box2 = comboBoxPriority8; break;
+                case 9:
+                    box2 = comboBoxPriority9; break;
+
+            }
+            int i = box1.SelectedIndex;
+            box1.SelectedIndex = box2.SelectedIndex;
+            box2.SelectedIndex = i;
+
+        }
+        void SwapTaskDelayBefore(int swap1, int swap2)
+        {
+            NumericUpDown box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = numericUpDownDelay1Before; break;
+                case 2:
+                    box1 = numericUpDownDelay2Before; break;
+                case 3:
+                    box1 = numericUpDownDelay3Before; break;
+                case 4:
+                    box1 = numericUpDownDelay4Before; break;
+                case 5:
+                    box1 = numericUpDownDelay5Before; break;
+                case 6:
+                    box1 = numericUpDownDelay6Before; break;
+                case 7:
+                    box1 = numericUpDownDelay7Before; break;
+                case 8:
+                    box1 = numericUpDownDelay8Before; break;
+                case 9:
+                    box1 = numericUpDownDelay9Before; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = numericUpDownDelay1Before; break;
+                case 2:
+                    box2 = numericUpDownDelay2Before; break;
+                case 3:
+                    box2 = numericUpDownDelay3Before; break;
+                case 4:
+                    box2 = numericUpDownDelay4Before; break;
+                case 5:
+                    box2 = numericUpDownDelay5Before; break;
+                case 6:
+                    box2 = numericUpDownDelay6Before; break;
+                case 7:
+                    box2 = numericUpDownDelay7Before; break;
+                case 8:
+                    box2 = numericUpDownDelay8Before; break;
+                case 9:
+                    box2 = numericUpDownDelay9Before; break;
+
+            }
+            decimal d = box1.Value;
+            box1.Value = box2.Value;
+            box2.Value = d;
+        }
+        void SwapTaskDelayAfter(int swap1, int swap2)
+        {
+            NumericUpDown box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = numericUpDownDelay1After; break;
+                case 2:
+                    box1 = numericUpDownDelay2After; break;
+                case 3:
+                    box1 = numericUpDownDelay3After; break;
+                case 4:
+                    box1 = numericUpDownDelay4After; break;
+                case 5:
+                    box1 = numericUpDownDelay5After; break;
+                case 6:
+                    box1 = numericUpDownDelay6After; break;
+                case 7:
+                    box1 = numericUpDownDelay7After; break;
+                case 8:
+                    box1 = numericUpDownDelay8After; break;
+                case 9:
+                    box1 = numericUpDownDelay9After; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = numericUpDownDelay1After; break;
+                case 2:
+                    box2 = numericUpDownDelay2After; break;
+                case 3:
+                    box2 = numericUpDownDelay3After; break;
+                case 4:
+                    box2 = numericUpDownDelay4After; break;
+                case 5:
+                    box2 = numericUpDownDelay5After; break;
+                case 6:
+                    box2 = numericUpDownDelay6After; break;
+                case 7:
+                    box2 = numericUpDownDelay7After; break;
+                case 8:
+                    box2 = numericUpDownDelay8After; break;
+                case 9:
+                    box2 = numericUpDownDelay9After; break;
+
+            }
+            decimal d = box1.Value;
+            box1.Value = box2.Value;
+            box2.Value = d;
+        }
+        void SwapTaskCPU(int swap1, int swap2)
+        {
+            NumericUpDown box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = numericUpDownCPU1; break;
+                case 2:
+                    box1 = numericUpDownCPU2; break;
+                case 3:
+                    box1 = numericUpDownCPU3; break;
+                case 4:
+                    box1 = numericUpDownCPU4; break;
+                case 5:
+                    box1 = numericUpDownCPU5; break;
+                case 6:
+                    box1 = numericUpDownCPU6; break;
+                case 7:
+                    box1 = numericUpDownCPU7; break;
+                case 8:
+                    box1 = numericUpDownCPU8; break;
+                case 9:
+                    box1 = numericUpDownCPU9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = numericUpDownCPU1; break;
+                case 2:
+                    box2 = numericUpDownCPU2; break;
+                case 3:
+                    box2 = numericUpDownCPU3; break;
+                case 4:
+                    box2 = numericUpDownCPU4; break;
+                case 5:
+                    box2 = numericUpDownCPU5; break;
+                case 6:
+                    box2 = numericUpDownCPU6; break;
+                case 7:
+                    box2 = numericUpDownCPU7; break;
+                case 8:
+                    box2 = numericUpDownCPU8; break;
+                case 9:
+                    box2 = numericUpDownCPU9; break;
+
+            }
+            decimal d = box1.Value;
+            box1.Value = box2.Value;
+            box2.Value = d;
+        }
+        void SwapTaskSendBefore(int swap1, int swap2)
+        {
+            TextBox text1 = null, text2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    text1 = textBoxStart1; break;
+                case 2:
+                    text1 = textBoxStart2; break;
+                case 3:
+                    text1 = textBoxStart3; break;
+                case 4:
+                    text1 = textBoxStart4; break;
+                case 5:
+                    text1 = textBoxStart5; break;
+                case 6:
+                    text1 = textBoxStart6; break;
+                case 7:
+                    text1 = textBoxStart7; break;
+                case 8:
+                    text1 = textBoxStart8; break;
+                case 9:
+                    text1 = textBoxStart9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    text2 = textBoxStart1; break;
+                case 2:
+                    text2 = textBoxStart2; break;
+                case 3:
+                    text2 = textBoxStart3; break;
+                case 4:
+                    text2 = textBoxStart4; break;
+                case 5:
+                    text2 = textBoxStart5; break;
+                case 6:
+                    text2 = textBoxStart6; break;
+                case 7:
+                    text2 = textBoxStart7; break;
+                case 8:
+                    text2 = textBoxStart8; break;
+                case 9:
+                    text2 = textBoxStart9; break;
+
+            }
+            string s = text1.Text;
+            text1.Text = text2.Text;
+            text2.Text = s;
+        }
+        void SwapTaskSendAfter(int swap1, int swap2)
+        {
+            TextBox text1 = null, text2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    text1 = textBoxStop1; break;
+                case 2:
+                    text1 = textBoxStop2; break;
+                case 3:
+                    text1 = textBoxStop3; break;
+                case 4:
+                    text1 = textBoxStop4; break;
+                case 5:
+                    text1 = textBoxStop5; break;
+                case 6:
+                    text1 = textBoxStop6; break;
+                case 7:
+                    text1 = textBoxStop7; break;
+                case 8:
+                    text1 = textBoxStop8; break;
+                case 9:
+                    text1 = textBoxStop9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    text2 = textBoxStop1; break;
+                case 2:
+                    text2 = textBoxStop2; break;
+                case 3:
+                    text2 = textBoxStop3; break;
+                case 4:
+                    text2 = textBoxStop4; break;
+                case 5:
+                    text2 = textBoxStop5; break;
+                case 6:
+                    text2 = textBoxStop6; break;
+                case 7:
+                    text2 = textBoxStop7; break;
+                case 8:
+                    text2 = textBoxStop8; break;
+                case 9:
+                    text2 = textBoxStop9; break;
+
+            }
+            string s = text1.Text;
+            text1.Text = text2.Text;
+            text2.Text = s;
+        }
+        void SwapTaskStartSequence(int swap1, int swap2)
+        {
+            TextBox text1 = null, text2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    text1 = textBoxStart1Sequence; break;
+                case 2:
+                    text1 = textBoxStart2Sequence; break;
+                case 3:
+                    text1 = textBoxStart3Sequence; break;
+                case 4:
+                    text1 = textBoxStart4Sequence; break;
+                case 5:
+                    text1 = textBoxStart5Sequence; break;
+                case 6:
+                    text1 = textBoxStart6Sequence; break;
+                case 7:
+                    text1 = textBoxStart7Sequence; break;
+                case 8:
+                    text1 = textBoxStart8Sequence; break;
+                case 9:
+                    text1 = textBoxStart9Sequence; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    text2 = textBoxStart1Sequence; break;
+                case 2:
+                    text2 = textBoxStart2Sequence; break;
+                case 3:
+                    text2 = textBoxStart3Sequence; break;
+                case 4:
+                    text2 = textBoxStart4Sequence; break;
+                case 5:
+                    text2 = textBoxStart5Sequence; break;
+                case 6:
+                    text2 = textBoxStart6Sequence; break;
+                case 7:
+                    text2 = textBoxStart7Sequence; break;
+                case 8:
+                    text2 = textBoxStart8Sequence; break;
+                case 9:
+                    text2 = textBoxStart9Sequence; break;
+
+            }
+            string s = text1.Text;
+            text1.Text = text2.Text;
+            text2.Text = s;
+        }
+        void SwapTaskStopSequence(int swap1, int swap2)
+        {
+            TextBox text1 = null, text2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    text1 = textBoxStart1Stop; break;
+                case 2:
+                    text1 = textBoxStart2Stop; break;
+                case 3:
+                    text1 = textBoxStart3Stop; break;
+                case 4:
+                    text1 = textBoxStart4Stop; break;
+                case 5:
+                    text1 = textBoxStart5Stop; break;
+                case 6:
+                    text1 = textBoxStart6Stop; break;
+                case 7:
+                    text1 = textBoxStart7Stop; break;
+                case 8:
+                    text1 = textBoxStart8Stop; break;
+                case 9:
+                    text1 = textBoxStart9Stop; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    text2 = textBoxStart1Stop; break;
+                case 2:
+                    text2 = textBoxStart2Stop; break;
+                case 3:
+                    text2 = textBoxStart3Stop; break;
+                case 4:
+                    text2 = textBoxStart4Stop; break;
+                case 5:
+                    text2 = textBoxStart5Stop; break;
+                case 6:
+                    text2 = textBoxStart6Stop; break;
+                case 7:
+                    text2 = textBoxStart7Stop; break;
+                case 8:
+                    text2 = textBoxStart8Stop; break;
+                case 9:
+                    text2 = textBoxStart9Stop; break;
+
+            }
+            string s = text1.Text;
+            text1.Text = text2.Text;
+            text2.Text = s;
+        }
+        void SwapTaskKill(int swap1, int swap2)
+        {
+            CheckBox box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = checkBoxKill1; break;
+                case 2:
+                    box1 = checkBoxKill2; break;
+                case 3:
+                    box1 = checkBoxKill3; break;
+                case 4:
+                    box1 = checkBoxKill4; break;
+                case 5:
+                    box1 = checkBoxKill5; break;
+                case 6:
+                    box1 = checkBoxKill6; break;
+                case 7:
+                    box1 = checkBoxKill7; break;
+                case 8:
+                    box1 = checkBoxKill8; break;
+                case 9:
+                    box1 = checkBoxKill9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = checkBoxKill1; break;
+                case 2:
+                    box2 = checkBoxKill2; break;
+                case 3:
+                    box2 = checkBoxKill3; break;
+                case 4:
+                    box2 = checkBoxKill4; break;
+                case 5:
+                    box2 = checkBoxKill5; break;
+                case 6:
+                    box2 = checkBoxKill6; break;
+                case 7:
+                    box2 = checkBoxKill7; break;
+                case 8:
+                    box2 = checkBoxKill8; break;
+                case 9:
+                    box2 = checkBoxKill9; break;
+
+            }
+            bool b = box1.Checked;
+            box1.Checked = box2.Checked;
+            box2.Checked = b;
+
+        }
+        void SwapTaskStopWait(int swap1, int swap2)
+        {
+            NumericUpDown box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = numericUpDownDelayStop1; break;
+                case 2:
+                    box1 = numericUpDownDelayStop2; break;
+                case 3:
+                    box1 = numericUpDownDelayStop3; break;
+                case 4:
+                    box1 = numericUpDownDelayStop4; break;
+                case 5:
+                    box1 = numericUpDownDelayStop5; break;
+                case 6:
+                    box1 = numericUpDownDelayStop6; break;
+                case 7:
+                    box1 = numericUpDownDelayStop7; break;
+                case 8:
+                    box1 = numericUpDownDelayStop8; break;
+                case 9:
+                    box1 = numericUpDownDelayStop9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = numericUpDownDelayStop1; break;
+                case 2:
+                    box2 = numericUpDownDelayStop2; break;
+                case 3:
+                    box2 = numericUpDownDelayStop3; break;
+                case 4:
+                    box2 = numericUpDownDelayStop4; break;
+                case 5:
+                    box2 = numericUpDownDelayStop5; break;
+                case 6:
+                    box2 = numericUpDownDelayStop6; break;
+                case 7:
+                    box2 = numericUpDownDelayStop7; break;
+                case 8:
+                    box2 = numericUpDownDelayStop8; break;
+                case 9:
+                    box2 = numericUpDownDelayStop9; break;
+
+            }
+            decimal d = box1.Value;
+            box1.Value = box2.Value;
+            box2.Value = d;
+        }
+        void SwapTaskPID(int swap1, int swap2)
+        {
+            Label box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = pid1; break;
+                case 2:
+                    box1 = pid2; break;
+                case 3:
+                    box1 = pid3; break;
+                case 4:
+                    box1 = pid4; break;
+                case 5:
+                    box1 = pid5; break;
+                case 6:
+                    box1 = pid6; break;
+                case 7:
+                    box1 = pid7; break;
+                case 8:
+                    box1 = pid8; break;
+                case 9:
+                    box1 = pid9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = pid1; break;
+                case 2:
+                    box2 = pid2; break;
+                case 3:
+                    box2 = pid3; break;
+                case 4:
+                    box2 = pid4; break;
+                case 5:
+                    box2 = pid5; break;
+                case 6:
+                    box2 = pid6; break;
+                case 7:
+                    box2 = pid7; break;
+                case 8:
+                    box2 = pid8; break;
+                case 9:
+                    box2 = pid9; break;
+
+            }
+            string s = box1.Text;
+            box1.Text = box2.Text;
+            box2.Text = s;
+        }
+
+        void SwapTasks(object o, EventArgs e)
+        {
+            timer1.Stop();
+            using (MenuItem m = (MenuItem)o)
+            {
+                int task2 = 0;
+                switch(m.Text)
+                {
+                    case "Swap with Task#1":
+                        task2 = 1;
+                        break;
+                    case "Swap with Task#2":
+                        task2 = 2;
+                        break;
+                    case "Swap with Task#3":
+                        task2 = 3;
+                        break;
+                    case "Swap with Task#4":
+                        task2 = 4;
+                        break;
+                    case "Swap with Task#5":
+                        task2 = 5;
+                        break;
+                    case "Swap with Task#6":
+                        task2 = 6;
+                        break;
+                    case "Swap with Task#7":
+                        task2 = 7;
+                        break;
+                    case "Swap with Task#8":
+                        task2 = 8;
+                        break;
+                    case "Swap with Task#9":
+                        task2 = 9;
+                        break;
+                    default:
+                        MessageBox.Show("Unknown case in in SwapTasks="+m.Text);
+                        break;
+                }
+                SwapTaskPath(selectedTask, task2);
+                SwapTaskParameters(selectedTask, task2);
+                SwapTaskAuto(selectedTask, task2);
+                SwapTaskMinimize(selectedTask, task2);
+                SwapTaskAdmin(selectedTask, task2);
+                SwapTaskPriority(selectedTask, task2); //OK
+                SwapTaskDelayBefore(selectedTask, task2);
+                SwapTaskDelayAfter(selectedTask, task2);//OK
+                SwapTaskCPU(selectedTask, task2);
+                SwapTaskSendBefore(selectedTask, task2);
+                SwapTaskStartSequence(selectedTask, task2);
+                SwapTaskStopSequence(selectedTask, task2);
+                SwapTaskKill(selectedTask, task2);
+                SwapTaskStopWait(selectedTask, task2);
+                SwapTaskSendAfter(selectedTask, task2);
+                SwapTaskPID(selectedTask, task2);
+                Process tmpProcess = process[selectedTask];
+                process[selectedTask] = process[task2];
+                process[task2] = tmpProcess;
+                textBoxPath1.ContextMenu = MenuGen(1);
+                textBoxPath2.ContextMenu = MenuGen(2);
+                textBoxPath3.ContextMenu = MenuGen(3);
+                textBoxPath4.ContextMenu = MenuGen(4);
+                textBoxPath5.ContextMenu = MenuGen(5);
+                textBoxPath6.ContextMenu = MenuGen(6);
+                textBoxPath7.ContextMenu = MenuGen(7);
+                textBoxPath8.ContextMenu = MenuGen(8);
+                textBoxPath9.ContextMenu = MenuGen(9);
+            }
+            timer1.Start();
+        }
+
+        ContextMenu MenuGen(int except)
+        {
+            ContextMenu cm = new ContextMenu();
+            for (int i = 1; i < 10; ++i)
+            {
+                if (i != except)
+                {
+                    //cm.MenuItems.Add("Swap with Task#" + i, MyRightClick(except, 1));
+                    cm.MenuItems.Add("Swap with Task#" + i, SwapTasks);
+                }
+            }
+            return cm;
+        }
+
     }
 }

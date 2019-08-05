@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "StartMe"
-#define MyAppVersion "0.9"
+#define MyAppVersion "0.10"
 #define MyAppPublisher "W9MDB"
 #define MyAppURL "https://www.qrz.com/db/w9mdb"
 #define MyAppExeName "StartMe.exe"
@@ -39,6 +39,7 @@ Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.pdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMeHelp.htm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\ProcCmdLine64.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\ProcCmdLine32.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
