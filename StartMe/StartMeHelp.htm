@@ -15,16 +15,16 @@ xmlns="http://www.w3.org/TR/REC-html40">
  <o:DocumentProperties>
   <o:Author>Black</o:Author>
   <o:LastAuthor>Michael Black</o:LastAuthor>
-  <o:Revision>12</o:Revision>
-  <o:TotalTime>18401</o:TotalTime>
+  <o:Revision>19</o:Revision>
+  <o:TotalTime>18715</o:TotalTime>
   <o:Created>2018-06-25T18:55:00Z</o:Created>
-  <o:LastSaved>2019-08-05T12:16:00Z</o:LastSaved>
+  <o:LastSaved>2019-08-30T04:35:00Z</o:LastSaved>
   <o:Pages>3</o:Pages>
-  <o:Words>416</o:Words>
-  <o:Characters>2372</o:Characters>
-  <o:Lines>19</o:Lines>
-  <o:Paragraphs>5</o:Paragraphs>
-  <o:CharactersWithSpaces>2783</o:CharactersWithSpaces>
+  <o:Words>690</o:Words>
+  <o:Characters>3934</o:Characters>
+  <o:Lines>32</o:Lines>
+  <o:Paragraphs>9</o:Paragraphs>
+  <o:CharactersWithSpaces>4615</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -36,6 +36,7 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
   <w:View>Print</w:View>
+  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -668,7 +669,7 @@ xmlns="http://www.w3.org/TR/REC-html40">
 	mso-font-charset:0;
 	mso-generic-font-family:roman;
 	mso-font-pitch:variable;
-	mso-font-signature:3 0 0 0 1 0;}
+	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;
@@ -1066,6 +1067,9 @@ span.TitleChar
 	mso-themeshade:191;
 	letter-spacing:.25pt;
 	mso-font-kerning:14.0pt;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -1335,7 +1339,7 @@ ul
 <div style='mso-element:para-border-div;border:none;border-bottom:solid #4F81BD 1.0pt;
 mso-border-bottom-themecolor:accent1;padding:0in 0in 4.0pt 0in'>
 
-<p class=MsoTitle>StartMe 0.10</p>
+<p class=MsoTitle>StartMe 0.16</p>
 
 </div>
 
@@ -1411,18 +1415,26 @@ Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"
 
 <h1>Running the first time</h1>
 
-<p class=MsoNormal>#1 Select programs using the file browser button</p>
+<p class=MsoNormal>#1 Select programs using the file browser button on each
+Path box.</p>
 
 <p class=MsoNormal>#2 Set “Auto” start if you want a program to start
 automatically when StartMe is started.</p>
 
-<p class=MsoNormal>#3 Set a sequence number to control the order of
+<p class=MsoNormal>#3 You can set a sequence number to control the order of
 startup.<span style='mso-spacerun:yes'>  </span>If you don’t put a sequence
-number in then autostart will simply follow the task sequence 1-9.</p>
+number <span class=GramE>in</span> then autostart will simply follow the task
+sequence 1-9 for startup and reverse it for shutdown.</p>
 
 <p class=MsoNormal>#4 An easy way to prevent disk thrashing is to use the CPU %
 control to wait until the CPU dies down below some value (like 5% or 10% or
 whatever the idle state shows for CPU usage).</p>
+
+<p class=MsoNormal>#5 Delays can be programmed before start, after start, and
+after shutdown.<span style='mso-spacerun:yes'>  </span>Sometimes a program may
+need some extra time before starting another dependent program or may take a
+while to <span class=GramE>shutdown</span> so you don’t get a “failed shutdown”
+message.</p>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
@@ -1446,25 +1458,26 @@ color:#365F91;mso-themecolor:accent1;mso-themeshade:191'><o:p>&nbsp;</o:p></span
 <p class=MsoNormal>A limited set of key entries can be made to any window using
 this format:</p>
 
-<p class=MsoNormal>“WindowName” KEY KEY KEY KEY…..</p>
+<p class=MsoNormal>“WindowName” KEY KEY KEY KEY<span class=GramE>…..</span></p>
 
 <p class=MsoNormal>“WindowName” must be the starting characters of any window
 enough to make it unique.</p>
 
 <p class=MsoNormal>Some programs do not recognize standard shutdown commands
-and require key strokes to shut down politely or have to activate certain
-windows.</p>
+and require <span class=GramE>key strokes</span> to shut down politely or have
+to activate certain windows.</p>
 
 <p class=MsoNormal>Some examples known need this and working entries:</p>
 
 <p class=MsoNormal><span style='mso-tab-count:1'>               </span>&quot;JTAlertX
-&quot; ALT+A DELAY UP ENTER</p>
+2&quot; ALT+A DELAY UP ENTER</p>
 
 <p class=MsoNormal><span style='mso-tab-count:1'>               </span>&quot;flrig&quot;
 ALT+F DELAY x</p>
 
-<p class=MsoNormal><span style='mso-spacerun:yes'>              </span>For
-Log4OM - &quot;Awaiting confirmation&quot; DELAY DELAY ENTER</p>
+<p class=MsoNormal><span style='mso-spacerun:yes'>      </span><span
+style='mso-spacerun:yes'>        </span>For Log4OM - &quot;Awaiting
+confirmation&quot; DELAY DELAY ENTER</p>
 
 <p class=MsoNormal>Known key entries (if you need more keys please send request
 to <a href="mailto:mdblack98@yahoo.com">mdblack98@yahoo.com</a>).</p>
@@ -1472,7 +1485,7 @@ to <a href="mailto:mdblack98@yahoo.com">mdblack98@yahoo.com</a>).</p>
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Cursor keys DOWN,UP,RIGHT,LEFT</p>
+</span></span></span><![endif]>Cursor keys <span class=GramE>DOWN,UP</span>,RIGHT,LEFT</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
@@ -1537,9 +1550,42 @@ Settings Name box and hit enter.</p>
 
 <p class=MsoNormal>If you want to rearrange the tasks you can right-click in
 the Path and you will get the option to swap with one of the other tasks.<span
-style='mso-spacerun:yes'>  </span>All settings will be swapped between them.<o:p></o:p></p>
+style='mso-spacerun:yes'>  </span>All settings will be swapped between them.</p>
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<h1>Auto Start</h1>
+
+<p class=MsoNormal>As of V0.12 only the first configuration page will autostart
+during StartMe startup.<span style='mso-spacerun:yes'>  </span>This may change
+in the future to allow multiple configurations to autostart.</p>
+
+<h1>Start/Stop Sequence</h1>
+
+<p class=MsoNormal>By <span class=GramE>default</span> tasks will be started
+from top to bottom on the selected configuration setting.<span
+style='mso-spacerun:yes'>  </span>You can change the start or stop order by
+enter the number 1-9 in the Start or Stop columns.<span
+style='mso-spacerun:yes'>  </span>The only time this should be needed is if you
+<span class=GramE>have to</span> stop tasks in a different order the reverse of
+the startup.</p>
+
+<p class=MsoNormal>If you enter a “0” or in the Stop column then that task will
+not be stopped when StopAll is clicked.</p>
+
+<p class=MsoNormal>If you check the Auto <span class=GramE>box</span> then all
+tasks in all configurations with Auto checked will start when StartMe
+starts.<span style='mso-spacerun:yes'>  </span>A future feature is to allow
+StartMe to start a specific configuration page so you could have multiple
+StartMe’s running if desired or only start on configuration and manually select
+the others.</p>
+
+<p class=MsoNormal>Note:<span style='mso-spacerun:yes'>  </span>Shutdown of
+processes is not as robust as I’d like.<span style='mso-spacerun:yes'>  </span>Shutdown
+works most of the time but there are some states that some programs get into
+where they won’t shut down politely.<span style='mso-spacerun:yes'>  </span>For
+stubborn programs most can be “killed” with the “Kill” checkbox or Ctrl-click
+on the Stop button.<span style='mso-spacerun:yes'>  </span>JTAlert is one
+program which should NOT be killed as it will leave plugins running which can
+cause problems.</p>
 
 <h1>Source Code</h1>
 
@@ -1552,6 +1598,17 @@ href="https://github.com/mdblack98/StartMe.git">https://github.com/mdblack98/Sta
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>N/A until after release 1.0</p>
+
+<h1>Error Reporting</h1>
+
+<p class=MsoNormal>All error should generate a dialog box which you can email
+to me for debugging.<span style='mso-spacerun:yes'>  </span>One known behavior
+is that if a process crashes you will get an error about setting administrative
+privileges which is incorrect.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 </div>
 

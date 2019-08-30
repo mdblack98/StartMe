@@ -12,7 +12,7 @@ namespace StartMe.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.2.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1796,6 +1796,114 @@ namespace StartMe.Properties {
             }
             set {
                 this["RestoreBounds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle1 {
+            get {
+                return ((string)(this["labelMainWindowHandle1"]));
+            }
+            set {
+                this["labelMainWindowHandle1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle2 {
+            get {
+                return ((string)(this["labelMainWindowHandle2"]));
+            }
+            set {
+                this["labelMainWindowHandle2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle3 {
+            get {
+                return ((string)(this["labelMainWindowHandle3"]));
+            }
+            set {
+                this["labelMainWindowHandle3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle4 {
+            get {
+                return ((string)(this["labelMainWindowHandle4"]));
+            }
+            set {
+                this["labelMainWindowHandle4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle5 {
+            get {
+                return ((string)(this["labelMainWindowHandle5"]));
+            }
+            set {
+                this["labelMainWindowHandle5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle6 {
+            get {
+                return ((string)(this["labelMainWindowHandle6"]));
+            }
+            set {
+                this["labelMainWindowHandle6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle7 {
+            get {
+                return ((string)(this["labelMainWindowHandle7"]));
+            }
+            set {
+                this["labelMainWindowHandle7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle8 {
+            get {
+                return ((string)(this["labelMainWindowHandle8"]));
+            }
+            set {
+                this["labelMainWindowHandle8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string labelMainWindowHandle9 {
+            get {
+                return ((string)(this["labelMainWindowHandle9"]));
+            }
+            set {
+                this["labelMainWindowHandle9"] = value;
             }
         }
     }
