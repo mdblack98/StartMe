@@ -263,6 +263,7 @@
             this.labelMainWindowHandle3 = new System.Windows.Forms.Label();
             this.labelMainWindowHandle2 = new System.Windows.Forms.Label();
             this.labelMainWindowHandle1 = new System.Windows.Forms.Label();
+            this.buttonBackups = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay1Before)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelayStop1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelayStop6)).BeginInit();
@@ -2431,10 +2432,10 @@
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Location = new System.Drawing.Point(1635, 462);
+            this.buttonHelp.Location = new System.Drawing.Point(1655, 462);
             this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(100, 28);
+            this.buttonHelp.Size = new System.Drawing.Size(80, 28);
             this.buttonHelp.TabIndex = 157;
             this.buttonHelp.Text = "Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
@@ -2914,11 +2915,23 @@
             this.labelMainWindowHandle1.TabIndex = 224;
             this.labelMainWindowHandle1.Text = global::StartMe.Properties.Settings.Default.labelMainWindowHandle1;
             // 
+            // buttonBackups
+            // 
+            this.buttonBackups.Location = new System.Drawing.Point(1571, 462);
+            this.buttonBackups.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonBackups.Name = "buttonBackups";
+            this.buttonBackups.Size = new System.Drawing.Size(76, 28);
+            this.buttonBackups.TabIndex = 233;
+            this.buttonBackups.Text = "Backups";
+            this.buttonBackups.UseVisualStyleBackColor = true;
+            this.buttonBackups.Click += new System.EventHandler(this.ButtonBackups_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1745, 507);
+            this.Controls.Add(this.buttonBackups);
             this.Controls.Add(this.labelMainWindowHandle9);
             this.Controls.Add(this.labelMainWindowHandle8);
             this.Controls.Add(this.labelMainWindowHandle7);
@@ -3435,6 +3448,7 @@
         private System.Windows.Forms.Label labelMainWindowHandle7;
         private System.Windows.Forms.Label labelMainWindowHandle8;
         private System.Windows.Forms.Label labelMainWindowHandle9;
+        private System.Windows.Forms.Button buttonBackups;
     }
 }
 

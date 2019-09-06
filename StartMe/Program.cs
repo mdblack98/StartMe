@@ -24,7 +24,7 @@ namespace StartMe
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Top level exception\n" + ex.StackTrace);
+                MessageBox.Show("Top level exception\n" + ex.Message + "\n" + ex.StackTrace);
             }
         }
 

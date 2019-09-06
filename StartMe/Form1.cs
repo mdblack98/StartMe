@@ -9,12 +9,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+
 
 namespace StartMe
 {
@@ -67,7 +69,7 @@ namespace StartMe
         private delegate bool EnumWindowProc(IntPtr hwnd, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, string lParam);
 
         bool autoStartDone = false;
         String settingsKey = "";
@@ -79,10 +81,22 @@ namespace StartMe
         static int jtalerts = 0;
         private int selectedTask;
         readonly bool settingsSave = false;
+        private bool backedUp = false;
         public Form1()
         {
             InitializeComponent();
             this.KeyPreview = true;
+
+            // disable the window handle info
+            labelMainWindowHandle1.Visible = false;
+            labelMainWindowHandle2.Visible = false;
+            labelMainWindowHandle3.Visible = false;
+            labelMainWindowHandle4.Visible = false;
+            labelMainWindowHandle5.Visible = false;
+            labelMainWindowHandle6.Visible = false;
+            labelMainWindowHandle7.Visible = false;
+            labelMainWindowHandle8.Visible = false;
+            labelMainWindowHandle9.Visible = false;
 
             // set up our context menu for swapping task info with right-click
             textBoxPath1.ContextMenu = MenuGen(1);
@@ -774,10 +788,12 @@ namespace StartMe
                     if (fileName.Equals(p.MainModule.FileName) && processArgs.Equals(fileArgs) )
                         break; // find the first one
                 }
-                catch (Win32Exception ex)
+                catch (Win32Exception)
                 {
-                    MessageBox.Show("Restart with admin rights" + "\n" + fileName + "\n" + ex.Message+"\n"+ex.StackTrace, "Error StartMe");
-                    adminNeeded = true;
+                    labelStatusMessage.Text = "Need admin rights??";
+                    Application.DoEvents();
+                    //MessageBox.Show("Restart with admin rights" + "\n" + fileName + "\n" + ex.Message+"\n"+ex.StackTrace, "Error StartMe");
+                    //adminNeeded = true;
                 }
             }
             if (!adminNeeded)
@@ -1025,6 +1041,7 @@ namespace StartMe
             }
             if (h == null || h.Count() == 0) return; // must have stopped
             SetForegroundWindow(h.First());
+            //Thread.Sleep(2000);
             foreach (String s in tokens)
             {
                 // Shift = "+"
@@ -1069,7 +1086,7 @@ namespace StartMe
                         key = "%X";
                         break;
                     case "ALT+F4":
-                        key = "%F4";
+                        key = "(%{F4})";
                         break;
                     default:
                         key = s;
@@ -1077,7 +1094,15 @@ namespace StartMe
                 }
                 if (key.Length > 0)
                 {
-                    SendKeys.SendWait(key);
+                    // JTAlert V2 does funky thinks with the SendMessage on the title bar
+                    //if (windowName.Contains("JTAlert"))
+                    //{
+                        SendKeys.SendWait(key);
+                    //}
+                    //else
+                    //{
+                    //    _ = SendMessage(h.First(), 0x000c, (IntPtr)0, key);
+                    //}
                     Thread.Sleep(100);
                 }
             }
@@ -1474,7 +1499,7 @@ namespace StartMe
             var WM_CLOSE = 0x10;
             if (GetParent(hWnd) != null)
             {
-                SendMessage(hWnd, WM_CLOSE, (IntPtr)0, (IntPtr)0);
+                SendMessage(hWnd, WM_CLOSE, (IntPtr)0, null);
             }
             return true;
         }
@@ -1503,17 +1528,18 @@ namespace StartMe
 
             bool kill = false;
             decimal sleep = 0;
+            bool hasStopSend = false;
             switch (n)
             {
-                case 1: sleep = numericUpDownDelayStop1.Value; kill = checkBoxKill1.Checked; break;
-                case 2: sleep = numericUpDownDelayStop2.Value; kill = checkBoxKill2.Checked; break;
-                case 3: sleep = numericUpDownDelayStop3.Value; kill = checkBoxKill3.Checked; break;
-                case 4: sleep = numericUpDownDelayStop4.Value; kill = checkBoxKill4.Checked; break;
-                case 5: sleep = numericUpDownDelayStop5.Value; kill = checkBoxKill5.Checked; break;
-                case 6: sleep = numericUpDownDelayStop6.Value; kill = checkBoxKill6.Checked; break;
-                case 7: sleep = numericUpDownDelayStop7.Value; kill = checkBoxKill7.Checked; break;
-                case 8: sleep = numericUpDownDelayStop8.Value; kill = checkBoxKill8.Checked; break;
-                case 9: sleep = numericUpDownDelayStop9.Value; kill = checkBoxKill9.Checked; break;
+                case 1: sleep = numericUpDownDelayStop1.Value; kill = checkBoxKill1.Checked; hasStopSend = textBoxStop1.Text.Length > 0; break;
+                case 2: sleep = numericUpDownDelayStop2.Value; kill = checkBoxKill2.Checked; hasStopSend = textBoxStop2.Text.Length > 0; break;
+                case 3: sleep = numericUpDownDelayStop3.Value; kill = checkBoxKill3.Checked; hasStopSend = textBoxStop3.Text.Length > 0; break;
+                case 4: sleep = numericUpDownDelayStop4.Value; kill = checkBoxKill4.Checked; hasStopSend = textBoxStop4.Text.Length > 0; break;
+                case 5: sleep = numericUpDownDelayStop5.Value; kill = checkBoxKill5.Checked; hasStopSend = textBoxStop5.Text.Length > 0; break;
+                case 6: sleep = numericUpDownDelayStop6.Value; kill = checkBoxKill6.Checked; hasStopSend = textBoxStop6.Text.Length > 0; break;
+                case 7: sleep = numericUpDownDelayStop7.Value; kill = checkBoxKill7.Checked; hasStopSend = textBoxStop7.Text.Length > 0; break;
+                case 8: sleep = numericUpDownDelayStop8.Value; kill = checkBoxKill8.Checked; hasStopSend = textBoxStop8.Text.Length > 0; break;
+                case 9: sleep = numericUpDownDelayStop9.Value; kill = checkBoxKill9.Checked; hasStopSend = textBoxStop9.Text.Length > 0; break;
             }
             bool timeout = false;
             int loops = 0;
@@ -1541,19 +1567,25 @@ namespace StartMe
                     else SetForegroundWindow(process[n].MainWindowHandle);
                     Application.DoEvents();
                     process[n].CloseMainWindow();
-                    // do it again -- seems like this message gets lost sometimes
-                    Thread.Sleep(200);
-                    process[n].CloseMainWindow();
-                    Application.DoEvents();
-                    Thread.Sleep(200);
-                    ProcessSendKeys(n, false);
-                    Thread.Sleep(500);
-                    if (ProcessIsRunning(n))
+                    if (!hasStopSend)  // only ask for 2nd close window if not sending keys to window
                     {
+                        // do it again -- seems like this message gets lost sometimes
+                        Thread.Sleep(200);
                         process[n].CloseMainWindow();
+                        Application.DoEvents();
+                        Thread.Sleep(200);
                     }
                     else
                     {
+                        // Need the same sleep time as the clause above
+                        // This keeps the sendKeys timing consistent after window to foreground
+                        Thread.Sleep(400); 
+                    }
+                    ProcessSendKeys(n, false);
+                    Thread.Sleep(500);
+                    if (!ProcessIsRunning(n)) // we're done
+                    {
+                        labelStatusMessage.Text = "Task " + n + " stopped";
                         timer1.Start();
                         return true;
                     }
@@ -2133,6 +2165,60 @@ namespace StartMe
                 }
             }
         }
+
+        // Return a byte array as a sequence of hex values.
+        public static string BytesToString(byte[] bytes)
+        {
+            string result = "";
+            foreach (byte b in bytes) result += b.ToString("x2");
+            return result;
+        }
+        // If hash code changes back it up for 5 levels
+        void FileBackup(string fileNow)
+        {
+            if (backedUp) return; // we only do this once per run
+            backedUp = true;
+            var md5Now = MD5.Create();
+            var md5Previous = MD5.Create();
+            using (var stream = File.OpenRead(fileNow))
+            {
+                md5Now.ComputeHash(stream);
+            }
+            string filePrevious = fileNow + ".1";
+
+            // If we've never backed it up just do it and be done
+            if (!File.Exists(filePrevious))
+            {
+                File.Copy(fileNow, filePrevious);
+                MessageBox.Show("A backup of your user.config has been made\nClick the Backups button for info", "StartMe Info");
+                return;
+            }
+            // Otherwise we'll get the MD5 of the backup and see if things changed
+            using (var stream = File.OpenRead(filePrevious))
+            {
+                md5Previous.ComputeHash(stream);
+            }
+            string hashNow = BytesToString(md5Now.Hash);
+            string hashPrevious = BytesToString(md5Previous.Hash);
+            if (!hashNow.Equals(hashPrevious))
+            {
+                string msg = "Your user.config was backed up\nClick Backups to manage";
+                // Move 1-4 to 2-5 rolling backup
+                for (int i=4;i>=1;--i)
+                {
+                    string fileFrom = fileNow + "." + i;
+                    string fileTo = fileNow + "." + (i + 1);
+                    if (File.Exists(fileFrom))
+                    {
+                        File.Delete(fileTo);
+                        File.Move(fileFrom, fileTo);
+                    }
+                }
+                // Copy our existing user.config
+                File.Copy(fileNow, fileNow + ".1", true);
+                MessageBox.Show(msg, "StartMe Info");
+            }
+        }
         private List<String> SettingsGetKeys()
         {
             List<String> keys = new List<string>();
@@ -2142,6 +2228,7 @@ namespace StartMe
                 MessageBox.Show("Config file doesn't exist?\n" + userConfig, "Error StartMe");
                 return null;
             }
+            FileBackup(userConfig);
             XDocument doc = XDocument.Load(userConfig);
             if (doc == null)
                 return keys;
@@ -2591,9 +2678,9 @@ namespace StartMe
             if (textBoxPath1.Text.Length == 0)
             {
                 // FLrig example
-                textBoxPath1.Text = "C:\\Program Files (x86)\\flrig-1.3.40.34\\flrig.exe";
-                numericUpDownDelay1Before.Value = 5;
-                textBoxStart1Sequence.Text = "2";
+                //textBoxPath1.Text = "C:\\Program Files (x86)\\flrig-1.3.40.34\\flrig.exe";
+                //numericUpDownDelay1Before.Value = 5;
+                //textBoxStart1Sequence.Text = "2";
 
                 // rigctld
                 textBoxPath2.Text = "C:\\WSJT\\wsjtx\\bin\\rigctld-wsjtx.exe";
@@ -4433,5 +4520,13 @@ namespace StartMe
             return cm;
         }
 
+        private void ButtonBackups_Click(object sender, EventArgs e)
+        {
+            var myBackups = new Backups();
+            var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+            myBackups.Backups_List(userConfig);
+            //MessageBox.Show("Done with backups\n");
+            SettingsLoad(settingsKey);
+        }
     }
 }
