@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "StartMe"
-#define MyAppVersion "0.15"
+#define MyAppVersion "0.18"
 #define MyAppPublisher "W9MDB"
 #define MyAppURL "https://www.qrz.com/db/w9mdb"
 #define MyAppExeName "StartMe.exe"

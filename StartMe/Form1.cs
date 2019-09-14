@@ -82,8 +82,12 @@ namespace StartMe
         private int selectedTask;
         readonly bool settingsSave = false;
         private bool backedUp = false;
+
+        public HelpForm Help { get; } = new HelpForm();
+
         public Form1()
         {
+
             InitializeComponent();
             this.KeyPreview = true;
 
@@ -97,6 +101,16 @@ namespace StartMe
             labelMainWindowHandle7.Visible = false;
             labelMainWindowHandle8.Visible = false;
             labelMainWindowHandle9.Visible = false;
+
+            pid1.Visible = false;
+            pid2.Visible = false;
+            pid3.Visible = false;
+            pid4.Visible = false;
+            pid5.Visible = false;
+            pid6.Visible = false;
+            pid7.Visible = false;
+            pid8.Visible = false;
+            pid9.Visible = false;
 
             // set up our context menu for swapping task info with right-click
             textBoxPath1.ContextMenu = MenuGen(1);
@@ -358,6 +372,8 @@ namespace StartMe
             toolTip.SetToolTip(buttonStopAll, "Stop all tasks now");
             toolTip.SetToolTip(checkBoxStopAll, "Stop all tasks when program exits");
 
+            toolTip.Dispose();
+
             String[] args = Environment.GetCommandLineArgs();
             //if (args.Length > 1 && args[1].Equals("-noauto"))
             //{
@@ -403,6 +419,8 @@ namespace StartMe
             if (settingsKey.Equals(""))
             {
                 settingsKeys = SettingsGetKeys();
+                settingsKey = Properties.Settings.Default.SettingsKeyCurrent;
+                /*
                 if (settingsKeys != null)
                 {
                     FormConfigurations myform = new FormConfigurations();
@@ -414,7 +432,9 @@ namespace StartMe
                         myform.ShowDialog();
                         settingsKey = myform.getConfig();
                     }
+                    myform.Dispose();
                 }
+                */
                 //MessageBox.Show(settingsKeys.First());
             }
             //settingsKey = Properties.Settings.Default.SettingsKeyCurrent;
@@ -570,6 +590,7 @@ namespace StartMe
             }
         }
 
+        /*
         private String GetWindowTitle(Process p)
         {
             String title = "";
@@ -589,9 +610,10 @@ namespace StartMe
             }
             return title;
         }
+        */
 
 #pragma warning disable IDE0060 // Remove unused parameter
-        private bool ProcessFindName(String name, String args, int n, ref Label processId, ref Label labelWindowTitle)
+        private bool ProcessFindName(String name, String args, int n, ref Label processId)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             if (name.Length == 0)
@@ -610,7 +632,6 @@ namespace StartMe
             }
             SetPathColor(n, Color.Black);
             SetStartStop(n, true, true);
-            labelWindowTitle.Text = ""; // Unique process with Id's do not need the window title to distinguish them
             int pid = 0;
             try
             {
@@ -629,9 +650,6 @@ namespace StartMe
                     {
                         SetStartStop(n, false, true);
                         process[n] = myprocess;
-                        labelWindowTitle.Text = GetWindowTitle(myprocess);
-                        
-//                        processID[n] = myprocess.Id;
                         return true;
                     }
                 }
@@ -656,7 +674,6 @@ namespace StartMe
                 //                processID[n] = process[n].Id;
                 processId.Text = process[n].Id.ToString();
                 ProcessSetId(n, process[n].Id);
-                labelWindowTitle.Text = p2.MainWindowTitle;
                 // MDB temp for debugging
                 if (name.ToLower().Contains("jtalert"))
                 {
@@ -790,7 +807,7 @@ namespace StartMe
                 }
                 catch (Win32Exception)
                 {
-                    labelStatusMessage.Text = "Need admin rights??";
+                    //labelStatusMessage.Text = "Need admin rights??";
                     Application.DoEvents();
                     //MessageBox.Show("Restart with admin rights" + "\n" + fileName + "\n" + ex.Message+"\n"+ex.StackTrace, "Error StartMe");
                     //adminNeeded = true;
@@ -798,9 +815,16 @@ namespace StartMe
             }
             if (!adminNeeded)
             {
-                if (i>=0 && fileName.Equals(pName[i].MainModule.FileName) && fileArgs.Equals(processArgs))
+                try
                 {
-                    return pName[i];
+                    if (i >= 0 && fileName.Equals(pName[i].MainModule.FileName) && fileArgs.Equals(processArgs))
+                    {
+                        return pName[i];
+                    }
+                }
+                catch (Exception)
+                {
+
                 }
             }
 
@@ -842,13 +866,13 @@ namespace StartMe
         {
             for (int i = 1; i <= 9; ++i) SetEZName(i);
         }
-        void SetEZName(int n, string newName=null)
+        void SetEZName(int n, string newName = null)
         {
             Label lbox = labelEZ1;
-            string s = "Bug!!";
-            switch(n)
+            string s = "!!Bug!!";
+            switch (n)
             {
-                case 1: s = textBoxPath1.Text; lbox = labelEZ1;break;
+                case 1: s = textBoxPath1.Text; lbox = labelEZ1; break;
                 case 2: s = textBoxPath2.Text; lbox = labelEZ2; break;
                 case 3: s = textBoxPath3.Text; lbox = labelEZ3; break;
                 case 4: s = textBoxPath4.Text; lbox = labelEZ4; break;
@@ -858,7 +882,14 @@ namespace StartMe
                 case 8: s = textBoxPath8.Text; lbox = labelEZ8; break;
                 case 9: s = textBoxPath9.Text; lbox = labelEZ9; break;
             }
-            s = System.IO.Path.GetFileNameWithoutExtension(s);
+            if (File.Exists(s))
+            {
+                s = System.IO.Path.GetFileNameWithoutExtension(s);
+            }
+            else
+            {
+                MessageBox.Show("Check path for task #"+n+"\nFile '"+s+"not found","StartMe Error");
+            }
 
             if (newName != null) // then we're forcing the name
             {
@@ -869,15 +900,15 @@ namespace StartMe
 
         private void ProcessInit()
         {
-            ProcessFindName(textBoxPath1.Text, textBoxArgs1.Text, 1, ref pid1, ref labelWindowTitle1);
-            ProcessFindName(textBoxPath2.Text, textBoxArgs2.Text, 2, ref pid2, ref labelWindowTitle2);
-            ProcessFindName(textBoxPath3.Text, textBoxArgs3.Text, 3, ref pid3, ref labelWindowTitle3);
-            ProcessFindName(textBoxPath4.Text, textBoxArgs4.Text, 4, ref pid4, ref labelWindowTitle4);
-            ProcessFindName(textBoxPath5.Text, textBoxArgs5.Text, 5, ref pid5, ref labelWindowTitle5);
-            ProcessFindName(textBoxPath6.Text, textBoxArgs6.Text, 6, ref pid6, ref labelWindowTitle6);
-            ProcessFindName(textBoxPath7.Text, textBoxArgs7.Text, 7, ref pid7, ref labelWindowTitle7);
-            ProcessFindName(textBoxPath8.Text, textBoxArgs8.Text, 8, ref pid8, ref labelWindowTitle8);
-            ProcessFindName(textBoxPath9.Text, textBoxArgs9.Text, 9, ref pid9, ref labelWindowTitle9);
+            ProcessFindName(textBoxPath1.Text, textBoxArgs1.Text, 1, ref pid1);
+            ProcessFindName(textBoxPath2.Text, textBoxArgs2.Text, 2, ref pid2);
+            ProcessFindName(textBoxPath3.Text, textBoxArgs3.Text, 3, ref pid3);
+            ProcessFindName(textBoxPath4.Text, textBoxArgs4.Text, 4, ref pid4);
+            ProcessFindName(textBoxPath5.Text, textBoxArgs5.Text, 5, ref pid5);
+            ProcessFindName(textBoxPath6.Text, textBoxArgs6.Text, 6, ref pid6);
+            ProcessFindName(textBoxPath7.Text, textBoxArgs7.Text, 7, ref pid7);
+            ProcessFindName(textBoxPath8.Text, textBoxArgs8.Text, 8, ref pid8);
+            ProcessFindName(textBoxPath9.Text, textBoxArgs9.Text, 9, ref pid9);
             SetEZNames();
             return;
 
@@ -953,7 +984,7 @@ namespace StartMe
                 if (p1 != null)
                 {
                     process[n] = p1;
-                    SetPid(n, p1.Id.ToString(), "");
+                    SetPid(n, p1.Id.ToString());
                     SetStartStop(n, false, true);
                     return true;
                 }
@@ -1027,7 +1058,7 @@ namespace StartMe
             if (mainWindowHandle != (IntPtr)0) SetForegroundWindow(mainWindowHandle);
             else SetForegroundWindow(process[n].MainWindowHandle);
             Application.DoEvents();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             var h = FindWindowsWithText(windowName);
             if (h.Count() > 1)
             {
@@ -1067,7 +1098,7 @@ namespace StartMe
                         key = "{ENTER}";
                         break;
                     case "DELAY":
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         key = "";
                         break;
                     case "TAB":
@@ -1312,8 +1343,13 @@ namespace StartMe
         {
             labelStatusMessage.Text = "Starting task#" + n;
             Application.DoEvents();
-
-            Cursor.Current = Cursors.WaitCursor;
+            bool ourCursor = false;
+            if (Application.UseWaitCursor == false)
+            {
+                Application.UseWaitCursor = true;
+                ourCursor = true;
+            }
+            //Application.DoEvents();
             String processName = "";
             String args = "";
             decimal sleepBefore = 0;
@@ -1343,6 +1379,7 @@ namespace StartMe
                 labelStatusMessage.Text = "Task " + n + " path does not exist";
                 MessageBox.Show("File does not exist\n" + processName, "Error StartMe");
                 SetStartStop(n, false, false);
+                if (ourCursor) Application.UseWaitCursor = false;
                 return;
             }
             ProcessPriorityClass priorityClass = ProcessPriorityClass.Normal;
@@ -1391,6 +1428,7 @@ namespace StartMe
             catch (Exception ex)
             {
                 labelStatusMessage.Text = "Task " + n + " error did not start";
+                if (ourCursor) Application.UseWaitCursor = false;
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Error StartMe");
                 return;
             }
@@ -1431,33 +1469,35 @@ namespace StartMe
             {
                 switch (n)
                 {
-                    case 1: labelWindowTitle1.Text = process[n].MainWindowTitle; pid1.Text = process[n].Id.ToString(); break;
-                    case 2: labelWindowTitle2.Text = process[n].MainWindowTitle; pid2.Text = process[n].Id.ToString(); break;
-                    case 3: labelWindowTitle3.Text = process[n].MainWindowTitle; pid3.Text = process[n].Id.ToString(); break;
-                    case 4: labelWindowTitle4.Text = process[n].MainWindowTitle; pid4.Text = process[n].Id.ToString(); break;
-                    case 5: labelWindowTitle5.Text = process[n].MainWindowTitle; pid5.Text = process[n].Id.ToString(); break;
-                    case 6: labelWindowTitle6.Text = process[n].MainWindowTitle; pid6.Text = process[n].Id.ToString(); break;
-                    case 7: labelWindowTitle7.Text = process[n].MainWindowTitle; pid7.Text = process[n].Id.ToString(); break;
-                    case 8: labelWindowTitle8.Text = process[n].MainWindowTitle; pid8.Text = process[n].Id.ToString(); break;
-                    case 9: labelWindowTitle9.Text = process[n].MainWindowTitle; pid9.Text = process[n].Id.ToString(); break;
+                    case 1: pid1.Text = process[n].Id.ToString(); break;
+                    case 2: pid2.Text = process[n].Id.ToString(); break;
+                    case 3: pid3.Text = process[n].Id.ToString(); break;
+                    case 4: pid4.Text = process[n].Id.ToString(); break;
+                    case 5: pid5.Text = process[n].Id.ToString(); break;
+                    case 6: pid6.Text = process[n].Id.ToString(); break;
+                    case 7: pid7.Text = process[n].Id.ToString(); break;
+                    case 8: pid8.Text = process[n].Id.ToString(); break;
+                    case 9: pid9.Text = process[n].Id.ToString(); break;
                 }
             }
             catch (Exception ex)
             {
                 labelStatusMessage.Text = "Task " + n + " error invalid #";
+                if (ourCursor) Application.UseWaitCursor = false;
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Error StartMe");
                 return;
             }
 
             labelStatusMessage.Text = "Task "+ n + " waiting for CPU% <"+cpu;
-            Application.DoEvents();
+            //Application.DoEvents();
+            Application.UseWaitCursor = true;
             int cpupct;
             PerformanceCounter mycpupct1 = new PerformanceCounter("Process", "% Processor Time", process[n].ProcessName);
             try
             {
                 do
                 { // sleep for 1000ms and wait for < desired CPU usage
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     cpupct = (int)mycpupct1.NextValue();
                     labelStatusMessage.Text = "Task " + n + " waiting for CPU% <" + cpu + ", cpu=" + cpupct;
                     Application.DoEvents();
@@ -1467,9 +1507,10 @@ namespace StartMe
             {
                 labelStatusMessage.Text = "debug";// continue is any of the above causes a problem -- rigctld starting on it's own for example does this
             }
+            mycpupct1.Dispose();
             buttonStop1.Enabled = true;
             labelStatusMessage.Text = "Task "+n+" started";
-            Application.DoEvents();
+            if (ourCursor) Application.UseWaitCursor = false;
         }
 
         private void ProcessSetMainWindowHandle(int n, IntPtr mainWindowHandle)
@@ -1494,6 +1535,7 @@ namespace StartMe
             }
         }
 
+        /*
         private bool EnumWindow(IntPtr hWnd, IntPtr lParam)
         {
             var WM_CLOSE = 0x10;
@@ -1503,25 +1545,32 @@ namespace StartMe
             }
             return true;
         }
+        */
         private bool ProcessStop(int n, Keys modifierKeys)
 
         {
             timer1.Stop();
             labelStatusMessage.Text = "Stopping Task " + n;
-            Application.DoEvents();
             if (!ProcessIsRunning(n)) // don't need to stop it then
             {
                 timer1.Start();
                 return true;
             }
-            Cursor.Current = Cursors.WaitCursor;
+            // we only mess with the cursor if nobody else is
+            bool ourCursor = false;
+            if (Application.UseWaitCursor == false)
+            {
+                Application.UseWaitCursor = true;
+                ourCursor = true;
+            }
+            Application.DoEvents();
             if (modifierKeys.HasFlag(Keys.Control) && ProcessIsRunning(n) && !modifierKeys.HasFlag(Keys.Alt))
             {
                 if (MessageBox.Show("This will impolitely stop this task.  Are you sure?", "Info StartMe", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     process[n].Kill();
                 }
-                Cursor.Current = Cursors.Default;
+                if (ourCursor) Application.UseWaitCursor = false;
                 timer1.Start();
                 return true;
             }
@@ -1561,51 +1610,72 @@ namespace StartMe
                     //}
                     // Update our process to get the parent window
                     if (!ProcessIsRunning(n)) return true;
-                    process[n] = Process.GetProcessById(process[n].Id);
-                    IntPtr mainWindowHandle = ProcessGetMainWindowHandle(n);
-                    if (mainWindowHandle != (IntPtr)0) SetForegroundWindow(mainWindowHandle);
-                    else SetForegroundWindow(process[n].MainWindowHandle);
+                    //process[n] = Process.GetProcessById(process[n].Id);
+                    //IntPtr mainWindowHandle = ProcessGetMainWindowHandle(n);
+                    //if (mainWindowHandle != (IntPtr)0) SetForegroundWindow(mainWindowHandle);
+                    //else SetForegroundWindow(process[n].MainWindowHandle);
+                    SetForegroundWindow(process[n].MainWindowHandle);
                     Application.DoEvents();
-                    process[n].CloseMainWindow();
                     if (!hasStopSend)  // only ask for 2nd close window if not sending keys to window
                     {
                         // do it again -- seems like this message gets lost sometimes
-                        Thread.Sleep(200);
                         process[n].CloseMainWindow();
+                        Thread.Sleep(500);
+                        if (ProcessIsRunning(n))
+                        {
+                            process[n] = Process.GetProcessById(process[n].Id);
+                            process[n].CloseMainWindow();
+                        }
                         Application.DoEvents();
-                        Thread.Sleep(200);
+                        //Thread.Sleep(200);
                     }
                     else
                     {
+                        process[n].CloseMainWindow();
                         // Need the same sleep time as the clause above
                         // This keeps the sendKeys timing consistent after window to foreground
-                        Thread.Sleep(400); 
+                        Thread.Sleep(400);
+                        ProcessSendKeys(n, false);
                     }
-                    ProcessSendKeys(n, false);
-                    Thread.Sleep(500);
+                    Thread.Sleep(300);
                     if (!ProcessIsRunning(n)) // we're done
                     {
                         labelStatusMessage.Text = "Task " + n + " stopped";
+                        Application.DoEvents();
                         timer1.Start();
+                        if (ourCursor) Application.UseWaitCursor = false;
                         return true;
+                    }
+                    else
+                    {
+                        labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting...";
+                        Application.DoEvents();
                     }
                     if (kill)
                     {
                         process[n].Kill();
                         Thread.Sleep(1000);
                         timer1.Start();
+                        if (ourCursor) Application.UseWaitCursor = false;
                         if (ProcessIsRunning(n))
                         {
                             return false;
                         }
                         return true;
                     }
+                    Color labelColor = Color.Black;
                     while (loops < sleep && ProcessIsRunning(n))
                     {
                         Thread.Sleep(1000);
+                        if (labelColor == Color.Black) labelColor = Color.Red;
+                        else labelColor = Color.Black;
+                        labelStatusMessage.ForeColor = labelColor;
+                        labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting...";
                         Application.DoEvents();
                         ++loops;
                     }
+                    labelStatusMessage.ForeColor = Color.Black;
+                    labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting...";
                     if (loops >= sleep) timeout = true;
                     //ProcessUpdate();
                 }
@@ -1614,6 +1684,7 @@ namespace StartMe
                     MessageBox.Show("Problem stopping task#" + n + "\n" + ex.Message + "\n" + ex.StackTrace, "Error StartMe");
                     //timeout = true;
                     timer1.Start();
+                    if (ourCursor) Application.UseWaitCursor = false;
                     return false;
                 }
                 //return true;
@@ -1622,12 +1693,13 @@ namespace StartMe
             if (timeout && ProcessIsRunning(n))
             {
                 MessageBox.Show("Task " + process[n].ProcessName + " did not terminate", "Warning StartMe", MessageBoxButtons.OK);
-                Cursor.Current = Cursors.Default;
+                Application.UseWaitCursor = false;
                 labelStatusMessage.Text = "Task " + n + " did not stop?";
                 timer1.Start();
+                if (ourCursor) Application.UseWaitCursor = false;
                 return false;
             }
-            Cursor.Current = Cursors.Default;
+            if (ourCursor) Application.UseWaitCursor = false;
             timer1.Start();
             labelStatusMessage.Text = "Task " + n + " stopped";
             return true;
@@ -1752,62 +1824,80 @@ namespace StartMe
         {
             int next = 1;
             bool started = false;
-            while (next <= 9)
+            List<string> settingsKeys = new List<string>();
+            if (settingsKey == "") // then will will autostart all settings
             {
-                String snext = next.ToString();
-                bool checkBox;
-                string textBox;
-                switch (next)
-                {
-                    case 1: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart1Sequence.Text;break;
-                    case 2: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart2Sequence.Text; break;
-                    case 3: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart3Sequence.Text; break;
-                    case 4: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart4Sequence.Text; break;
-                    case 5: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart5Sequence.Text; break;
-                    case 6: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart6Sequence.Text; break;
-                    case 7: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart7Sequence.Text; break;
-                    case 8: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart8Sequence.Text; break;
-                    case 9: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart9Sequence.Text; break;
-                    default: checkBox = false;textBox = null;break;
+                settingsKeys = SettingsGetKeys();
+            }
+            else // we will only start the settings passed in
+            {
+                settingsKeys.Add(settingsKey);
+            }
 
-                }
-                if (checkBox == true && textBox.Equals(snext))
-                { 
-                    ProcessStart(next, ModifierKeys);
-                    started = true;
-                }
-                ++next;
-            }
-            if (started)
+            foreach (string settings in settingsKeys)
             {
-                labelStatusMessage.Text = "All Tasks Started";
-                return; // return if we stopped using sequence numbers
-            }
-            // Otherwise we just start them in sequence
-            next = 1;
-            while (next <= 9)
-            {
-                bool checkBox;
-                switch (next)
-                {
-                    case 1: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 2: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 3: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 4: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 5: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 6: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 7: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 8: checkBox = checkBoxAutoStart1.Checked; break;
-                    case 9: checkBox = checkBoxAutoStart1.Checked; break;
-                    default: checkBox = false; break;
+                if (SettingsLoad(settings) == false) return;
 
-                }
-                if (checkBox == true)
+                while (next <= 9)
                 {
-                    ProcessStart(next, ModifierKeys);
+                    this.BringToFront();
+                    String snext = next.ToString();
+                    bool checkBox;
+                    string textBox;
+                    switch (next)
+                    {
+                        case 1: checkBox = checkBoxAutoStart1.Checked; textBox = textBoxStart1Sequence.Text; break;
+                        case 2: checkBox = checkBoxAutoStart2.Checked; textBox = textBoxStart2Sequence.Text; break;
+                        case 3: checkBox = checkBoxAutoStart3.Checked; textBox = textBoxStart3Sequence.Text; break;
+                        case 4: checkBox = checkBoxAutoStart4.Checked; textBox = textBoxStart4Sequence.Text; break;
+                        case 5: checkBox = checkBoxAutoStart5.Checked; textBox = textBoxStart5Sequence.Text; break;
+                        case 6: checkBox = checkBoxAutoStart6.Checked; textBox = textBoxStart6Sequence.Text; break;
+                        case 7: checkBox = checkBoxAutoStart7.Checked; textBox = textBoxStart7Sequence.Text; break;
+                        case 8: checkBox = checkBoxAutoStart8.Checked; textBox = textBoxStart8Sequence.Text; break;
+                        case 9: checkBox = checkBoxAutoStart9.Checked; textBox = textBoxStart9Sequence.Text; break;
+                        default: checkBox = false; textBox = null; break;
+
+                    }
+                    if (checkBox == true && textBox.Equals(snext))
+                    {
+                        ProcessStart(next, ModifierKeys);
+                        started = true;
+                    }
+                    ++next;
                 }
-                ++next;
+                if (started)
+                {
+                    labelStatusMessage.Text = "All Tasks Started";
+                    Cursor.Current = Cursors.Default;
+                    return; // return if we stopped using sequence numbers
+                }
+                // Otherwise we just start them in sequence
+                next = 1;
+                while (next <= 9)
+                {
+                    bool checkBox;
+                    switch (next)
+                    {
+                        case 1: checkBox = checkBoxAutoStart1.Checked; break;
+                        case 2: checkBox = checkBoxAutoStart2.Checked; break;
+                        case 3: checkBox = checkBoxAutoStart3.Checked; break;
+                        case 4: checkBox = checkBoxAutoStart4.Checked; break;
+                        case 5: checkBox = checkBoxAutoStart5.Checked; break;
+                        case 6: checkBox = checkBoxAutoStart6.Checked; break;
+                        case 7: checkBox = checkBoxAutoStart7.Checked; break;
+                        case 8: checkBox = checkBoxAutoStart8.Checked; break;
+                        case 9: checkBox = checkBoxAutoStart9.Checked; break;
+                        default: checkBox = false; break;
+
+                    }
+                    if (checkBox == true)
+                    {
+                        ProcessStart(next, ModifierKeys);
+                    }
+                    ++next;
+                }
             }
+            SettingsLoad("Default");
         }
 
         string GetStartSequence(int n)
@@ -1852,8 +1942,11 @@ namespace StartMe
         {
             bool started = false;
             int next = 1;
+            Application.UseWaitCursor = true;
+            Application.DoEvents();
             while (next <= 9)
             {
+                this.BringToFront();
                 String snext = next.ToString();
                 string textBox = GetStartSequence(next);
                 if (textBox.Equals(snext))
@@ -1866,6 +1959,7 @@ namespace StartMe
             if (started)
             {
                 labelStatusMessage.Text = "All Tasks Started";
+                Application.UseWaitCursor = false;
                 return; // return if we stopped anything by using sequence numbers
             }
             // Otherwise we just start them in sequence
@@ -1876,14 +1970,18 @@ namespace StartMe
                 ++next;
             }
             labelStatusMessage.Text = "All Tasks Started";
+            Application.UseWaitCursor = false;
         }
         private void StopAll()
         {
             bool stopped = false;
             int next = 1;
+            Application.UseWaitCursor = true;
+            Application.DoEvents();
             // First off we get the sequence of startups
             while (next <= 9)
             {
+                this.BringToFront();
                 String snext = next.ToString();
                 labelStatusMessage.Text = "Stopping task#" + next;
                 string stopSeq = GetStartStopSequence(next);
@@ -1904,6 +2002,7 @@ namespace StartMe
             if (stopped)
             {
                 labelStatusMessage.Text = "Tasks have been stopped";
+                Application.UseWaitCursor = false;
                 return;
             }
             // Otherwise we'll use the sequence numbers in the Start sequence
@@ -1929,6 +2028,7 @@ namespace StartMe
             if (stopped)
             {
                 labelStatusMessage.Text = "Tasks have been stopped";
+                Application.UseWaitCursor = false;
                 return;
             }
             // Otherwise we stop all in reverse sequence
@@ -1950,6 +2050,7 @@ namespace StartMe
                 }
                 --next;
             }
+            Application.UseWaitCursor = false;
             labelStatusMessage.Text = "All tasks stopped";
         }
 
@@ -1971,8 +2072,10 @@ namespace StartMe
             };
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
+                fileDialog.Dispose();
                 return fileDialog.FileName;
             }
+            fileDialog.Dispose();
             return null;
         }
 
@@ -2081,19 +2184,19 @@ namespace StartMe
             SettingsSave(Properties.Settings.Default.SettingsKeyCurrent);
         }
 
-        private void SetPid(int pidNum, string pidText, string windowTitle)
+        private void SetPid(int pidNum, string pidText)
         {
             switch(pidNum)
             {
-                case 1: pid1.Text = pidText; labelWindowTitle1.Text = windowTitle; break;
-                case 2: pid2.Text = pidText; labelWindowTitle2.Text = windowTitle; break;
-                case 3: pid3.Text = pidText; labelWindowTitle3.Text = windowTitle; break;
-                case 4: pid4.Text = pidText; labelWindowTitle4.Text = windowTitle; break;
-                case 5: pid5.Text = pidText; labelWindowTitle5.Text = windowTitle; break;
-                case 6: pid6.Text = pidText; labelWindowTitle6.Text = windowTitle; break;
-                case 7: pid7.Text = pidText; labelWindowTitle7.Text = windowTitle; break;
-                case 8: pid8.Text = pidText; labelWindowTitle8.Text = windowTitle; break;
-                case 9: pid9.Text = pidText; labelWindowTitle9.Text = windowTitle; break;
+                case 1: pid1.Text = pidText; break;
+                case 2: pid2.Text = pidText; break;
+                case 3: pid3.Text = pidText; break;
+                case 4: pid4.Text = pidText; break;
+                case 5: pid5.Text = pidText; break;
+                case 6: pid6.Text = pidText; break;
+                case 7: pid7.Text = pidText; break;
+                case 8: pid8.Text = pidText; break;
+                case 9: pid9.Text = pidText; break;
             }
             if (pidText.Length == 0)
             {
@@ -2126,7 +2229,7 @@ namespace StartMe
                     }
                 }
                 //SetStartStop(i, !running, running);
-                if (!running) SetPid(i, "", "");
+                if (!running) SetPid(i, "");
             }
         }
 
@@ -2178,45 +2281,50 @@ namespace StartMe
         {
             if (backedUp) return; // we only do this once per run
             backedUp = true;
-            var md5Now = MD5.Create();
-            var md5Previous = MD5.Create();
-            using (var stream = File.OpenRead(fileNow))
+            using (var md5Now = MD5.Create())
             {
-                md5Now.ComputeHash(stream);
-            }
-            string filePrevious = fileNow + ".1";
-
-            // If we've never backed it up just do it and be done
-            if (!File.Exists(filePrevious))
-            {
-                File.Copy(fileNow, filePrevious);
-                MessageBox.Show("A backup of your user.config has been made\nClick the Backups button for info", "StartMe Info");
-                return;
-            }
-            // Otherwise we'll get the MD5 of the backup and see if things changed
-            using (var stream = File.OpenRead(filePrevious))
-            {
-                md5Previous.ComputeHash(stream);
-            }
-            string hashNow = BytesToString(md5Now.Hash);
-            string hashPrevious = BytesToString(md5Previous.Hash);
-            if (!hashNow.Equals(hashPrevious))
-            {
-                string msg = "Your user.config was backed up\nClick Backups to manage";
-                // Move 1-4 to 2-5 rolling backup
-                for (int i=4;i>=1;--i)
+                using (var md5Previous = MD5.Create())
                 {
-                    string fileFrom = fileNow + "." + i;
-                    string fileTo = fileNow + "." + (i + 1);
-                    if (File.Exists(fileFrom))
+                    using (var stream = File.OpenRead(fileNow))
                     {
-                        File.Delete(fileTo);
-                        File.Move(fileFrom, fileTo);
+                        md5Now.ComputeHash(stream);
+                    }
+                    string filePrevious = fileNow + ".1";
+
+                    // If we've never backed it up just do it and be done
+                    if (!File.Exists(filePrevious))
+                    {
+                        File.Copy(fileNow, filePrevious);
+                        string msg = "Your user.config was backed up -- Click Backups to manage";
+                        labelStatusMessage.Text = msg;
+                        return;
+                    }
+                    // Otherwise we'll get the MD5 of the backup and see if things changed
+                    using (var stream = File.OpenRead(filePrevious))
+                    {
+                        md5Previous.ComputeHash(stream);
+                    }
+                    string hashNow = BytesToString(md5Now.Hash);
+                    string hashPrevious = BytesToString(md5Previous.Hash);
+                    if (!hashNow.Equals(hashPrevious))
+                    {
+                        string msg = "Your user.config was backed up -- Click Backups to manage";
+                        // Move 1-4 to 2-5 rolling backup
+                        for (int i = 4; i >= 1; --i)
+                        {
+                            string fileFrom = fileNow + "." + i;
+                            string fileTo = fileNow + "." + (i + 1);
+                            if (File.Exists(fileFrom))
+                            {
+                                File.Delete(fileTo);
+                                File.Move(fileFrom, fileTo);
+                            }
+                        }
+                        // Copy our existing user.config
+                        File.Copy(fileNow, fileNow + ".1", true);
+                        labelStatusMessage.Text = msg;
                     }
                 }
-                // Copy our existing user.config
-                File.Copy(fileNow, fileNow + ".1", true);
-                MessageBox.Show(msg, "StartMe Info");
             }
         }
         private List<String> SettingsGetKeys()
@@ -2465,21 +2573,21 @@ namespace StartMe
             Properties.Settings.Default.Save();
         }
 
-        private void SettingsLoad(String key)
+        private bool SettingsLoad(String key)
         {
             var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
 
             if (!(File.Exists(userConfig)))
             {
                 MessageBox.Show("Config file :" + key + "not found:\n" + userConfig, "Error StartMe");
-                return;
+                return false;
             }
             if (key.Length == 0) key = "Default";
             settingsKeys = SettingsGetKeys();
             if (!settingsKeys.Contains(key, StringComparer.CurrentCultureIgnoreCase))
             {
                 MessageBox.Show("Key '" + key + "' not found in user.config", "Error StartMe");
-                return;
+                return false;
             }
             //if (key == "Default")
             //{
@@ -2675,6 +2783,7 @@ namespace StartMe
             //pid8.Text = Properties.Settings.Default.Pid8.ToString();
             //pid9.Text = Properties.Settings.Default.Pid9.ToString();
 
+            /*
             if (textBoxPath1.Text.Length == 0)
             {
                 // FLrig example
@@ -2697,7 +2806,9 @@ namespace StartMe
 
                 textBoxPath4.Text = "C:\\Program Files (x86)\\Fldigi-4.0.8\\fldigi.exe";
             }
+            */
             this.Activated += AfterLoading;
+            return true;
         }
 
         void AfterLoading(object sender, EventArgs e)
@@ -2732,12 +2843,20 @@ namespace StartMe
             {
                 if (item == "Default") item = "";
                 Properties.Settings.Default.SettingsKeyCurrent = item;
+                Properties.Settings.Default.Reset();
                 SettingsLoad(Properties.Settings.Default.SettingsKeyCurrent);
             }
 
         }
         private void ComboBoxSettingsName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ModifierKeys.HasFlag(Keys.Shift))
+            {
+                if (MessageBox.Show("Do you want to delete "+comboBoxSettingsKey.Text+"?", "Config Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    MessageBox.Show("Delete not implemented yet");
+                }
+            }
             SettingsAdd(comboBoxSettingsKey.Text);
         }
 
@@ -2762,6 +2881,7 @@ namespace StartMe
                     if (MessageBox.Show("Do you want to reset the copy to default values?", "Config StartMe", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         Properties.Settings.Default.Reset();
+                        Properties.Settings.Default.Save();
                     }
                     else
                     {
@@ -2957,8 +3077,7 @@ namespace StartMe
 
         private void ButtonHelp_Click(object sender, EventArgs e)
         {
-            HelpForm help = new HelpForm();
-            help.Show();
+            Help.Show();
         }
 
         private void TextBoxStart1Next_TextChanged(object sender, EventArgs e)
@@ -4522,9 +4641,11 @@ namespace StartMe
 
         private void ButtonBackups_Click(object sender, EventArgs e)
         {
-            var myBackups = new Backups();
-            var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
-            myBackups.Backups_List(userConfig);
+            using (var myBackups = new Backups())
+            {
+                var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+                myBackups.Backups_List(userConfig);
+            }
             //MessageBox.Show("Done with backups\n");
             SettingsLoad(settingsKey);
         }
