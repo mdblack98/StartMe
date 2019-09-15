@@ -882,18 +882,24 @@ namespace StartMe
                 case 8: s = textBoxPath8.Text; lbox = labelEZ8; break;
                 case 9: s = textBoxPath9.Text; lbox = labelEZ9; break;
             }
-            if (File.Exists(s))
-            {
-                s = System.IO.Path.GetFileNameWithoutExtension(s);
-            }
-            else
-            {
-                MessageBox.Show("Check path for task #"+n+"\nFile '"+s+"not found","StartMe Error");
-            }
-
             if (newName != null) // then we're forcing the name
             {
                 s = newName;
+            }
+            else if (newName == "")
+            {
+                s = "";
+            }
+            else
+            {
+                if (s != "" && File.Exists(s))
+                {
+                    s = System.IO.Path.GetFileNameWithoutExtension(s);
+                }
+                else if (s != "")
+                {
+                    MessageBox.Show("Check path for task #" + n + "\nFile '" + s + "not found", "StartMe Error");
+                }
             }
             lbox.Text = s;
         }
@@ -2606,14 +2612,23 @@ namespace StartMe
             checkBoxStopAll.Checked = Properties.Settings.Default.CloseAll;
 
             textBoxPath1.Text = Properties.Settings.Default.Path1;
+            if (textBoxPath1.Text.Contains("\r\n")) textBoxPath1.Text = "";
             textBoxPath2.Text = Properties.Settings.Default.Path2;
+            if (textBoxPath2.Text.Contains("\r\n")) textBoxPath2.Text = "";
             textBoxPath3.Text = Properties.Settings.Default.Path3;
+            if (textBoxPath3.Text.Contains("\r\n")) textBoxPath3.Text = "";
             textBoxPath4.Text = Properties.Settings.Default.Path4;
+            if (textBoxPath4.Text.Contains("\r\n")) textBoxPath4.Text = "";
             textBoxPath5.Text = Properties.Settings.Default.Path5;
+            if (textBoxPath5.Text.Contains("\r\n")) textBoxPath5.Text = "";
             textBoxPath6.Text = Properties.Settings.Default.Path6;
+            if (textBoxPath6.Text.Contains("\r\n")) textBoxPath6.Text = "";
             textBoxPath7.Text = Properties.Settings.Default.Path7;
+            if (textBoxPath7.Text.Contains("\r\n")) textBoxPath7.Text = "";
             textBoxPath8.Text = Properties.Settings.Default.Path8;
+            if (textBoxPath8.Text.Contains("\r\n")) textBoxPath8.Text = "";
             textBoxPath9.Text = Properties.Settings.Default.Path9;
+            if (textBoxPath9.Text.Contains("\r\n")) textBoxPath9.Text = "";
 
             checkBoxAutoStart1.Checked = Properties.Settings.Default.AutoStart1;
             checkBoxAutoStart2.Checked = Properties.Settings.Default.AutoStart2;
