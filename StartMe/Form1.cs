@@ -85,9 +85,16 @@ namespace StartMe
 
         public HelpForm Help { get; } = new HelpForm();
 
+        public ToolTip ToolTip { get; } = new ToolTip
+        {
+            ShowAlways = true,
+            UseAnimation = true,
+            UseFading = true,
+            IsBalloon = true
+        };
+
         public Form1()
         {
-
             InitializeComponent();
             this.KeyPreview = true;
 
@@ -123,257 +130,274 @@ namespace StartMe
             textBoxPath8.ContextMenu = MenuGen(8);
             textBoxPath9.ContextMenu = MenuGen(9);
 
-            ToolTip toolTip = new ToolTip
-            {
-                UseAnimation = true,
-                UseFading = true,
-                IsBalloon = true
-            };
             String tip = "Path to executable";
-            toolTip.SetToolTip(label1, tip);
-            toolTip.SetToolTip(textBoxPath1, tip);
-            toolTip.SetToolTip(textBoxPath2, tip);
-            toolTip.SetToolTip(textBoxPath3, tip);
-            toolTip.SetToolTip(textBoxPath4, tip);
-            toolTip.SetToolTip(textBoxPath5, tip);
-            toolTip.SetToolTip(textBoxPath6, tip);
-            toolTip.SetToolTip(textBoxPath7, tip);
-            toolTip.SetToolTip(textBoxPath8, tip);
-            toolTip.SetToolTip(textBoxPath9, tip);
+            ToolTip.SetToolTip(label1, tip);
+            ToolTip.SetToolTip(textBoxPath1, tip);
+            ToolTip.SetToolTip(textBoxPath2, tip);
+            ToolTip.SetToolTip(textBoxPath3, tip);
+            ToolTip.SetToolTip(textBoxPath4, tip);
+            ToolTip.SetToolTip(textBoxPath5, tip);
+            ToolTip.SetToolTip(textBoxPath6, tip);
+            ToolTip.SetToolTip(textBoxPath7, tip);
+            ToolTip.SetToolTip(textBoxPath8, tip);
+            ToolTip.SetToolTip(textBoxPath9, tip);
 
             tip = "File Browser";
             //toolTip.SetToolTip(label2, tip);
-            toolTip.SetToolTip(buttonFile1, tip);
-            toolTip.SetToolTip(buttonFile2, tip);
-            toolTip.SetToolTip(buttonFile3, tip);
-            toolTip.SetToolTip(buttonFile4, tip);
-            toolTip.SetToolTip(buttonFile5, tip);
-            toolTip.SetToolTip(buttonFile6, tip);
-            toolTip.SetToolTip(buttonFile7, tip);
-            toolTip.SetToolTip(buttonFile8, tip);
-            toolTip.SetToolTip(buttonFile9, tip);
+            ToolTip.SetToolTip(buttonFile1, tip);
+            ToolTip.SetToolTip(buttonFile2, tip);
+            ToolTip.SetToolTip(buttonFile3, tip);
+            ToolTip.SetToolTip(buttonFile4, tip);
+            ToolTip.SetToolTip(buttonFile5, tip);
+            ToolTip.SetToolTip(buttonFile6, tip);
+            ToolTip.SetToolTip(buttonFile7, tip);
+            ToolTip.SetToolTip(buttonFile8, tip);
+            ToolTip.SetToolTip(buttonFile9, tip);
 
             tip = "Parameters for program";
             //toolTip.SetToolTip(label3, tip);
-            toolTip.SetToolTip(textBoxArgs1, tip);
-            toolTip.SetToolTip(textBoxArgs2, tip);
-            toolTip.SetToolTip(textBoxArgs3, tip);
-            toolTip.SetToolTip(textBoxArgs4, tip);
-            toolTip.SetToolTip(textBoxArgs5, tip);
-            toolTip.SetToolTip(textBoxArgs6, tip);
-            toolTip.SetToolTip(textBoxArgs7, tip);
-            toolTip.SetToolTip(textBoxArgs8, tip);
-            toolTip.SetToolTip(textBoxArgs9, tip);
+            ToolTip.SetToolTip(textBoxArgs1, tip);
+            ToolTip.SetToolTip(textBoxArgs2, tip);
+            ToolTip.SetToolTip(textBoxArgs3, tip);
+            ToolTip.SetToolTip(textBoxArgs4, tip);
+            ToolTip.SetToolTip(textBoxArgs5, tip);
+            ToolTip.SetToolTip(textBoxArgs6, tip);
+            ToolTip.SetToolTip(textBoxArgs7, tip);
+            ToolTip.SetToolTip(textBoxArgs8, tip);
+            ToolTip.SetToolTip(textBoxArgs9, tip);
 
             tip = "Command line paramters";
             //toolTip.SetToolTip(label3, tip);
-            toolTip.SetToolTip(textBoxArgs1, tip);
-            toolTip.SetToolTip(textBoxArgs2, tip);
-            toolTip.SetToolTip(textBoxArgs3, tip);
-            toolTip.SetToolTip(textBoxArgs4, tip);
-            toolTip.SetToolTip(textBoxArgs5, tip);
-            toolTip.SetToolTip(textBoxArgs6, tip);
-            toolTip.SetToolTip(textBoxArgs7, tip);
-            toolTip.SetToolTip(textBoxArgs8, tip);
-            toolTip.SetToolTip(textBoxArgs9, tip);
+            ToolTip.SetToolTip(textBoxArgs1, tip);
+            ToolTip.SetToolTip(textBoxArgs2, tip);
+            ToolTip.SetToolTip(textBoxArgs3, tip);
+            ToolTip.SetToolTip(textBoxArgs4, tip);
+            ToolTip.SetToolTip(textBoxArgs5, tip);
+            ToolTip.SetToolTip(textBoxArgs6, tip);
+            ToolTip.SetToolTip(textBoxArgs7, tip);
+            ToolTip.SetToolTip(textBoxArgs8, tip);
+            ToolTip.SetToolTip(textBoxArgs9, tip);
 
             tip = "Auto start during 1st run of program";
             //toolTip.SetToolTip(label4, tip);
-            toolTip.SetToolTip(checkBoxAutoStart1, tip);
-            toolTip.SetToolTip(checkBoxAutoStart1, tip);
-            toolTip.SetToolTip(checkBoxAutoStart3, tip);
-            toolTip.SetToolTip(checkBoxAutoStart4, tip);
-            toolTip.SetToolTip(checkBoxAutoStart5, tip);
-            toolTip.SetToolTip(checkBoxAutoStart6, tip);
-            toolTip.SetToolTip(checkBoxAutoStart7, tip);
-            toolTip.SetToolTip(checkBoxAutoStart8, tip);
-            toolTip.SetToolTip(checkBoxAutoStart9, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart1, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart1, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart3, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart4, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart5, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart6, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart7, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart8, tip);
+            ToolTip.SetToolTip(checkBoxAutoStart9, tip);
 
             tip = "Minimize window at startup";
-            toolTip.SetToolTip(checkBoxMinimize1, tip);
-            toolTip.SetToolTip(checkBoxMinimize2, tip);
-            toolTip.SetToolTip(checkBoxMinimize3, tip);
-            toolTip.SetToolTip(checkBoxMinimize4, tip);
-            toolTip.SetToolTip(checkBoxMinimize5, tip);
-            toolTip.SetToolTip(checkBoxMinimize6, tip);
-            toolTip.SetToolTip(checkBoxMinimize7, tip);
-            toolTip.SetToolTip(checkBoxMinimize8, tip);
-            toolTip.SetToolTip(checkBoxMinimize9, tip);
+            ToolTip.SetToolTip(checkBoxMinimize1, tip);
+            ToolTip.SetToolTip(checkBoxMinimize2, tip);
+            ToolTip.SetToolTip(checkBoxMinimize3, tip);
+            ToolTip.SetToolTip(checkBoxMinimize4, tip);
+            ToolTip.SetToolTip(checkBoxMinimize5, tip);
+            ToolTip.SetToolTip(checkBoxMinimize6, tip);
+            ToolTip.SetToolTip(checkBoxMinimize7, tip);
+            ToolTip.SetToolTip(checkBoxMinimize8, tip);
+            ToolTip.SetToolTip(checkBoxMinimize9, tip);
 
             tip = "Start with Administrative rights";
             //toolTip.SetToolTip(label, tip);
-            toolTip.SetToolTip(checkBoxAdmin1, tip);
-            toolTip.SetToolTip(checkBoxAdmin2, tip);
-            toolTip.SetToolTip(checkBoxAdmin3, tip);
-            toolTip.SetToolTip(checkBoxAdmin4, tip);
-            toolTip.SetToolTip(checkBoxAdmin5, tip);
-            toolTip.SetToolTip(checkBoxAdmin6, tip);
-            toolTip.SetToolTip(checkBoxAdmin7, tip);
-            toolTip.SetToolTip(checkBoxAdmin8, tip);
-            toolTip.SetToolTip(checkBoxAdmin9, tip);
+            ToolTip.SetToolTip(checkBoxAdmin1, tip);
+            ToolTip.SetToolTip(checkBoxAdmin2, tip);
+            ToolTip.SetToolTip(checkBoxAdmin3, tip);
+            ToolTip.SetToolTip(checkBoxAdmin4, tip);
+            ToolTip.SetToolTip(checkBoxAdmin5, tip);
+            ToolTip.SetToolTip(checkBoxAdmin6, tip);
+            ToolTip.SetToolTip(checkBoxAdmin7, tip);
+            ToolTip.SetToolTip(checkBoxAdmin8, tip);
+            ToolTip.SetToolTip(checkBoxAdmin9, tip);
 
             tip = "Set priority on startup";
             //toolTip.SetToolTip(label7, tip);
-            toolTip.SetToolTip(comboBoxPriority1, tip);
-            toolTip.SetToolTip(comboBoxPriority2, tip);
-            toolTip.SetToolTip(comboBoxPriority3, tip);
-            toolTip.SetToolTip(comboBoxPriority4, tip);
-            toolTip.SetToolTip(comboBoxPriority5, tip);
-            toolTip.SetToolTip(comboBoxPriority6, tip);
-            toolTip.SetToolTip(comboBoxPriority7, tip);
-            toolTip.SetToolTip(comboBoxPriority8, tip);
-            toolTip.SetToolTip(comboBoxPriority9, tip);
+            ToolTip.SetToolTip(comboBoxPriority1, tip);
+            ToolTip.SetToolTip(comboBoxPriority2, tip);
+            ToolTip.SetToolTip(comboBoxPriority3, tip);
+            ToolTip.SetToolTip(comboBoxPriority4, tip);
+            ToolTip.SetToolTip(comboBoxPriority5, tip);
+            ToolTip.SetToolTip(comboBoxPriority6, tip);
+            ToolTip.SetToolTip(comboBoxPriority7, tip);
+            ToolTip.SetToolTip(comboBoxPriority8, tip);
+            ToolTip.SetToolTip(comboBoxPriority9, tip);
 
             tip = "Start task now. Shift-click to not start Next";
-            toolTip.SetToolTip(buttonStart1, tip);
-            toolTip.SetToolTip(buttonStart2, tip);
-            toolTip.SetToolTip(buttonStart3, tip);
-            toolTip.SetToolTip(buttonStart4, tip);
-            toolTip.SetToolTip(buttonStart5, tip);
-            toolTip.SetToolTip(buttonStart6, tip);
-            toolTip.SetToolTip(buttonStart7, tip);
-            toolTip.SetToolTip(buttonStart8, tip);
-            toolTip.SetToolTip(buttonStart9, tip);
+            ToolTip.SetToolTip(buttonStart1, tip);
+            ToolTip.SetToolTip(buttonStart2, tip);
+            ToolTip.SetToolTip(buttonStart3, tip);
+            ToolTip.SetToolTip(buttonStart4, tip);
+            ToolTip.SetToolTip(buttonStart5, tip);
+            ToolTip.SetToolTip(buttonStart6, tip);
+            ToolTip.SetToolTip(buttonStart7, tip);
+            ToolTip.SetToolTip(buttonStart8, tip);
+            ToolTip.SetToolTip(buttonStart9, tip);
 
             tip = "Delay before startup";
-            toolTip.SetToolTip(numericUpDownDelay1Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay2Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay3Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay4Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay5Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay6Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay7Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay8Before, tip);
-            toolTip.SetToolTip(numericUpDownDelay9Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay1Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay2Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay3Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay4Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay5Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay6Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay7Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay8Before, tip);
+            ToolTip.SetToolTip(numericUpDownDelay9Before, tip);
 
             tip = "Delay after startup";
-            toolTip.SetToolTip(numericUpDownDelay1After, tip);
-            toolTip.SetToolTip(numericUpDownDelay2After, tip);
-            toolTip.SetToolTip(numericUpDownDelay3After, tip);
-            toolTip.SetToolTip(numericUpDownDelay4After, tip);
-            toolTip.SetToolTip(numericUpDownDelay5After, tip);
-            toolTip.SetToolTip(numericUpDownDelay6After, tip);
-            toolTip.SetToolTip(numericUpDownDelay7After, tip);
-            toolTip.SetToolTip(numericUpDownDelay8After, tip);
-            toolTip.SetToolTip(numericUpDownDelay9After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay1After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay2After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay3After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay4After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay5After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay6After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay7After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay8After, tip);
+            ToolTip.SetToolTip(numericUpDownDelay9After, tip);
 
             tip = "Delay after stop signal";
-            toolTip.SetToolTip(numericUpDownDelayStop1, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop2, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop3, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop4, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop5, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop6, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop7, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop8, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop9, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop1, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop2, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop3, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop4, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop5, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop6, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop7, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop8, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop9, tip);
 
             tip = "% CPU on task before proceeeding";
-            toolTip.SetToolTip(numericUpDownCPU1, tip);
-            toolTip.SetToolTip(numericUpDownCPU2, tip);
-            toolTip.SetToolTip(numericUpDownCPU3, tip);
-            toolTip.SetToolTip(numericUpDownCPU4, tip);
-            toolTip.SetToolTip(numericUpDownCPU5, tip);
-            toolTip.SetToolTip(numericUpDownCPU6, tip);
-            toolTip.SetToolTip(numericUpDownCPU7, tip);
-            toolTip.SetToolTip(numericUpDownCPU8, tip);
-            toolTip.SetToolTip(numericUpDownCPU9, tip);
+            ToolTip.SetToolTip(numericUpDownCPU1, tip);
+            ToolTip.SetToolTip(numericUpDownCPU2, tip);
+            ToolTip.SetToolTip(numericUpDownCPU3, tip);
+            ToolTip.SetToolTip(numericUpDownCPU4, tip);
+            ToolTip.SetToolTip(numericUpDownCPU5, tip);
+            ToolTip.SetToolTip(numericUpDownCPU6, tip);
+            ToolTip.SetToolTip(numericUpDownCPU7, tip);
+            ToolTip.SetToolTip(numericUpDownCPU8, tip);
+            ToolTip.SetToolTip(numericUpDownCPU9, tip);
 
             tip = "Window title + Keys to send to window after startup delay -- see Help";
-            toolTip.SetToolTip(textBoxStart1, tip);
-            toolTip.SetToolTip(textBoxStart2, tip);
-            toolTip.SetToolTip(textBoxStart3, tip);
-            toolTip.SetToolTip(textBoxStart4, tip);
-            toolTip.SetToolTip(textBoxStart5, tip);
-            toolTip.SetToolTip(textBoxStart6, tip);
-            toolTip.SetToolTip(textBoxStart7, tip);
-            toolTip.SetToolTip(textBoxStart8, tip);
-            toolTip.SetToolTip(textBoxStart9, tip);
+            ToolTip.SetToolTip(textBoxStart1, tip);
+            ToolTip.SetToolTip(textBoxStart2, tip);
+            ToolTip.SetToolTip(textBoxStart3, tip);
+            ToolTip.SetToolTip(textBoxStart4, tip);
+            ToolTip.SetToolTip(textBoxStart5, tip);
+            ToolTip.SetToolTip(textBoxStart6, tip);
+            ToolTip.SetToolTip(textBoxStart7, tip);
+            ToolTip.SetToolTip(textBoxStart8, tip);
+            ToolTip.SetToolTip(textBoxStart9, tip);
 
             tip = "Sequence # for startup";
-            toolTip.SetToolTip(textBoxStart1Sequence, tip);
-            toolTip.SetToolTip(textBoxStart2Sequence, tip);
-            toolTip.SetToolTip(textBoxStart3Sequence, tip);
-            toolTip.SetToolTip(textBoxStart4Sequence, tip);
-            toolTip.SetToolTip(textBoxStart5Sequence, tip);
-            toolTip.SetToolTip(textBoxStart6Sequence, tip);
-            toolTip.SetToolTip(textBoxStart7Sequence, tip);
-            toolTip.SetToolTip(textBoxStart8Sequence, tip);
-            toolTip.SetToolTip(textBoxStart9Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart1Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart2Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart3Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart4Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart5Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart6Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart7Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart8Sequence, tip);
+            ToolTip.SetToolTip(textBoxStart9Sequence, tip);
 
             tip = "Sequence # for stopping, 0 skip StopAll";
-            toolTip.SetToolTip(textBoxStart1Stop, tip);
-            toolTip.SetToolTip(textBoxStart2Stop, tip);
-            toolTip.SetToolTip(textBoxStart3Stop, tip);
-            toolTip.SetToolTip(textBoxStart4Stop, tip);
-            toolTip.SetToolTip(textBoxStart5Stop, tip);
-            toolTip.SetToolTip(textBoxStart6Stop, tip);
-            toolTip.SetToolTip(textBoxStart7Stop, tip);
-            toolTip.SetToolTip(textBoxStart8Stop, tip);
-            toolTip.SetToolTip(textBoxStart9Stop, tip);
+            ToolTip.SetToolTip(textBoxStart1Stop, tip);
+            ToolTip.SetToolTip(textBoxStart2Stop, tip);
+            ToolTip.SetToolTip(textBoxStart3Stop, tip);
+            ToolTip.SetToolTip(textBoxStart4Stop, tip);
+            ToolTip.SetToolTip(textBoxStart5Stop, tip);
+            ToolTip.SetToolTip(textBoxStart6Stop, tip);
+            ToolTip.SetToolTip(textBoxStart7Stop, tip);
+            ToolTip.SetToolTip(textBoxStart8Stop, tip);
+            ToolTip.SetToolTip(textBoxStart9Stop, tip);
 
             tip = "Stop task, Ctrl-Click to kill task";
-            toolTip.SetToolTip(buttonStop1, tip);
-            toolTip.SetToolTip(buttonStop2, tip);
-            toolTip.SetToolTip(buttonStop3, tip);
-            toolTip.SetToolTip(buttonStop4, tip);
-            toolTip.SetToolTip(buttonStop5, tip);
-            toolTip.SetToolTip(buttonStop6, tip);
-            toolTip.SetToolTip(buttonStop7, tip);
-            toolTip.SetToolTip(buttonStop8, tip);
-            toolTip.SetToolTip(buttonStop9, tip);
+            ToolTip.SetToolTip(buttonStop1, tip);
+            ToolTip.SetToolTip(buttonStop2, tip);
+            ToolTip.SetToolTip(buttonStop3, tip);
+            ToolTip.SetToolTip(buttonStop4, tip);
+            ToolTip.SetToolTip(buttonStop5, tip);
+            ToolTip.SetToolTip(buttonStop6, tip);
+            ToolTip.SetToolTip(buttonStop7, tip);
+            ToolTip.SetToolTip(buttonStop8, tip);
+            ToolTip.SetToolTip(buttonStop9, tip);
+            
 
             tip = "Kill task if normal close fails";
-            toolTip.SetToolTip(checkBoxKill1, tip);
-            toolTip.SetToolTip(checkBoxKill2, tip);
-            toolTip.SetToolTip(checkBoxKill3, tip);
-            toolTip.SetToolTip(checkBoxKill4, tip);
-            toolTip.SetToolTip(checkBoxKill5, tip);
-            toolTip.SetToolTip(checkBoxKill6, tip);
-            toolTip.SetToolTip(checkBoxKill7, tip);
-            toolTip.SetToolTip(checkBoxKill8, tip);
-            toolTip.SetToolTip(checkBoxKill9, tip);
+            ToolTip.SetToolTip(checkBoxKill1, tip);
+            ToolTip.SetToolTip(checkBoxKill2, tip);
+            ToolTip.SetToolTip(checkBoxKill3, tip);
+            ToolTip.SetToolTip(checkBoxKill4, tip);
+            ToolTip.SetToolTip(checkBoxKill5, tip);
+            ToolTip.SetToolTip(checkBoxKill6, tip);
+            ToolTip.SetToolTip(checkBoxKill7, tip);
+            ToolTip.SetToolTip(checkBoxKill8, tip);
+            ToolTip.SetToolTip(checkBoxKill9, tip);
 
             tip = "Wait time for stop to complete (secs)";
-            toolTip.SetToolTip(numericUpDownDelayStop1, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop2, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop3, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop4, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop5, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop6, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop7, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop8, tip);
-            toolTip.SetToolTip(numericUpDownDelayStop9, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop1, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop2, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop3, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop4, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop5, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop6, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop7, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop8, tip);
+            ToolTip.SetToolTip(numericUpDownDelayStop9, tip);
 
             tip = "Window title + Keys to send to window during closing -- see Help";
-            toolTip.SetToolTip(textBoxStop1, tip);
-            toolTip.SetToolTip(textBoxStop2, tip);
-            toolTip.SetToolTip(textBoxStop3, tip);
-            toolTip.SetToolTip(textBoxStop4, tip);
-            toolTip.SetToolTip(textBoxStop5, tip);
-            toolTip.SetToolTip(textBoxStop6, tip);
-            toolTip.SetToolTip(textBoxStop7, tip);
-            toolTip.SetToolTip(textBoxStop8, tip);
-            toolTip.SetToolTip(textBoxStop9, tip);
+            ToolTip.SetToolTip(textBoxStop1, tip);
+            ToolTip.SetToolTip(textBoxStop2, tip);
+            ToolTip.SetToolTip(textBoxStop3, tip);
+            ToolTip.SetToolTip(textBoxStop4, tip);
+            ToolTip.SetToolTip(textBoxStop5, tip);
+            ToolTip.SetToolTip(textBoxStop6, tip);
+            ToolTip.SetToolTip(textBoxStop7, tip);
+            ToolTip.SetToolTip(textBoxStop8, tip);
+            ToolTip.SetToolTip(textBoxStop9, tip);
 
-            tip = "Process ID";
-            toolTip.SetToolTip(pid1, tip);
-            toolTip.SetToolTip(pid2, tip);
-            toolTip.SetToolTip(pid3, tip);
-            toolTip.SetToolTip(pid4, tip);
-            toolTip.SetToolTip(pid5, tip);
-            toolTip.SetToolTip(pid6, tip);
-            toolTip.SetToolTip(pid7, tip);
-            toolTip.SetToolTip(pid8, tip);
-            toolTip.SetToolTip(pid9, tip);
+            //tip = "Process ID";
+            //toolTip.SetToolTip(pid1, tip);
+            //toolTip.SetToolTip(pid2, tip);
+            //toolTip.SetToolTip(pid3, tip);
+            //toolTip.SetToolTip(pid4, tip);
+            //toolTip.SetToolTip(pid5, tip);
+            //toolTip.SetToolTip(pid6, tip);
+            //toolTip.SetToolTip(pid7, tip);
+            //toolTip.SetToolTip(pid8, tip);
+            //toolTip.SetToolTip(pid9, tip);
 
-            toolTip.SetToolTip(checkBoxMinimize, "Minimize StartMe window after startup");
-            toolTip.SetToolTip(buttonStartAll, "Start all tasks now");
-            toolTip.SetToolTip(buttonStopAll, "Stop all tasks now");
-            toolTip.SetToolTip(checkBoxStopAll, "Stop all tasks when program exits");
+            tip = "Click to disable/enable task";
+            ToolTip.SetToolTip(labelPath1, tip);
+            ToolTip.SetToolTip(labelPath2, tip);
+            ToolTip.SetToolTip(labelPath3, tip);
+            ToolTip.SetToolTip(labelPath4, tip);
+            ToolTip.SetToolTip(labelPath5, tip);
+            ToolTip.SetToolTip(labelPath6, tip);
+            ToolTip.SetToolTip(labelPath7, tip);
+            ToolTip.SetToolTip(labelPath8, tip);
+            ToolTip.SetToolTip(labelPath9, tip);
 
-            toolTip.Dispose();
+            tip = "Keep task running if if crashes";
+            ToolTip.SetToolTip(checkBoxKeepRunning1, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning2, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning3, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning4, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning5, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning6, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning7, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning8, tip);
+            ToolTip.SetToolTip(checkBoxKeepRunning9, tip);
 
+
+            ToolTip.SetToolTip(checkBoxMinimize, "Minimize StartMe window after startup");
+            ToolTip.SetToolTip(buttonStartAll, "Start all tasks now");
+            ToolTip.SetToolTip(buttonStopAll, "Stop all tasks now");
+            ToolTip.SetToolTip(checkBoxStopAll, "Stop all tasks when program exits");
+            ToolTip.SetToolTip(buttonStartAuto, "Start all tasks with Auto checked");
+            ToolTip.SetToolTip(checkBoxStartup, "Start all auto tasks at startup");
             String[] args = Environment.GetCommandLineArgs();
             //if (args.Length > 1 && args[1].Equals("-noauto"))
             //{
@@ -393,7 +417,7 @@ namespace StartMe
                 SettingsLoad("Default");
             }
             settingsSave = true;
-            
+
             var t = Task.Run(async delegate
             {
                 await Task.Delay(TimeSpan.FromSeconds(5));
@@ -404,6 +428,7 @@ namespace StartMe
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            ToolTip.Dispose();
             if (checkBoxStopAll.Checked)
             {
                 StopAll();
@@ -414,8 +439,8 @@ namespace StartMe
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        //    if (elevateMe())
-        //        Application.Exit();
+            //    if (elevateMe())
+            //        Application.Exit();
             if (settingsKey.Equals(""))
             {
                 settingsKeys = SettingsGetKeys();
@@ -472,21 +497,22 @@ namespace StartMe
 
         private bool ProcessIsRunning(int n)
         {
-            String exe = "";
+            String path = "";
             String args = "";
+            bool enabled = false;
             switch (n)
             {
-                case 1: exe = textBoxPath1.Text; args = textBoxArgs1.Text; break;
-                case 2: exe = textBoxPath2.Text; args = textBoxArgs2.Text; break;
-                case 3: exe = textBoxPath3.Text; args = textBoxArgs3.Text; break;
-                case 4: exe = textBoxPath4.Text; args = textBoxArgs4.Text; break;
-                case 5: exe = textBoxPath5.Text; args = textBoxArgs5.Text; break;
-                case 6: exe = textBoxPath6.Text; args = textBoxArgs6.Text; break;
-                case 7: exe = textBoxPath7.Text; args = textBoxArgs7.Text; break;
-                case 8: exe = textBoxPath8.Text; args = textBoxArgs8.Text; break;
-                case 9: exe = textBoxPath9.Text; args = textBoxArgs9.Text; break;
+                case 1: path = textBoxPath1.Text; args = textBoxArgs1.Text; enabled = textBoxPath1.Enabled; break;
+                case 2: path = textBoxPath2.Text; args = textBoxArgs2.Text; enabled = textBoxPath2.Enabled; break;
+                case 3: path = textBoxPath3.Text; args = textBoxArgs3.Text; enabled = textBoxPath3.Enabled; break;
+                case 4: path = textBoxPath4.Text; args = textBoxArgs4.Text; enabled = textBoxPath4.Enabled; break;
+                case 5: path = textBoxPath5.Text; args = textBoxArgs5.Text; enabled = textBoxPath5.Enabled; break;
+                case 6: path = textBoxPath6.Text; args = textBoxArgs6.Text; enabled = textBoxPath6.Enabled; break;
+                case 7: path = textBoxPath7.Text; args = textBoxArgs7.Text; enabled = textBoxPath7.Enabled; break;
+                case 8: path = textBoxPath8.Text; args = textBoxArgs8.Text; enabled = textBoxPath8.Enabled; break;
+                case 9: path = textBoxPath9.Text; args = textBoxArgs9.Text; enabled = textBoxPath9.Enabled; break;
             }
-            return ProcessIsRunning(exe, args, n, ref process[n]);
+            return ProcessIsRunning(path, enabled, args, n, ref process[n]);
         }
 
 
@@ -682,7 +708,8 @@ namespace StartMe
                     //string title = "JTALert"+tokens[4].Substring(0, 2);
                     //labelWindowTitle.Text = p2.MainWindowTitle;
                 }
-                else if (name.ToLower().Contains("wsjtx")) { 
+                else if (name.ToLower().Contains("wsjtx"))
+                {
                     //labelWindowTitle.Text = p2.MainWindowTitle;
                 }
                 SetStartStop(n, false, true);
@@ -792,17 +819,17 @@ namespace StartMe
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + "\n" + ex.StackTrace,"Debug StartMe");
+                        MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Debug StartMe");
                         return null;
                     }
                 }
                 processArgs = ProcCmdLine.GetCommandLineOfProcessIgnoreFirst(p);
-                
+
                 ++i;
                 try
                 {
                     //if (p.HasExited) return null;
-                    if (fileName.Equals(p.MainModule.FileName) && processArgs.Equals(fileArgs) )
+                    if (fileName.Equals(p.MainModule.FileName) && processArgs.Equals(fileArgs))
                         break; // find the first one
                 }
                 catch (Win32Exception)
@@ -920,15 +947,15 @@ namespace StartMe
 
         }
 
-        #pragma warning disable IDE0060 // Remove unused parameter
-        private bool ProcessIsRunning(string path, string args, int n, ref Process myProcess)
+#pragma warning disable IDE0060 // Remove unused parameter
+        private bool ProcessIsRunning(string path, bool enabled, string args, int n, ref Process myProcess)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             // we will use our current pid
             if (path.Length == 0)
             {
                 SetStartStop(n, false, false);
-                SetEZName(n, "");
+                if (enabled) SetEZName(n, "");
                 ProcessSetMainWindowHandle(n, (IntPtr)0);
                 return false;
             }
@@ -963,7 +990,7 @@ namespace StartMe
                     }
                     try
                     {
-                        bool didExit = process[n].WaitForExit(20); 
+                        bool didExit = process[n].WaitForExit(20);
                         if (didExit)
                         {
                             SetStartStop(n, true, false);
@@ -971,7 +998,8 @@ namespace StartMe
                         else
                         {
                             SetStartStop(n, false, true);
-                            if (ProcessGetMainWindowHandle(n) != (IntPtr)0) {
+                            if (ProcessGetMainWindowHandle(n) != (IntPtr)0)
+                            {
                                 ProcessSetMainWindowHandle(n, ProcessGetWindowHandle(process[n].Id));
                             }
                             return true;
@@ -980,7 +1008,7 @@ namespace StartMe
                     catch (Exception)
                     {
                         // if we get exception than it's not running anymore
-                        SetStartStop(n, true, false);
+                        SetStartStop(n, enabled, false);
                     }
                 }
             }
@@ -991,12 +1019,12 @@ namespace StartMe
                 {
                     process[n] = p1;
                     SetPid(n, p1.Id.ToString());
-                    SetStartStop(n, false, true);
+                    SetStartStop(n, false, enabled);
                     return true;
                 }
                 else
                 {
-                    SetStartStop(n, true, false);
+                    SetStartStop(n, enabled, false);
                 }
             }
             return false;
@@ -1005,7 +1033,8 @@ namespace StartMe
         private IntPtr ProcessGetWindowHandle(int pid)
         {
             // Just return the first window -- does this work all the time?
-            foreach (var handle in EnumerateProcessWindowHandles(pid)) {
+            foreach (var handle in EnumerateProcessWindowHandles(pid))
+            {
                 return handle;
             }
             return (IntPtr)0;
@@ -1068,7 +1097,7 @@ namespace StartMe
             var h = FindWindowsWithText(windowName);
             if (h.Count() > 1)
             {
-                MessageBox.Show("Window name '" + windowName + "' matches :" + h.Count() +" windows\n","Debug StartMe");
+                MessageBox.Show("Window name '" + windowName + "' matches :" + h.Count() + " windows\n", "Debug StartMe");
                 return;
             }
             if (h == null && h.Count() == 0 && ProcessIsRunning(n))
@@ -1134,7 +1163,7 @@ namespace StartMe
                     // JTAlert V2 does funky thinks with the SendMessage on the title bar
                     //if (windowName.Contains("JTAlert"))
                     //{
-                        SendKeys.SendWait(key);
+                    SendKeys.SendWait(key);
                     //}
                     //else
                     //{
@@ -1148,7 +1177,7 @@ namespace StartMe
         private IntPtr ProcessGetMainWindowHandle(int n)
         {
             string hexNumber;
-            switch(n)
+            switch (n)
             {
                 case 1: hexNumber = labelMainWindowHandle1.Text; break;
                 case 2: hexNumber = labelMainWindowHandle2.Text; break;
@@ -1250,12 +1279,12 @@ namespace StartMe
                 case 8: buttonStart8.Enabled = start; buttonStop8.Enabled = stop; break;
                 case 9: buttonStart9.Enabled = start; buttonStop9.Enabled = stop; break;
                 default:
-                    MessageBox.Show("Start/Stop button#" + n + " not found","Error StartMe");
+                    MessageBox.Show("Start/Stop button#" + n + " not found", "Error StartMe");
                     break;
             }
             //Application.DoEvents();
         }
-       
+
         /*
         private void processNext(String next)
         {
@@ -1363,23 +1392,24 @@ namespace StartMe
             decimal cpu = 0;
             bool minimize = false;
             int priority = 0;
+            bool enabled = false;
             switch (n)
             {
-                case 1: processName = textBoxPath1.Text; sleepBefore = numericUpDownDelay1Before.Value; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; break;
-                case 2: processName = textBoxPath2.Text; sleepBefore = numericUpDownDelay2Before.Value; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; break;
-                case 3: processName = textBoxPath3.Text; sleepBefore = numericUpDownDelay3Before.Value; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; break;
-                case 4: processName = textBoxPath4.Text; sleepBefore = numericUpDownDelay4Before.Value; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; break;
-                case 5: processName = textBoxPath5.Text; sleepBefore = numericUpDownDelay5Before.Value; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; break;
-                case 6: processName = textBoxPath6.Text; sleepBefore = numericUpDownDelay6Before.Value; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; break;
-                case 7: processName = textBoxPath7.Text; sleepBefore = numericUpDownDelay7Before.Value; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; break;
-                case 8: processName = textBoxPath8.Text; sleepBefore = numericUpDownDelay8Before.Value; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; break;
-                case 9: processName = textBoxPath9.Text; sleepBefore = numericUpDownDelay9Before.Value; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; break;
+                case 1: processName = textBoxPath1.Text; sleepBefore = numericUpDownDelay1Before.Value; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; enabled = buttonStart1.Enabled; break;
+                case 2: processName = textBoxPath2.Text; sleepBefore = numericUpDownDelay2Before.Value; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; enabled = buttonStart2.Enabled; break;
+                case 3: processName = textBoxPath3.Text; sleepBefore = numericUpDownDelay3Before.Value; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; enabled = buttonStart3.Enabled; break;
+                case 4: processName = textBoxPath4.Text; sleepBefore = numericUpDownDelay4Before.Value; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; enabled = buttonStart4.Enabled; break;
+                case 5: processName = textBoxPath5.Text; sleepBefore = numericUpDownDelay5Before.Value; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; enabled = buttonStart5.Enabled; break;
+                case 6: processName = textBoxPath6.Text; sleepBefore = numericUpDownDelay6Before.Value; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; enabled = buttonStart6.Enabled; break;
+                case 7: processName = textBoxPath7.Text; sleepBefore = numericUpDownDelay7Before.Value; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; enabled = buttonStart7.Enabled; break;
+                case 8: processName = textBoxPath8.Text; sleepBefore = numericUpDownDelay8Before.Value; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; enabled = buttonStart8.Enabled; break;
+                case 9: processName = textBoxPath9.Text; sleepBefore = numericUpDownDelay9Before.Value; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; enabled = buttonStart9.Enabled; break;
             }
             if (process[n] == null)
             {
                 process[n] = new Process();
             }
-            if (processName.Length < 1) return; // empty process name
+            if (!enabled || processName.Length < 1) return; // skipping it or empty process name
             if (!File.Exists(processName))
             {
                 labelStatusMessage.Text = "Task " + n + " path does not exist";
@@ -1418,18 +1448,19 @@ namespace StartMe
                 timerHandle.Start();
                 int timeout = 30; // seconds
                 labelStatusMessage.Text = "Waiting for task#" + n + " window handle";
-                do {
+                do
+                {
                     mainWindowHandle = process[n].MainWindowHandle;
                     Thread.Sleep(10);
-                    labelStatusMessage.Text = "Waiting for task#" + n + " window handle " + (timeout-(timerHandle.ElapsedMilliseconds/1000));
+                    labelStatusMessage.Text = "Waiting for task#" + n + " window handle " + (timeout - (timerHandle.ElapsedMilliseconds / 1000));
                     Application.DoEvents();
-                } while (timerHandle.ElapsedMilliseconds < timeout*1000 &&  mainWindowHandle == (IntPtr)0);
+                } while (timerHandle.ElapsedMilliseconds < timeout * 1000 && mainWindowHandle == (IntPtr)0);
                 if (mainWindowHandle == null)
                 {
                     MessageBox.Show("No main window handle??", "Debug StartMe");
                 }
                 timerHandle.Stop();
-                ProcessSetMainWindowHandle(n,mainWindowHandle);
+                ProcessSetMainWindowHandle(n, mainWindowHandle);
             }
             catch (Exception ex)
             {
@@ -1494,9 +1525,9 @@ namespace StartMe
                 return;
             }
 
-            labelStatusMessage.Text = "Task "+ n + " waiting for CPU% <"+cpu;
+            labelStatusMessage.Text = "Task " + n + " waiting for CPU% <" + cpu;
             //Application.DoEvents();
-            Application.UseWaitCursor = true;
+            //Application.UseWaitCursor = true;
             int cpupct;
             PerformanceCounter mycpupct1 = new PerformanceCounter("Process", "% Processor Time", process[n].ProcessName);
             try
@@ -1514,8 +1545,8 @@ namespace StartMe
                 labelStatusMessage.Text = "debug";// continue is any of the above causes a problem -- rigctld starting on it's own for example does this
             }
             mycpupct1.Dispose();
-            buttonStop1.Enabled = true;
-            labelStatusMessage.Text = "Task "+n+" started";
+            SetStartStop(n, false, true);
+            labelStatusMessage.Text = "Task " + n + " started";
             if (ourCursor) Application.UseWaitCursor = false;
         }
 
@@ -1526,7 +1557,7 @@ namespace StartMe
             {
                 myText = mainWindowHandle.ToString("X");
             }
-            switch(n) // we only want to set the handle once -- so be sure to clear it when done
+            switch (n) // we only want to set the handle once -- so be sure to clear it when done
             {
                 case 1: if (labelMainWindowHandle1.Text.Length == 0 || myText.Length == 0) labelMainWindowHandle1.Text = myText; break;
                 case 2: if (labelMainWindowHandle2.Text.Length == 0 || myText.Length == 0) labelMainWindowHandle2.Text = myText; break;
@@ -1607,7 +1638,7 @@ namespace StartMe
                     //Application.DoEvents();
                     // JTAlert and LogOMUI do not behave well closing child windows
                     //if (false &&   !process[n].ProcessName.Contains("JTAlert")
-                        //&& !process[n].ProcessName.Contains("LogOMUI")
+                    //&& !process[n].ProcessName.Contains("LogOMUI")
                     //    )
                     //{
                     //    // Close all the child windows
@@ -1650,6 +1681,7 @@ namespace StartMe
                         Application.DoEvents();
                         timer1.Start();
                         if (ourCursor) Application.UseWaitCursor = false;
+                        SetPid(n, "");
                         return true;
                     }
                     else
@@ -1667,6 +1699,7 @@ namespace StartMe
                         {
                             return false;
                         }
+                        SetPid(n, "");
                         return true;
                     }
                     Color labelColor = Color.Black;
@@ -1708,6 +1741,7 @@ namespace StartMe
             if (ourCursor) Application.UseWaitCursor = false;
             timer1.Start();
             labelStatusMessage.Text = "Task " + n + " stopped";
+            SetPid(n, "");
             return true;
         }
 
@@ -1830,6 +1864,9 @@ namespace StartMe
         {
             int next = 1;
             bool started = false;
+
+            // Only do auto start if checkBoxStartup is checked
+            if (!checkBoxStartup.Checked) return;
             List<string> settingsKeys = new List<string>();
             if (settingsKey == "") // then will will autostart all settings
             {
@@ -1944,7 +1981,26 @@ namespace StartMe
             }
             return textBox;
         }
-        private void StartAll()
+        bool GetAutoStart(int n)
+        {
+            bool autoStart;
+            switch (n)
+            {
+                case 1: autoStart = checkBoxAutoStart1.Checked; break;
+                case 2: autoStart = checkBoxAutoStart2.Checked; break;
+                case 3: autoStart = checkBoxAutoStart3.Checked; break;
+                case 4: autoStart = checkBoxAutoStart4.Checked; break;
+                case 5: autoStart = checkBoxAutoStart5.Checked; break;
+                case 6: autoStart = checkBoxAutoStart6.Checked; break;
+                case 7: autoStart = checkBoxAutoStart7.Checked; break;
+                case 8: autoStart = checkBoxAutoStart8.Checked; break;
+                case 9: autoStart = checkBoxAutoStart9.Checked; break;
+                default: autoStart = false; break;
+
+            }
+            return autoStart;
+        }
+        private void StartAll(bool auto = false)
         {
             bool started = false;
             int next = 1;
@@ -1955,16 +2011,18 @@ namespace StartMe
                 this.BringToFront();
                 String snext = next.ToString();
                 string textBox = GetStartSequence(next);
-                if (textBox.Equals(snext))
+                bool autoStart = GetAutoStart(next);
+                bool doWeStart = (auto == true && autoStart) || auto == false;
+                if (snext != null && textBox.Equals(snext) && doWeStart)
                 {
-                    ProcessStart(next,ModifierKeys);
+                    ProcessStart(next, ModifierKeys);
                     started = true;
                 }
                 ++next;
             }
             if (started)
             {
-                labelStatusMessage.Text = "All Tasks Started";
+                labelStatusMessage.Text = "All Tasks Started by Start#";
                 Application.UseWaitCursor = false;
                 return; // return if we stopped anything by using sequence numbers
             }
@@ -1972,10 +2030,15 @@ namespace StartMe
             next = 1;
             while (next <= 9)
             {
-                ProcessStart(next, ModifierKeys);
+                bool autoStart = GetAutoStart(next);
+                bool doWeStart = (auto == true && autoStart) || auto == false;
+                if (doWeStart)
+                {
+                    ProcessStart(next, ModifierKeys);
+                }
                 ++next;
             }
-            labelStatusMessage.Text = "All Tasks Started";
+            labelStatusMessage.Text = "All Tasks Started by Task#";
             Application.UseWaitCursor = false;
         }
         private void StopAll()
@@ -2190,9 +2253,46 @@ namespace StartMe
             SettingsSave(Properties.Settings.Default.SettingsKeyCurrent);
         }
 
-        private void SetPid(int pidNum, string pidText)
+        private bool GetKeep(int n)
         {
-            switch(pidNum)
+            bool keepRunning;
+            switch(n)
+            {
+                case 1: keepRunning = checkBoxKeepRunning1.Checked; break;
+                case 2: keepRunning = checkBoxKeepRunning2.Checked; break;
+                case 3: keepRunning = checkBoxKeepRunning3.Checked; break;
+                case 4: keepRunning = checkBoxKeepRunning4.Checked; break;
+                case 5: keepRunning = checkBoxKeepRunning5.Checked; break;
+                case 6: keepRunning = checkBoxKeepRunning6.Checked; break;
+                case 7: keepRunning = checkBoxKeepRunning7.Checked; break;
+                case 8: keepRunning = checkBoxKeepRunning8.Checked; break;
+                case 9: keepRunning = checkBoxKeepRunning9.Checked; break;
+                default: keepRunning = false; break;
+            }
+            return keepRunning;
+        }
+        private Int64 GetPid(int n)
+        {
+            string pid;
+            switch(n)
+            {
+                case 1: pid = pid1.Text; break;
+                case 2: pid = pid2.Text; break;
+                case 3: pid = pid3.Text; break;
+                case 4: pid = pid4.Text; break;
+                case 5: pid = pid5.Text; break;
+                case 6: pid = pid6.Text; break;
+                case 7: pid = pid7.Text; break;
+                case 8: pid = pid8.Text; break;
+                case 9: pid = pid9.Text; break;
+                default: pid = ""; break;
+            }
+            if (pid.Length == 0) return 0;
+            return Int64.Parse(pid);
+        }
+        private void SetPid(int n, string pidText)
+        {
+            switch (n)
             {
                 case 1: pid1.Text = pidText; break;
                 case 2: pid2.Text = pidText; break;
@@ -2206,7 +2306,7 @@ namespace StartMe
             }
             if (pidText.Length == 0)
             {
-                ProcessSetMainWindowHandle(pidNum, (IntPtr)0);
+                ProcessSetMainWindowHandle(n, (IntPtr)0);
             }
         }
 
@@ -2235,6 +2335,10 @@ namespace StartMe
                     }
                 }
                 //SetStartStop(i, !running, running);
+                if (!running && GetKeep(i) && GetPid(i)!=0)
+                {
+                    ProcessStart(i, ModifierKeys);
+                }
                 if (!running) SetPid(i, "");
             }
         }
@@ -2387,6 +2491,11 @@ namespace StartMe
             Properties.Settings.Default.SettingsKeyCurrent = key;
             Properties.Settings.Default.SettingsKey = key;
 
+            //0 -- Non task specific settings
+            Properties.Settings.Default.Minimize = checkBoxMinimize.Checked;
+            Properties.Settings.Default.CloseAll = checkBoxStopAll.Checked;
+            Properties.Settings.Default.Startup = checkBoxStartup.Checked;
+
             //1
             Properties.Settings.Default.Path1 = textBoxPath1.Text;
             Properties.Settings.Default.Path2 = textBoxPath2.Text;
@@ -2531,11 +2640,6 @@ namespace StartMe
             Properties.Settings.Default.KeysStop9 = textBoxStop9.Text;
 
             //14
-            Properties.Settings.Default.Minimize = checkBoxMinimize.Checked;
-
-            //15
-            Properties.Settings.Default.CloseAll = checkBoxStopAll.Checked;
-
             Properties.Settings.Default.Kill1 = checkBoxKill1.Checked;
             Properties.Settings.Default.Kill2 = checkBoxKill2.Checked;
             Properties.Settings.Default.Kill3 = checkBoxKill3.Checked;
@@ -2546,7 +2650,7 @@ namespace StartMe
             Properties.Settings.Default.Kill8 = checkBoxKill8.Checked;
             Properties.Settings.Default.Kill9 = checkBoxKill9.Checked;
 
-            //16
+            //15
             Properties.Settings.Default.StartDelay1After = numericUpDownDelay1After.Value;
             Properties.Settings.Default.StartDelay2After = numericUpDownDelay2After.Value;
             Properties.Settings.Default.StartDelay3After = numericUpDownDelay3After.Value;
@@ -2556,6 +2660,28 @@ namespace StartMe
             Properties.Settings.Default.StartDelay7After = numericUpDownDelay7After.Value;
             Properties.Settings.Default.StartDelay8After = numericUpDownDelay8After.Value;
             Properties.Settings.Default.StartDelay9After = numericUpDownDelay9After.Value;
+
+            //16
+            Properties.Settings.Default.Path1Enabled = textBoxPath1.Enabled;
+            Properties.Settings.Default.Path2Enabled = textBoxPath2.Enabled;
+            Properties.Settings.Default.Path3Enabled = textBoxPath3.Enabled;
+            Properties.Settings.Default.Path4Enabled = textBoxPath4.Enabled;
+            Properties.Settings.Default.Path5Enabled = textBoxPath5.Enabled;
+            Properties.Settings.Default.Path6Enabled = textBoxPath6.Enabled;
+            Properties.Settings.Default.Path7Enabled = textBoxPath7.Enabled;
+            Properties.Settings.Default.Path8Enabled = textBoxPath8.Enabled;
+            Properties.Settings.Default.Path9Enabled = textBoxPath9.Enabled;
+
+            //17
+            Properties.Settings.Default.KeepRunning1 = checkBoxKeepRunning1.Checked;
+            Properties.Settings.Default.KeepRunning2 = checkBoxKeepRunning2.Checked;
+            Properties.Settings.Default.KeepRunning3 = checkBoxKeepRunning3.Checked;
+            Properties.Settings.Default.KeepRunning4 = checkBoxKeepRunning4.Checked;
+            Properties.Settings.Default.KeepRunning5 = checkBoxKeepRunning5.Checked;
+            Properties.Settings.Default.KeepRunning6 = checkBoxKeepRunning6.Checked;
+            Properties.Settings.Default.KeepRunning7 = checkBoxKeepRunning7.Checked;
+            Properties.Settings.Default.KeepRunning8 = checkBoxKeepRunning8.Checked;
+            Properties.Settings.Default.KeepRunning9 = checkBoxKeepRunning9.Checked;
 
             /*
             try
@@ -2608,9 +2734,13 @@ namespace StartMe
 
             //String s1 = Properties.Settings.Default.SettingsKey;
             //String s2 = Properties.Settings.Default.SettingsKeyCurrent;
+
+            //0
             checkBoxMinimize.Checked = Properties.Settings.Default.Minimize;
             checkBoxStopAll.Checked = Properties.Settings.Default.CloseAll;
+            checkBoxStartup.Checked = Properties.Settings.Default.Startup;
 
+            //1
             textBoxPath1.Text = Properties.Settings.Default.Path1;
             if (textBoxPath1.Text.Contains("\r\n")) textBoxPath1.Text = "";
             textBoxPath2.Text = Properties.Settings.Default.Path2;
@@ -2630,86 +2760,7 @@ namespace StartMe
             textBoxPath9.Text = Properties.Settings.Default.Path9;
             if (textBoxPath9.Text.Contains("\r\n")) textBoxPath9.Text = "";
 
-            checkBoxAutoStart1.Checked = Properties.Settings.Default.AutoStart1;
-            checkBoxAutoStart2.Checked = Properties.Settings.Default.AutoStart2;
-            checkBoxAutoStart3.Checked = Properties.Settings.Default.AutoStart3;
-            checkBoxAutoStart4.Checked = Properties.Settings.Default.AutoStart4;
-            checkBoxAutoStart5.Checked = Properties.Settings.Default.AutoStart5;
-            checkBoxAutoStart6.Checked = Properties.Settings.Default.AutoStart6;
-            checkBoxAutoStart7.Checked = Properties.Settings.Default.AutoStart7;
-            checkBoxAutoStart8.Checked = Properties.Settings.Default.AutoStart8;
-            checkBoxAutoStart9.Checked = Properties.Settings.Default.AutoStart9;
-
-            numericUpDownDelay1Before.Value = Properties.Settings.Default.StartDelay1Before;
-            numericUpDownDelay2Before.Value = Properties.Settings.Default.StartDelay2Before;
-            numericUpDownDelay3Before.Value = Properties.Settings.Default.StartDelay3Before;
-            numericUpDownDelay4Before.Value = Properties.Settings.Default.StartDelay4Before;
-            numericUpDownDelay5Before.Value = Properties.Settings.Default.StartDelay5Before;
-            numericUpDownDelay6Before.Value = Properties.Settings.Default.StartDelay6Before;
-            numericUpDownDelay7Before.Value = Properties.Settings.Default.StartDelay7Before;
-            numericUpDownDelay8Before.Value = Properties.Settings.Default.StartDelay8Before;
-            numericUpDownDelay9Before.Value = Properties.Settings.Default.StartDelay9Before;
-
-            textBoxStart1.Text = Properties.Settings.Default.KeysStart1;
-            textBoxStart2.Text = Properties.Settings.Default.KeysStart2;
-            textBoxStart3.Text = Properties.Settings.Default.KeysStart3;
-            textBoxStart4.Text = Properties.Settings.Default.KeysStart4;
-            textBoxStart5.Text = Properties.Settings.Default.KeysStart5;
-            textBoxStart6.Text = Properties.Settings.Default.KeysStart6;
-            textBoxStart7.Text = Properties.Settings.Default.KeysStart7;
-            textBoxStart9.Text = Properties.Settings.Default.KeysStart8;
-            textBoxStart1.Text = Properties.Settings.Default.KeysStart9;
-
-            textBoxStart1Sequence.Text = Properties.Settings.Default.Start1Next;
-            textBoxStart2Sequence.Text = Properties.Settings.Default.Start2Next;
-            textBoxStart3Sequence.Text = Properties.Settings.Default.Start3Next;
-            textBoxStart4Sequence.Text = Properties.Settings.Default.Start4Next;
-            textBoxStart5Sequence.Text = Properties.Settings.Default.Start5Next;
-            textBoxStart6Sequence.Text = Properties.Settings.Default.Start6Next;
-            textBoxStart7Sequence.Text = Properties.Settings.Default.Start7Next;
-            textBoxStart8Sequence.Text = Properties.Settings.Default.Start8Next;
-            textBoxStart9Sequence.Text = Properties.Settings.Default.Start9Next;
-
-            textBoxStart1Stop.Text = Properties.Settings.Default.Start1Stop;
-            textBoxStart2Stop.Text = Properties.Settings.Default.Start2Stop;
-            textBoxStart3Stop.Text = Properties.Settings.Default.Start3Stop;
-            textBoxStart4Stop.Text = Properties.Settings.Default.Start4Stop;
-            textBoxStart5Stop.Text = Properties.Settings.Default.Start5Stop;
-            textBoxStart6Stop.Text = Properties.Settings.Default.Start6Stop;
-            textBoxStart7Stop.Text = Properties.Settings.Default.Start7Stop;
-            textBoxStart8Stop.Text = Properties.Settings.Default.Start8Stop;
-            textBoxStart9Stop.Text = Properties.Settings.Default.Start9Stop;
-
-            numericUpDownDelayStop1.Value = Properties.Settings.Default.StopDelay1;
-            numericUpDownDelayStop2.Value = Properties.Settings.Default.StopDelay2;
-            numericUpDownDelayStop3.Value = Properties.Settings.Default.StopDelay3;
-            numericUpDownDelayStop4.Value = Properties.Settings.Default.StopDelay4;
-            numericUpDownDelayStop5.Value = Properties.Settings.Default.StopDelay5;
-            numericUpDownDelayStop6.Value = Properties.Settings.Default.StopDelay6;
-            numericUpDownDelayStop7.Value = Properties.Settings.Default.StopDelay7;
-            numericUpDownDelayStop8.Value = Properties.Settings.Default.StopDelay8;
-            numericUpDownDelayStop9.Value = Properties.Settings.Default.StopDelay9;
-
-            textBoxStop1.Text = Properties.Settings.Default.KeysStop1;
-            textBoxStop2.Text = Properties.Settings.Default.KeysStop2;
-            textBoxStop3.Text = Properties.Settings.Default.KeysStop3;
-            textBoxStop4.Text = Properties.Settings.Default.KeysStop4;
-            textBoxStop5.Text = Properties.Settings.Default.KeysStop5;
-            textBoxStop6.Text = Properties.Settings.Default.KeysStop6;
-            textBoxStop7.Text = Properties.Settings.Default.KeysStop7;
-            textBoxStop8.Text = Properties.Settings.Default.KeysStop8;
-            textBoxStop9.Text = Properties.Settings.Default.KeysStop9;
-
-            numericUpDownCPU1.Value = Properties.Settings.Default.CPU1;
-            numericUpDownCPU2.Value = Properties.Settings.Default.CPU2;
-            numericUpDownCPU3.Value = Properties.Settings.Default.CPU3;
-            numericUpDownCPU4.Value = Properties.Settings.Default.CPU4;
-            numericUpDownCPU5.Value = Properties.Settings.Default.CPU5;
-            numericUpDownCPU6.Value = Properties.Settings.Default.CPU6;
-            numericUpDownCPU7.Value = Properties.Settings.Default.CPU7;
-            numericUpDownCPU8.Value = Properties.Settings.Default.CPU8;
-            numericUpDownCPU9.Value = Properties.Settings.Default.CPU9;
-
+            //2
             textBoxArgs1.Text = Properties.Settings.Default.Args1;
             textBoxArgs2.Text = Properties.Settings.Default.Args2;
             textBoxArgs3.Text = Properties.Settings.Default.Args3;
@@ -2720,6 +2771,18 @@ namespace StartMe
             textBoxArgs8.Text = Properties.Settings.Default.Args8;
             textBoxArgs9.Text = Properties.Settings.Default.Args9;
 
+            //3
+            checkBoxAutoStart1.Checked = Properties.Settings.Default.AutoStart1;
+            checkBoxAutoStart2.Checked = Properties.Settings.Default.AutoStart2;
+            checkBoxAutoStart3.Checked = Properties.Settings.Default.AutoStart3;
+            checkBoxAutoStart4.Checked = Properties.Settings.Default.AutoStart4;
+            checkBoxAutoStart5.Checked = Properties.Settings.Default.AutoStart5;
+            checkBoxAutoStart6.Checked = Properties.Settings.Default.AutoStart6;
+            checkBoxAutoStart7.Checked = Properties.Settings.Default.AutoStart7;
+            checkBoxAutoStart8.Checked = Properties.Settings.Default.AutoStart8;
+            checkBoxAutoStart9.Checked = Properties.Settings.Default.AutoStart9;
+
+            //4
             checkBoxMinimize1.Checked = Properties.Settings.Default.Minimize1;
             checkBoxMinimize2.Checked = Properties.Settings.Default.Minimize2;
             checkBoxMinimize3.Checked = Properties.Settings.Default.Minimize3;
@@ -2728,8 +2791,9 @@ namespace StartMe
             checkBoxMinimize6.Checked = Properties.Settings.Default.Minimize6;
             checkBoxMinimize7.Checked = Properties.Settings.Default.Minimize7;
             checkBoxMinimize8.Checked = Properties.Settings.Default.Minimize8;
-            checkBoxMinimize1.Checked = Properties.Settings.Default.Minimize9;
+            checkBoxMinimize9.Checked = Properties.Settings.Default.Minimize9;
 
+            //5
             checkBoxAdmin1.Checked = Properties.Settings.Default.Admin1;
             checkBoxAdmin2.Checked = Properties.Settings.Default.Admin2;
             checkBoxAdmin3.Checked = Properties.Settings.Default.Admin3;
@@ -2740,6 +2804,7 @@ namespace StartMe
             checkBoxAdmin8.Checked = Properties.Settings.Default.Admin8;
             checkBoxAdmin9.Checked = Properties.Settings.Default.Admin9;
 
+            //6
             comboBoxPriority1.Enabled = false;
             comboBoxPriority2.Enabled = false;
             comboBoxPriority3.Enabled = false;
@@ -2768,6 +2833,84 @@ namespace StartMe
             comboBoxPriority8.Enabled = true;
             comboBoxPriority9.Enabled = true;
 
+            //7
+            numericUpDownDelay1Before.Value = Properties.Settings.Default.StartDelay1Before;
+            numericUpDownDelay2Before.Value = Properties.Settings.Default.StartDelay2Before;
+            numericUpDownDelay3Before.Value = Properties.Settings.Default.StartDelay3Before;
+            numericUpDownDelay4Before.Value = Properties.Settings.Default.StartDelay4Before;
+            numericUpDownDelay5Before.Value = Properties.Settings.Default.StartDelay5Before;
+            numericUpDownDelay6Before.Value = Properties.Settings.Default.StartDelay6Before;
+            numericUpDownDelay7Before.Value = Properties.Settings.Default.StartDelay7Before;
+            numericUpDownDelay8Before.Value = Properties.Settings.Default.StartDelay8Before;
+            numericUpDownDelay9Before.Value = Properties.Settings.Default.StartDelay9Before;
+
+            //8
+            numericUpDownCPU1.Value = Properties.Settings.Default.CPU1;
+            numericUpDownCPU2.Value = Properties.Settings.Default.CPU2;
+            numericUpDownCPU3.Value = Properties.Settings.Default.CPU3;
+            numericUpDownCPU4.Value = Properties.Settings.Default.CPU4;
+            numericUpDownCPU5.Value = Properties.Settings.Default.CPU5;
+            numericUpDownCPU6.Value = Properties.Settings.Default.CPU6;
+            numericUpDownCPU7.Value = Properties.Settings.Default.CPU7;
+            numericUpDownCPU8.Value = Properties.Settings.Default.CPU8;
+            numericUpDownCPU9.Value = Properties.Settings.Default.CPU9;
+
+            //9
+            textBoxStart1.Text = Properties.Settings.Default.KeysStart1;
+            textBoxStart2.Text = Properties.Settings.Default.KeysStart2;
+            textBoxStart3.Text = Properties.Settings.Default.KeysStart3;
+            textBoxStart4.Text = Properties.Settings.Default.KeysStart4;
+            textBoxStart5.Text = Properties.Settings.Default.KeysStart5;
+            textBoxStart6.Text = Properties.Settings.Default.KeysStart6;
+            textBoxStart7.Text = Properties.Settings.Default.KeysStart7;
+            textBoxStart8.Text = Properties.Settings.Default.KeysStart8;
+            textBoxStart9.Text = Properties.Settings.Default.KeysStart9;
+
+            //10
+            textBoxStart1Sequence.Text = Properties.Settings.Default.Start1Next;
+            textBoxStart2Sequence.Text = Properties.Settings.Default.Start2Next;
+            textBoxStart3Sequence.Text = Properties.Settings.Default.Start3Next;
+            textBoxStart4Sequence.Text = Properties.Settings.Default.Start4Next;
+            textBoxStart5Sequence.Text = Properties.Settings.Default.Start5Next;
+            textBoxStart6Sequence.Text = Properties.Settings.Default.Start6Next;
+            textBoxStart7Sequence.Text = Properties.Settings.Default.Start7Next;
+            textBoxStart8Sequence.Text = Properties.Settings.Default.Start8Next;
+            textBoxStart9Sequence.Text = Properties.Settings.Default.Start9Next;
+
+            //11
+            textBoxStart1Stop.Text = Properties.Settings.Default.Start1Stop;
+            textBoxStart2Stop.Text = Properties.Settings.Default.Start2Stop;
+            textBoxStart3Stop.Text = Properties.Settings.Default.Start3Stop;
+            textBoxStart4Stop.Text = Properties.Settings.Default.Start4Stop;
+            textBoxStart5Stop.Text = Properties.Settings.Default.Start5Stop;
+            textBoxStart6Stop.Text = Properties.Settings.Default.Start6Stop;
+            textBoxStart7Stop.Text = Properties.Settings.Default.Start7Stop;
+            textBoxStart8Stop.Text = Properties.Settings.Default.Start8Stop;
+            textBoxStart9Stop.Text = Properties.Settings.Default.Start9Stop;
+
+            //12
+            numericUpDownDelayStop1.Value = Properties.Settings.Default.StopDelay1;
+            numericUpDownDelayStop2.Value = Properties.Settings.Default.StopDelay2;
+            numericUpDownDelayStop3.Value = Properties.Settings.Default.StopDelay3;
+            numericUpDownDelayStop4.Value = Properties.Settings.Default.StopDelay4;
+            numericUpDownDelayStop5.Value = Properties.Settings.Default.StopDelay5;
+            numericUpDownDelayStop6.Value = Properties.Settings.Default.StopDelay6;
+            numericUpDownDelayStop7.Value = Properties.Settings.Default.StopDelay7;
+            numericUpDownDelayStop8.Value = Properties.Settings.Default.StopDelay8;
+            numericUpDownDelayStop9.Value = Properties.Settings.Default.StopDelay9;
+
+            //13
+            textBoxStop1.Text = Properties.Settings.Default.KeysStop1;
+            textBoxStop2.Text = Properties.Settings.Default.KeysStop2;
+            textBoxStop3.Text = Properties.Settings.Default.KeysStop3;
+            textBoxStop4.Text = Properties.Settings.Default.KeysStop4;
+            textBoxStop5.Text = Properties.Settings.Default.KeysStop5;
+            textBoxStop6.Text = Properties.Settings.Default.KeysStop6;
+            textBoxStop7.Text = Properties.Settings.Default.KeysStop7;
+            textBoxStop8.Text = Properties.Settings.Default.KeysStop8;
+            textBoxStop9.Text = Properties.Settings.Default.KeysStop9;
+
+            //14
             checkBoxKill1.Checked = Properties.Settings.Default.Kill1;
             checkBoxKill2.Checked = Properties.Settings.Default.Kill2;
             checkBoxKill3.Checked = Properties.Settings.Default.Kill3;
@@ -2778,6 +2921,7 @@ namespace StartMe
             checkBoxKill8.Checked = Properties.Settings.Default.Kill8;
             checkBoxKill9.Checked = Properties.Settings.Default.Kill9;
 
+            //15
             numericUpDownDelay1After.Value = Properties.Settings.Default.StartDelay1After;
             numericUpDownDelay2After.Value = Properties.Settings.Default.StartDelay2After;
             numericUpDownDelay3After.Value = Properties.Settings.Default.StartDelay3After;
@@ -2787,6 +2931,28 @@ namespace StartMe
             numericUpDownDelay7After.Value = Properties.Settings.Default.StartDelay7After;
             numericUpDownDelay8After.Value = Properties.Settings.Default.StartDelay8After;
             numericUpDownDelay9After.Value = Properties.Settings.Default.StartDelay9After;
+
+            //16
+            textBoxPath1.Enabled = buttonStart1.Enabled = Properties.Settings.Default.Path1Enabled;
+            textBoxPath2.Enabled = buttonStart2.Enabled = Properties.Settings.Default.Path2Enabled;
+            textBoxPath3.Enabled = buttonStart3.Enabled = Properties.Settings.Default.Path3Enabled;
+            textBoxPath4.Enabled = buttonStart4.Enabled = Properties.Settings.Default.Path4Enabled;
+            textBoxPath5.Enabled = buttonStart5.Enabled = Properties.Settings.Default.Path5Enabled;
+            textBoxPath6.Enabled = buttonStart6.Enabled = Properties.Settings.Default.Path6Enabled;
+            textBoxPath7.Enabled = buttonStart7.Enabled = Properties.Settings.Default.Path7Enabled;
+            textBoxPath8.Enabled = buttonStart8.Enabled = Properties.Settings.Default.Path8Enabled;
+            textBoxPath9.Enabled = buttonStart9.Enabled = Properties.Settings.Default.Path9Enabled;
+
+            //17
+            checkBoxKeepRunning1.Checked = Properties.Settings.Default.KeepRunning1;
+            checkBoxKeepRunning2.Checked = Properties.Settings.Default.KeepRunning2;
+            checkBoxKeepRunning3.Checked = Properties.Settings.Default.KeepRunning3;
+            checkBoxKeepRunning4.Checked = Properties.Settings.Default.KeepRunning4;
+            checkBoxKeepRunning5.Checked = Properties.Settings.Default.KeepRunning5;
+            checkBoxKeepRunning6.Checked = Properties.Settings.Default.KeepRunning6;
+            checkBoxKeepRunning7.Checked = Properties.Settings.Default.KeepRunning7;
+            checkBoxKeepRunning8.Checked = Properties.Settings.Default.KeepRunning8;
+            checkBoxKeepRunning9.Checked = Properties.Settings.Default.KeepRunning9;
 
             //pid1.Text = Properties.Settings.Default.Pid1.ToString();
             //pid2.Text = Properties.Settings.Default.Pid2.ToString();
@@ -2867,7 +3033,7 @@ namespace StartMe
         {
             if (ModifierKeys.HasFlag(Keys.Shift))
             {
-                if (MessageBox.Show("Do you want to delete "+comboBoxSettingsKey.Text+"?", "Config Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Do you want to delete " + comboBoxSettingsKey.Text + "?", "Config Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     MessageBox.Show("Delete not implemented yet");
                 }
@@ -3667,11 +3833,11 @@ namespace StartMe
 
         private bool CheckStartSeqOK()
         {
-            for(int n=1;n<=9;++n)
+            for (int n = 1; n <= 9; ++n)
             {
                 if (!GetStartSequence(n).Equals(""))
                 {
-                    MessageBox.Show("If one Start box has a number they all must have numbers!!","Error StartMe");
+                    MessageBox.Show("If one Start box has a number they all must have numbers!!", "Error StartMe");
                     return false;
                 }
             }
@@ -3707,7 +3873,7 @@ namespace StartMe
                 MessageBox.Show("Delete key not implemented yet", "Error StartMe");
                 //if (MessageBox.Show("Do you want to delete this setting?", "StartMe Settings", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 //{
-                    //SettingsDelete(comboBoxSettingsKey.Text);
+                //SettingsDelete(comboBoxSettingsKey.Text);
                 //}
 
             }
@@ -3764,8 +3930,8 @@ namespace StartMe
 
         void SwapTaskPath(int swap1, int swap2)
         {
-            TextBox text1=null, text2=null;
-            switch(swap1)
+            TextBox text1 = null, text2 = null;
+            switch (swap1)
             {
                 case 1:
                     text1 = textBoxPath1; break;
@@ -3786,7 +3952,7 @@ namespace StartMe
                 case 9:
                     text1 = textBoxPath9; break;
             }
-            switch(swap2)
+            switch (swap2)
             {
                 case 1:
                     text2 = textBoxPath1; break;
@@ -4575,7 +4741,7 @@ namespace StartMe
             using (MenuItem m = (MenuItem)o)
             {
                 int task2 = 0;
-                switch(m.Text)
+                switch (m.Text)
                 {
                     case "Swap with Task#1":
                         task2 = 1;
@@ -4605,7 +4771,7 @@ namespace StartMe
                         task2 = 9;
                         break;
                     default:
-                        MessageBox.Show("Unknown case in in SwapTasks="+m.Text, "Error StartMe");
+                        MessageBox.Show("Unknown case in in SwapTasks=" + m.Text, "Error StartMe");
                         break;
                 }
                 SwapTaskPath(selectedTask, task2);
@@ -4663,6 +4829,65 @@ namespace StartMe
             }
             //MessageBox.Show("Done with backups\n");
             SettingsLoad(settingsKey);
+        }
+
+        private void LabelPath1_Click(object sender, EventArgs e)
+        {
+            textBoxPath1.Enabled = !textBoxPath1.Enabled;
+            buttonStart1.Enabled = textBoxPath1.Enabled;
+        }
+
+        private void LabelPath2_Click(object sender, EventArgs e)
+        {
+            textBoxPath2.Enabled = !textBoxPath2.Enabled;
+            buttonStart2.Enabled = textBoxPath2.Enabled;
+        }
+
+        private void LabelPath3_Click(object sender, EventArgs e)
+        {
+            textBoxPath3.Enabled = !textBoxPath3.Enabled;
+            buttonStart3.Enabled = textBoxPath3.Enabled;
+        }
+
+        private void LabelPath4_Click(object sender, EventArgs e)
+        {
+            textBoxPath4.Enabled = !textBoxPath4.Enabled;
+            buttonStart4.Enabled = textBoxPath4.Enabled;
+        }
+
+        private void LabelPath5_Click(object sender, EventArgs e)
+        {
+            textBoxPath5.Enabled = !textBoxPath5.Enabled;
+            buttonStart5.Enabled = textBoxPath5.Enabled;
+        }
+
+        private void LabelPath6_Click(object sender, EventArgs e)
+        {
+            textBoxPath6.Enabled = !textBoxPath6.Enabled;
+            buttonStart6.Enabled = textBoxPath6.Enabled;
+        }
+
+        private void LabelPath7_Click(object sender, EventArgs e)
+        {
+            textBoxPath7.Enabled = !textBoxPath7.Enabled;
+            buttonStart7.Enabled = textBoxPath7.Enabled;
+        }
+
+        private void LabelPath8_Click(object sender, EventArgs e)
+        {
+            textBoxPath8.Enabled = !textBoxPath8.Enabled;
+            buttonStart8.Enabled = textBoxPath8.Enabled;
+        }
+
+        private void LabelPath9_Click(object sender, EventArgs e)
+        {
+            textBoxPath9.Enabled = !textBoxPath9.Enabled;
+            buttonStart9.Enabled = textBoxPath9.Enabled;
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            StartAll(true);
         }
     }
 }

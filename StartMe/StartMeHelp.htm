@@ -15,16 +15,16 @@ xmlns="http://www.w3.org/TR/REC-html40">
  <o:DocumentProperties>
   <o:Author>Black</o:Author>
   <o:LastAuthor>Michael Black</o:LastAuthor>
-  <o:Revision>26</o:Revision>
-  <o:TotalTime>19373</o:TotalTime>
+  <o:Revision>30</o:Revision>
+  <o:TotalTime>19413</o:TotalTime>
   <o:Created>2018-06-25T18:55:00Z</o:Created>
-  <o:LastSaved>2019-09-11T17:19:00Z</o:LastSaved>
-  <o:Pages>3</o:Pages>
-  <o:Words>766</o:Words>
-  <o:Characters>4371</o:Characters>
-  <o:Lines>36</o:Lines>
-  <o:Paragraphs>10</o:Paragraphs>
-  <o:CharactersWithSpaces>5127</o:CharactersWithSpaces>
+  <o:LastSaved>2019-09-19T14:46:00Z</o:LastSaved>
+  <o:Pages>4</o:Pages>
+  <o:Words>828</o:Words>
+  <o:Characters>4721</o:Characters>
+  <o:Lines>39</o:Lines>
+  <o:Paragraphs>11</o:Paragraphs>
+  <o:CharactersWithSpaces>5538</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -36,6 +36,8 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
   <w:View>Print</w:View>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -1068,6 +1070,12 @@ span.TitleChar
 	mso-themeshade:191;
 	letter-spacing:.25pt;
 	mso-font-kerning:14.0pt;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -1337,7 +1345,7 @@ ul
 <div style='mso-element:para-border-div;border:none;border-bottom:solid #4F81BD 1.0pt;
 mso-border-bottom-themecolor:accent1;padding:0in 0in 4.0pt 0in'>
 
-<p class=MsoTitle>StartMe 0.17</p>
+<p class=MsoTitle>StartMe 0.21</p>
 
 </div>
 
@@ -1352,7 +1360,12 @@ configurations.<span style='mso-spacerun:yes'>  </span>You can: </p>
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Set task autostart</p>
+</span></span></span><![endif]>Set tasks to autostart</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Keep tasks running when the crash</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
@@ -1406,10 +1419,22 @@ style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>Delay after stop </p>
 
-<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>Kill task if needed</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Multiple configurations for essentially unlimited
+task management</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Selection of a specific setting during startup
+(defaults to running all settings) </p>
 
 <h1>Running the first time</h1>
 
@@ -1421,8 +1446,8 @@ automatically when StartMe is started.</p>
 
 <p class=MsoNormal>#3 You can set a sequence number to control the order of
 startup.<span style='mso-spacerun:yes'>  </span>If you don’t put a sequence
-number in then autostart will simply follow the task sequence 1-9 for startup
-and reverse it for shutdown.</p>
+number <span class=GramE>in</span> then autostart will simply follow the task
+sequence 1-9 for startup and reverse it for shutdown.</p>
 
 <p class=MsoNormal>#4 An easy way to prevent disk thrashing is to use the CPU %
 control to wait until the CPU dies down below some value (like 5% or 10% or
@@ -1431,7 +1456,7 @@ whatever the idle state shows for CPU usage).</p>
 <p class=MsoNormal>#5 Delays can be programmed before start, after start, and
 after shutdown.<span style='mso-spacerun:yes'>  </span>Sometimes a program may
 need some extra time before starting another dependent program or may take a
-while to shutdown so you don’t get a “failed shutdown” message.</p>
+while to shut down, so you don’t get a “failed shutdown” message.</p>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
@@ -1455,14 +1480,15 @@ color:#365F91;mso-themecolor:accent1;mso-themeshade:191'><o:p>&nbsp;</o:p></span
 <p class=MsoNormal>A limited set of key entries can be made to any window using
 this format:</p>
 
-<p class=MsoNormal>“WindowName” KEY KEY KEY KEY…..</p>
+<p class=MsoNormal>“<span class=SpellE>WindowName</span>” KEY <span
+class=SpellE>KEY</span> <span class=SpellE>KEY</span> KEY<span class=GramE>…..</span></p>
 
-<p class=MsoNormal>“WindowName” must be the starting characters of any window
-enough to make it unique.</p>
+<p class=MsoNormal>“<span class=SpellE>WindowName</span>” must be the starting
+characters of any window enough to make it unique.</p>
 
 <p class=MsoNormal>Some programs do not recognize standard shutdown commands
-and require key strokes to shut down politely or have to activate certain
-windows.</p>
+and require keystrokes to shut down politely or <span class=GramE>have to</span>
+activate certain windows.</p>
 
 <p class=MsoNormal>Some examples known to need this and working entries:</p>
 
@@ -1473,8 +1499,8 @@ Log4OM - &quot;Awaiting confirmation&quot; DELAY ENTER</p>
 of JTAlert 2.3.14 these keystrokes are no longer needed<span style='mso-tab-count:
 1'>               </span></p>
 
-<p class=MsoNormal><span style='mso-tab-count:1'>               </span>&quot;JTAlertX
-2&quot; ALT+A DELAY UP ENTER</p>
+<p class=MsoNormal><span style='mso-tab-count:1'>               </span>&quot;<span
+class=SpellE>JTAlertX</span> 2&quot; ALT+A DELAY UP ENTER</p>
 
 <p class=MsoNormal>Known key entries (if you need more keys please send request
 to <a href="mailto:mdblack98@yahoo.com">mdblack98@yahoo.com</a>).</p>
@@ -1482,7 +1508,7 @@ to <a href="mailto:mdblack98@yahoo.com">mdblack98@yahoo.com</a>).</p>
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Cursor keys DOWN,UP,RIGHT,LEFT</p>
+</span></span></span><![endif]>Cursor keys DOWN, UP, RIGHT, LEFT</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
@@ -1539,7 +1565,7 @@ settings will be examined for autostart and the first setting name will be made
 the visible one after all tasks have been started.<span
 style='mso-spacerun:yes'>  </span>You can switch between settings from the
 “Settings Name” pulldown.<span style='mso-spacerun:yes'>  </span>If you pass a
-setting name as an argument to StartMe only that settings will be loaded and
+setting name as an argument to StartMe only that settings will be loaded, and
 other settings will be ignored.</p>
 
 <p class=MsoNormal>To create a new settings page just type a name in the
@@ -1553,47 +1579,60 @@ style='mso-spacerun:yes'>  </span>All settings will be swapped between them.</p>
 
 <h1>Auto Start</h1>
 
-<p class=MsoNormal>As of V0.12 only the first configuration page will autostart
-during StartMe startup.<span style='mso-spacerun:yes'>  </span>This may change
-in the future to allow multiple configurations to autostart.</p>
+<p class=MsoNormal>At startup all configurations will be examined for autostart
+items by default.<span style='mso-spacerun:yes'>  </span>You can override this
+behavior by passing the configuration name (case sensitive) as an argument to
+StartMe.</p>
 
-<h1>Start/Stop Sequence</h1>
+<h1>Tasks</h1>
 
-<p class=MsoNormal>By default tasks will be started from top to bottom on the
-selected configuration setting.<span style='mso-spacerun:yes'>  </span>You can
-change the start or stop order by enter the number 1-9 in the Start or Stop
-columns.<span style='mso-spacerun:yes'>  </span>The only time this should be
-needed is if you have to stop tasks in a different order the reverse of the
-startup.</p>
+<p class=MsoNormal>You can double-click on the number in front of the path to
+toggle the enabling of task.<span style='mso-spacerun:yes'>  </span>A task that
+is disabled will not be able to start at all.</p>
+
+<p class=MsoNormal>By <span class=GramE>default</span> tasks will be started
+from top to bottom on the selected configuration setting.<span
+style='mso-spacerun:yes'>  </span>You can change the start or stop order by
+enter the number 1-9 in the Start or Stop columns.<span
+style='mso-spacerun:yes'>  </span>The only time this should be needed is if you
+<span class=GramE>have to</span> stop tasks in a different order the reverse of
+the startup.<span style='mso-spacerun:yes'>  </span>You can right-click on the
+task path to swap it with another task to change the default order.</p>
 
 <p class=MsoNormal>If you enter a “0” or in the Stop column then that task will
-not be stopped when StopAll is clicked.</p>
+not be stopped when <span class=SpellE>StopAll</span> is clicked.</p>
 
-<p class=MsoNormal>If you check the Auto box then all tasks in all
-configurations with Auto checked will start when StartMe starts.<span
-style='mso-spacerun:yes'>  </span>A future feature is to allow StartMe to start
-a specific configuration page so you could have multiple StartMe’s running if
-desired or only start on configuration and manually select the others.</p>
+<p class=MsoNormal>If you check the Auto <span class=GramE>box</span> then all
+tasks in all configurations with Auto checked will start when StartMe
+starts.<span style='mso-spacerun:yes'>  </span>You can have StartMe select a setting
+to start by passing the setting name as an argument to StartMe. You can have
+multiple <span class=SpellE>StartMe’s</span> running if desired or only start
+one configuration and manually select the others.</p>
 
 <p class=MsoNormal>Note:<span style='mso-spacerun:yes'>  </span>Shutdown of
-processes is not as robust as I’d like.<span style='mso-spacerun:yes'> 
-</span>Shutdown works most of the time but there are some states that some programs
-get into where they won’t shut down politely.<span style='mso-spacerun:yes'> 
-</span>For stubborn programs most can be “killed” with the “Kill” checkbox or
-Ctrl-click on the Stop button.<span style='mso-spacerun:yes'>  </span>JTAlert
-is one program which should NOT be killed as it will leave plugins running
-which can cause problems.</p>
+processes is not as robust as I’d like.<span style='mso-spacerun:yes'>  </span>Shutdown
+works most of the time but there are some states that some programs get into
+where they won’t shut down politely.<span style='mso-spacerun:yes'>  </span>For
+stubborn programs most can be “killed” with the “Kill” checkbox or Ctrl-click
+on the Stop button.<span style='mso-spacerun:yes'>  </span><span
+style='mso-spacerun:yes'>  </span>Some programs cannot be killed politely as
+they will leave some processes running.<span style='mso-spacerun:yes'> 
+</span>So be careful with the Kill selection.</p>
+
+<p class=MsoNormal>The Keep checkbox will restart a process if it crashes.<span
+style='mso-spacerun:yes'>  </span></p>
 
 <h1>Configuration Backup</h1>
 
 <p class=MsoNormal>Every time you make a change in your configuration and
-restart the program your user.config will get backed up.<span
-style='mso-spacerun:yes'>  </span>StartMe will tell you when your configuration
-has changed.<span style='mso-spacerun:yes'>  </span>Click the Backups button to
-see your backups and restore from them.<span style='mso-spacerun:yes'>  </span></p>
+restart the program your <span class=SpellE>user.config</span> will get backed
+up.<span style='mso-spacerun:yes'>  </span>StartMe will tell you when your
+configuration has changed.<span style='mso-spacerun:yes'>  </span>Click the
+Backups button to see your backups and restore from them.<span
+style='mso-spacerun:yes'>  </span></p>
 
-<p class=MsoNormal>Backups will be located in
-%LOCALAPPDATA%\StartMe\StartMe.exe_StrongName…..\1.0.0.0</p>
+<p class=MsoNormal>Backups will be located in %LOCALAPPDATA%\StartMe\<span
+class=SpellE>StartMe.exe_StrongName</span><span class=GramE>…..</span>\1.0.0.0</p>
 
 <h1>Source Code</h1>
 
@@ -1610,9 +1649,7 @@ Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"
 <h1>Error Reporting</h1>
 
 <p class=MsoNormal>All error should generate a dialog box which you can email
-to me for debugging.<span style='mso-spacerun:yes'>  </span>One known behavior
-is that if a process crashes you will get an error about setting administrative
-privileges which is incorrect.</p>
+to me for debugging.</p>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 

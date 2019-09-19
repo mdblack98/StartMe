@@ -1906,5 +1906,233 @@ namespace StartMe.Properties {
                 this["labelMainWindowHandle9"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path1Enabled {
+            get {
+                return ((bool)(this["Path1Enabled"]));
+            }
+            set {
+                this["Path1Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path2Enabled {
+            get {
+                return ((bool)(this["Path2Enabled"]));
+            }
+            set {
+                this["Path2Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path3Enabled {
+            get {
+                return ((bool)(this["Path3Enabled"]));
+            }
+            set {
+                this["Path3Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path4Enabled {
+            get {
+                return ((bool)(this["Path4Enabled"]));
+            }
+            set {
+                this["Path4Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path5Enabled {
+            get {
+                return ((bool)(this["Path5Enabled"]));
+            }
+            set {
+                this["Path5Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path6Enabled {
+            get {
+                return ((bool)(this["Path6Enabled"]));
+            }
+            set {
+                this["Path6Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path7Enabled {
+            get {
+                return ((bool)(this["Path7Enabled"]));
+            }
+            set {
+                this["Path7Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path8Enabled {
+            get {
+                return ((bool)(this["Path8Enabled"]));
+            }
+            set {
+                this["Path8Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Path9Enabled {
+            get {
+                return ((bool)(this["Path9Enabled"]));
+            }
+            set {
+                this["Path9Enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Startup {
+            get {
+                return ((bool)(this["Startup"]));
+            }
+            set {
+                this["Startup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning1 {
+            get {
+                return ((bool)(this["KeepRunning1"]));
+            }
+            set {
+                this["KeepRunning1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning2 {
+            get {
+                return ((bool)(this["KeepRunning2"]));
+            }
+            set {
+                this["KeepRunning2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning3 {
+            get {
+                return ((bool)(this["KeepRunning3"]));
+            }
+            set {
+                this["KeepRunning3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning4 {
+            get {
+                return ((bool)(this["KeepRunning4"]));
+            }
+            set {
+                this["KeepRunning4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning5 {
+            get {
+                return ((bool)(this["KeepRunning5"]));
+            }
+            set {
+                this["KeepRunning5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning6 {
+            get {
+                return ((bool)(this["KeepRunning6"]));
+            }
+            set {
+                this["KeepRunning6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning7 {
+            get {
+                return ((bool)(this["KeepRunning7"]));
+            }
+            set {
+                this["KeepRunning7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning8 {
+            get {
+                return ((bool)(this["KeepRunning8"]));
+            }
+            set {
+                this["KeepRunning8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepRunning9 {
+            get {
+                return ((bool)(this["KeepRunning9"]));
+            }
+            set {
+                this["KeepRunning9"] = value;
+            }
+        }
     }
 }
