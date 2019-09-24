@@ -31,12 +31,18 @@ using System.Text;
 
     namespace StartMe
     {
-        /// <summary> 
-        /// The TOKEN_INFORMATION_CLASS enumeration type contains values that  
-        /// specify the type of information being assigned to or retrieved from  
-        /// an access token. 
-        /// </summary> 
-        internal enum TOKEN_INFORMATION_CLASS
+    internal static class SafeNativeMethods
+    {
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern bool CloseHandle(IntPtr handle);
+    }
+
+    /// <summary> 
+    /// The TOKEN_INFORMATION_CLASS enumeration type contains values that  
+    /// specify the type of information being assigned to or retrieved from  
+    /// an access token. 
+    /// </summary> 
+    internal enum TOKEN_INFORMATION_CLASS
         {
             TokenUser = 1,
             TokenGroups,
@@ -226,12 +232,9 @@ using System.Text;
                 base.SetHandle(handle);
             }
 
-            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            internal static extern bool CloseHandle(IntPtr handle);
-
             protected override bool ReleaseHandle()
             {
-                return CloseHandle(base.handle);
+                return SafeNativeMethods.CloseHandle(base.handle);
             }
         }
 
@@ -371,8 +374,8 @@ using System.Text;
             /// Specifies additional message-specific information. 
             /// </param> 
             /// <returns></returns> 
-            [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
-            public static extern int SendMessage(IntPtr hWnd, UInt32 Msg, int wParam, IntPtr lParam);
+            //[DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
+            //public static extern int SendMessage(IntPtr hWnd, UInt32 Msg, int wParam, IntPtr lParam);
 
 
             /// <summary> 

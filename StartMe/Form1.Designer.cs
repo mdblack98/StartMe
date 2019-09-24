@@ -3210,7 +3210,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
-            this.Validated += new System.EventHandler(this.Form1_Validated);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay1Before)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelayStop1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelayStop6)).EndInit();

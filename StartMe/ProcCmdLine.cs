@@ -9,7 +9,7 @@ namespace StartMe
 {
     public static class ProcCmdLine
     {
-        private static class Native
+        private static class SafeNativeMethods
         {
             [DllImport("shell32.dll", SetLastError = true, ExactSpelling = true, CharSet = CharSet.Unicode)]
             public static extern IntPtr CommandLineToArgvW(string lpCmdLine, out int pNumArgs);
@@ -23,8 +23,7 @@ namespace StartMe
 
         private static string[] CommandLineToArgs(string commandLine)
         {
-            int argc;
-            var argv = Native.CommandLineToArgvW(commandLine, out argc);
+            var argv = SafeNativeMethods.CommandLineToArgvW(commandLine, out int argc);
             if (argv == IntPtr.Zero) { throw new System.ComponentModel.Win32Exception(); }
             try
             {
@@ -49,8 +48,8 @@ namespace StartMe
             var sb = new StringBuilder(0xFFFF);
             switch (IntPtr.Size)
             {
-                case 4: Native.GetProcCmdLine32((uint)proc.Id, sb, (uint)sb.Capacity); break;
-                case 8: Native.GetProcCmdLine64((uint)proc.Id, sb, (uint)sb.Capacity); break;
+                case 4: SafeNativeMethods.GetProcCmdLine32((uint)proc.Id, sb, (uint)sb.Capacity); break;
+                case 8: SafeNativeMethods.GetProcCmdLine64((uint)proc.Id, sb, (uint)sb.Capacity); break;
             }
             return sb.ToString();
         }
@@ -70,11 +69,11 @@ namespace StartMe
 
         private static string RebuildArgumentsFromArray(string[] arrArgs)
         {
-            Func<string, string> encode = (s) =>
+            string encode(string s)
             {
                 if (string.IsNullOrEmpty(s)) { return "\"\""; }
                 return Regex.Replace(Regex.Replace(s, @"(\\*)" + "\"", @"$1\$0"), @"^(.*\s.*?)(\\*)$", "\"$1$2$2\"");
-            };
+            }
 
             if ((arrArgs != null) && (arrArgs.Length > 0))
             {

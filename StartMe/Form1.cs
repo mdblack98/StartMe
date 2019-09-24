@@ -22,54 +22,67 @@ namespace StartMe
 {
     public sealed partial class Form1 : Form
     {
-        private enum ShowWindowEnum
+        internal static class SafeNativeMethods
         {
-            Hide = 0,
-            ShowNormal = 1, ShowMinimized = 2, ShowMaximized = 3,
-            Maximize = 3, ShowNormalNoActivate = 4, Show = 5,
-            Minimize = 6, ShowMinNoActivate = 7, ShowNoActivate = 8,
-            Restore = 9, ShowDefault = 10, ForceMinimized = 11
-        };
+            public enum ShowWindowEnum
+            {
+                Hide = 0,
+                ShowNormal = 1, ShowMinimized = 2, ShowMaximized = 3,
+                Maximize = 3, ShowNormalNoActivate = 4, Show = 5,
+                Minimize = 6, ShowMinNoActivate = 7, ShowNoActivate = 8,
+                Restore = 9, ShowDefault = 10, ForceMinimized = 11
+            };
 
-        delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
+            [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+            public static extern int GetWindowText(IntPtr hWnd, StringBuilder strText, int maxCount);
 
-        [DllImport("user32.dll")]
-        static extern bool EnumThreadWindows(int dwThreadId, EnumThreadDelegate lpfn,
-            IntPtr lParam);
+            [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+            public static extern int GetWindowTextLength(IntPtr hWnd);
+            [DllImport("user32.dll")]
+            public static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
 
-        static IEnumerable<IntPtr> EnumerateProcessWindowHandles(int processId)
-        {
-            var handles = new List<IntPtr>();
+            [DllImport("user32.dll")]
+            public static extern bool EnumThreadWindows(int dwThreadId, EnumThreadDelegate lpfn,
+                IntPtr lParam);
 
-            foreach (ProcessThread thread in Process.GetProcessById(processId).Threads)
-                EnumThreadWindows(thread.Id,
-                    (hWnd, lParam) => { handles.Add(hWnd); return true; }, IntPtr.Zero);
+            public delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
 
-            return handles;
+            [DllImport("User32.dll")]
+            public static extern bool SetForegroundWindow(IntPtr point);
+
+            [DllImport("User32.dll")]
+            public static extern bool GetForegroundWindow();
+
+            [DllImport("User32.dll", CharSet = CharSet.Unicode)]
+            public static extern IntPtr FindWindow(string lpClass, String lpWindowName);
+
+            [DllImport("User32.dll")]
+            public static extern IntPtr GetParent(IntPtr hWnd);
+
+            [DllImport("user32.dll")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool ShowWindow(IntPtr hWnd, ShowWindowEnum flags);
+
+            [DllImport("user32")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr lParam);
+            public delegate bool EnumWindowProc(IntPtr hwnd, IntPtr lParam);
+
+            [DllImport("user32.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, string lParam);
+
+            public static IEnumerable<IntPtr> EnumerateProcessWindowHandles(int processId)
+            {
+                var handles = new List<IntPtr>();
+
+                foreach (ProcessThread thread in Process.GetProcessById(processId).Threads)
+                    SafeNativeMethods.EnumThreadWindows(thread.Id,
+                        (hWnd, lParam) => { handles.Add(hWnd); return true; }, IntPtr.Zero);
+
+                return handles;
+            }
+
         }
-        [DllImport("User32.dll")]
-        static extern bool SetForegroundWindow(IntPtr point);
-
-        [DllImport("User32.dll")]
-        static extern bool GetForegroundWindow();
-
-        [DllImport("User32.dll")]
-        static extern IntPtr FindWindow(string lpClass, String lpWindowName);
-
-        [DllImport("User32.dll")]
-        static extern IntPtr GetParent(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool ShowWindow(IntPtr hWnd, ShowWindowEnum flags);
-
-        [DllImport("user32")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr lParam);
-        private delegate bool EnumWindowProc(IntPtr hwnd, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, string lParam);
 
         bool autoStartDone = false;
         String settingsKey = "";
@@ -1036,7 +1049,7 @@ namespace StartMe
         private IntPtr ProcessGetWindowHandle(int pid)
         {
             // Just return the first window -- does this work all the time?
-            foreach (var handle in EnumerateProcessWindowHandles(pid))
+            foreach (var handle in SafeNativeMethods.EnumerateProcessWindowHandles(pid))
             {
                 return handle;
             }
@@ -1093,8 +1106,8 @@ namespace StartMe
             tokens = keys.Split(' ');
             if (keys.Length == 0) return;
             IntPtr mainWindowHandle = ProcessGetMainWindowHandle(n);
-            if (mainWindowHandle != (IntPtr)0) SetForegroundWindow(mainWindowHandle);
-            else SetForegroundWindow(process[n].MainWindowHandle);
+            if (mainWindowHandle != (IntPtr)0) SafeNativeMethods.SetForegroundWindow(mainWindowHandle);
+            else SafeNativeMethods.SetForegroundWindow(process[n].MainWindowHandle);
             Application.DoEvents();
             Thread.Sleep(1000);
             var h = FindWindowsWithText(windowName);
@@ -1109,7 +1122,7 @@ namespace StartMe
                 return;
             }
             if (h == null || h.Count() == 0) return; // must have stopped
-            SetForegroundWindow(h.First());
+            SafeNativeMethods.SetForegroundWindow(h.First());
             //Thread.Sleep(2000);
             foreach (String s in tokens)
             {
@@ -1208,13 +1221,6 @@ namespace StartMe
             return myHandle;
         }
 
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder strText, int maxCount);
-
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        private static extern int GetWindowTextLength(IntPtr hWnd);
-        [DllImport("user32.dll")]
-        private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
 
         // Delegate to filter which windows to include 
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
@@ -1225,11 +1231,11 @@ namespace StartMe
         /// <summary> Get the text for the window pointed to by hWnd </summary>
         public static string GetWindowText(IntPtr hWnd)
         {
-            int size = GetWindowTextLength(hWnd);
+            int size = SafeNativeMethods.GetWindowTextLength(hWnd);
             if (size > 0)
             {
                 var builder = new StringBuilder(size + 1);
-                GetWindowText(hWnd, builder, builder.Capacity);
+                SafeNativeMethods.GetWindowText(hWnd, builder, builder.Capacity);
                 return builder.ToString();
             }
 
@@ -1240,7 +1246,7 @@ namespace StartMe
             IntPtr found = IntPtr.Zero;
             List<IntPtr> windows = new List<IntPtr>();
 
-            EnumWindows(delegate (IntPtr wnd, IntPtr param)
+            SafeNativeMethods.EnumWindows(delegate (IntPtr wnd, IntPtr param)
             {
                 if (filter(wnd, param))
                 {
@@ -1676,7 +1682,7 @@ namespace StartMe
                     //IntPtr mainWindowHandle = ProcessGetMainWindowHandle(n);
                     //if (mainWindowHandle != (IntPtr)0) SetForegroundWindow(mainWindowHandle);
                     //else SetForegroundWindow(process[n].MainWindowHandle);
-                    SetForegroundWindow(process[n].MainWindowHandle);
+                    SafeNativeMethods.SetForegroundWindow(process[n].MainWindowHandle);
                     Application.DoEvents();
                     if (!hasStopSend)  // only ask for 2nd close window if not sending keys to window
                     {
@@ -1753,18 +1759,15 @@ namespace StartMe
                     if (timerHandle.ElapsedMilliseconds >= stopWait * 1000) timeout = true;
                     labelStatusMessage.ForeColor = Color.Black;
                     labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting..."+(stopWait - (timerHandle.ElapsedMilliseconds / 1000));
-                    //ProcessUpdate();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Problem stopping task#" + n + "\n" + ex.Message + "\n" + ex.StackTrace, "Error StartMe");
-                    //timeout = true;
                     timer1.Interval = timer1.Interval;
                     timer1.Start();
                     if (ourCursor) Application.UseWaitCursor = false;
                     return false;
                 }
-                //return true;
             }
 
             if (timeout && ProcessIsRunning(n))
@@ -2129,7 +2132,7 @@ namespace StartMe
                 else
                 {
                     stopped = true;
-                    ProcessStop(next, ModifierKeys);
+                    _ = ProcessStop(next, ModifierKeys);
                     SetStartStop(next, true, false);
                     Application.DoEvents();
                 }
@@ -2485,7 +2488,6 @@ namespace StartMe
             var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
             if (!File.Exists(userConfig))
             {
-                //MessageBox.Show("Config file doesn't exist?\n" + userConfig, "Error StartMe");
                 return null;
             }
             FileBackup(userConfig);
@@ -2747,12 +2749,6 @@ namespace StartMe
             Properties.Settings.Default.Save();
         }
 
-        /*
-        private void MyCustomSettings_SettingsSaving(Object sender, SettingsSavingEventArgs e)
-        {
-            MessageBox.Show("Yup we're here", "StartMe Debug");
-        }
-        */
         private bool SettingsLoad(String key)
         {
             var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
@@ -4876,8 +4872,7 @@ namespace StartMe
                 var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
                 myBackups.Backups_List(userConfig);
             }
-            //MessageBox.Show("Done with backups\n");
-            SettingsLoad(settingsKey);
+            _ = SettingsLoad(settingsKey);
         }
 
         private void LabelPath1_Click(object sender, EventArgs e)
@@ -4937,11 +4932,6 @@ namespace StartMe
         private void Button1_Click(object sender, EventArgs e)
         {
             StartAll(true);
-        }
-
-        private void Form1_Validated(object sender, EventArgs e)
-        {
-            //MessageBox.Show("Validated");
         }
 
         private void Form1_Activated(object sender, EventArgs e)
