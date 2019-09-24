@@ -414,7 +414,7 @@ namespace StartMe
             }
             else
             {
-                SettingsLoad("Default");
+                //SettingsLoad("Default");
             }
             settingsSave = true;
 
@@ -441,6 +441,9 @@ namespace StartMe
         {
             //    if (elevateMe())
             //        Application.Exit();
+            //Properties.Settings.Default.SettingChanging += new SettingChangingEventHandler(MyCustomSettings_SettingChanging);
+            //Properties.Settings.Default.SettingsSaving += new SettingsSavingEventHandler(MyCustomSettings_SettingsSaving);
+        
             if (settingsKey.Equals(""))
             {
                 settingsKeys = SettingsGetKeys();
@@ -1376,6 +1379,7 @@ namespace StartMe
         private void ProcessStart(int n, Keys modifierKeys)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
+            timer1.Stop();
             labelStatusMessage.Text = "Starting task#" + n;
             Application.DoEvents();
             bool ourCursor = false;
@@ -1395,27 +1399,34 @@ namespace StartMe
             bool enabled = false;
             switch (n)
             {
-                case 1: processName = textBoxPath1.Text; sleepBefore = numericUpDownDelay1Before.Value; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; enabled = buttonStart1.Enabled; break;
-                case 2: processName = textBoxPath2.Text; sleepBefore = numericUpDownDelay2Before.Value; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; enabled = buttonStart2.Enabled; break;
-                case 3: processName = textBoxPath3.Text; sleepBefore = numericUpDownDelay3Before.Value; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; enabled = buttonStart3.Enabled; break;
-                case 4: processName = textBoxPath4.Text; sleepBefore = numericUpDownDelay4Before.Value; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; enabled = buttonStart4.Enabled; break;
-                case 5: processName = textBoxPath5.Text; sleepBefore = numericUpDownDelay5Before.Value; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; enabled = buttonStart5.Enabled; break;
-                case 6: processName = textBoxPath6.Text; sleepBefore = numericUpDownDelay6Before.Value; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; enabled = buttonStart6.Enabled; break;
-                case 7: processName = textBoxPath7.Text; sleepBefore = numericUpDownDelay7Before.Value; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; enabled = buttonStart7.Enabled; break;
-                case 8: processName = textBoxPath8.Text; sleepBefore = numericUpDownDelay8Before.Value; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; enabled = buttonStart8.Enabled; break;
-                case 9: processName = textBoxPath9.Text; sleepBefore = numericUpDownDelay9Before.Value; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; enabled = buttonStart9.Enabled; break;
+                case 1: processName = textBoxPath1.Text; sleepBefore = numericUpDownDelay1Before.Value; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; enabled = labelPath1.Enabled; break;
+                case 2: processName = textBoxPath2.Text; sleepBefore = numericUpDownDelay2Before.Value; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; enabled = labelPath2.Enabled; break;
+                case 3: processName = textBoxPath3.Text; sleepBefore = numericUpDownDelay3Before.Value; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; enabled = labelPath3.Enabled; break;
+                case 4: processName = textBoxPath4.Text; sleepBefore = numericUpDownDelay4Before.Value; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; enabled = labelPath4.Enabled; break;
+                case 5: processName = textBoxPath5.Text; sleepBefore = numericUpDownDelay5Before.Value; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; enabled = labelPath5.Enabled; break;
+                case 6: processName = textBoxPath6.Text; sleepBefore = numericUpDownDelay6Before.Value; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; enabled = labelPath6.Enabled; break;
+                case 7: processName = textBoxPath7.Text; sleepBefore = numericUpDownDelay7Before.Value; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; enabled = labelPath7.Enabled; break;
+                case 8: processName = textBoxPath8.Text; sleepBefore = numericUpDownDelay8Before.Value; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; enabled = labelPath8.Enabled; break;
+                case 9: processName = textBoxPath9.Text; sleepBefore = numericUpDownDelay9Before.Value; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; enabled = labelPath9.Enabled; break;
             }
             if (process[n] == null)
             {
                 process[n] = new Process();
             }
-            if (!enabled || processName.Length < 1) return; // skipping it or empty process name
+            if (!enabled || processName.Length < 1)
+            {
+                timer1.Interval = timer1.Interval;
+                timer1.Start();
+                return; // skipping it or empty process name
+            }
             if (!File.Exists(processName))
             {
                 labelStatusMessage.Text = "Task " + n + " path does not exist";
                 MessageBox.Show("File does not exist\n" + processName, "Error StartMe");
                 SetStartStop(n, false, false);
                 if (ourCursor) Application.UseWaitCursor = false;
+                timer1.Interval = timer1.Interval;
+                timer1.Start();
                 return;
             }
             ProcessPriorityClass priorityClass = ProcessPriorityClass.Normal;
@@ -1433,7 +1444,11 @@ namespace StartMe
             process[n].StartInfo.FileName = processName;
             process[n].StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(process[n].StartInfo.FileName);
             //process[n].StartInfo.Verb = "runas";
-            if (ProcessIsRunning(n)) return; // already running
+            if (ProcessIsRunning(n))
+            {
+                timer1.Start();
+                return; // already running
+            }
             Thread.Sleep((int)sleepBefore * 1000);
             if (minimize)
             {
@@ -1442,6 +1457,7 @@ namespace StartMe
             try
             {
                 process[n].Start();
+                Thread.Sleep(500);
                 IntPtr mainWindowHandle;
                 Stopwatch timerHandle = new Stopwatch();
                 timerHandle.Restart();
@@ -1451,7 +1467,7 @@ namespace StartMe
                 do
                 {
                     mainWindowHandle = process[n].MainWindowHandle;
-                    Thread.Sleep(10);
+                    Thread.Sleep(100);
                     labelStatusMessage.Text = "Waiting for task#" + n + " window handle " + (timeout - (timerHandle.ElapsedMilliseconds / 1000));
                     Application.DoEvents();
                 } while (timerHandle.ElapsedMilliseconds < timeout * 1000 && mainWindowHandle == (IntPtr)0);
@@ -1467,12 +1483,15 @@ namespace StartMe
                 labelStatusMessage.Text = "Task " + n + " error did not start";
                 if (ourCursor) Application.UseWaitCursor = false;
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Error StartMe");
+                timer1.Start();
                 return;
             }
             //processID[n] = process[n].Id;
-            Thread.Sleep((int)sleepAfter * 1000);
+            if (sleepAfter > 0) Thread.Sleep((int)sleepAfter * 1000);
             try
             {
+                labelStatusMessage.Text = "Task " + n + " waiting for input idle";
+                Application.DoEvents();
                 process[n].WaitForInputIdle();
             }
             catch (Exception)
@@ -1522,6 +1541,7 @@ namespace StartMe
                 labelStatusMessage.Text = "Task " + n + " error invalid #";
                 if (ourCursor) Application.UseWaitCursor = false;
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Error StartMe");
+                timer1.Start();
                 return;
             }
 
@@ -1548,6 +1568,9 @@ namespace StartMe
             SetStartStop(n, false, true);
             labelStatusMessage.Text = "Task " + n + " started";
             if (ourCursor) Application.UseWaitCursor = false;
+            Application.DoEvents();
+            timer1.Interval = timer1.Interval;
+            timer1.Start();
         }
 
         private void ProcessSetMainWindowHandle(int n, IntPtr mainWindowHandle)
@@ -1590,6 +1613,7 @@ namespace StartMe
             labelStatusMessage.Text = "Stopping Task " + n;
             if (!ProcessIsRunning(n)) // don't need to stop it then
             {
+                timer1.Interval = timer1.Interval;
                 timer1.Start();
                 return true;
             }
@@ -1608,24 +1632,25 @@ namespace StartMe
                     process[n].Kill();
                 }
                 if (ourCursor) Application.UseWaitCursor = false;
+                timer1.Interval = timer1.Interval;
                 timer1.Start();
                 return true;
             }
 
             bool kill = false;
-            decimal sleep = 0;
+            decimal stopWait = 0;
             bool hasStopSend = false;
             switch (n)
             {
-                case 1: sleep = numericUpDownDelayStop1.Value; kill = checkBoxKill1.Checked; hasStopSend = textBoxStop1.Text.Length > 0; break;
-                case 2: sleep = numericUpDownDelayStop2.Value; kill = checkBoxKill2.Checked; hasStopSend = textBoxStop2.Text.Length > 0; break;
-                case 3: sleep = numericUpDownDelayStop3.Value; kill = checkBoxKill3.Checked; hasStopSend = textBoxStop3.Text.Length > 0; break;
-                case 4: sleep = numericUpDownDelayStop4.Value; kill = checkBoxKill4.Checked; hasStopSend = textBoxStop4.Text.Length > 0; break;
-                case 5: sleep = numericUpDownDelayStop5.Value; kill = checkBoxKill5.Checked; hasStopSend = textBoxStop5.Text.Length > 0; break;
-                case 6: sleep = numericUpDownDelayStop6.Value; kill = checkBoxKill6.Checked; hasStopSend = textBoxStop6.Text.Length > 0; break;
-                case 7: sleep = numericUpDownDelayStop7.Value; kill = checkBoxKill7.Checked; hasStopSend = textBoxStop7.Text.Length > 0; break;
-                case 8: sleep = numericUpDownDelayStop8.Value; kill = checkBoxKill8.Checked; hasStopSend = textBoxStop8.Text.Length > 0; break;
-                case 9: sleep = numericUpDownDelayStop9.Value; kill = checkBoxKill9.Checked; hasStopSend = textBoxStop9.Text.Length > 0; break;
+                case 1: stopWait = numericUpDownDelayStop1.Value; kill = checkBoxKill1.Checked; hasStopSend = textBoxStop1.Text.Length > 0; break;
+                case 2: stopWait = numericUpDownDelayStop2.Value; kill = checkBoxKill2.Checked; hasStopSend = textBoxStop2.Text.Length > 0; break;
+                case 3: stopWait = numericUpDownDelayStop3.Value; kill = checkBoxKill3.Checked; hasStopSend = textBoxStop3.Text.Length > 0; break;
+                case 4: stopWait = numericUpDownDelayStop4.Value; kill = checkBoxKill4.Checked; hasStopSend = textBoxStop4.Text.Length > 0; break;
+                case 5: stopWait = numericUpDownDelayStop5.Value; kill = checkBoxKill5.Checked; hasStopSend = textBoxStop5.Text.Length > 0; break;
+                case 6: stopWait = numericUpDownDelayStop6.Value; kill = checkBoxKill6.Checked; hasStopSend = textBoxStop6.Text.Length > 0; break;
+                case 7: stopWait = numericUpDownDelayStop7.Value; kill = checkBoxKill7.Checked; hasStopSend = textBoxStop7.Text.Length > 0; break;
+                case 8: stopWait = numericUpDownDelayStop8.Value; kill = checkBoxKill8.Checked; hasStopSend = textBoxStop8.Text.Length > 0; break;
+                case 9: stopWait = numericUpDownDelayStop9.Value; kill = checkBoxKill9.Checked; hasStopSend = textBoxStop9.Text.Length > 0; break;
             }
             bool timeout = false;
             int loops = 0;
@@ -1656,13 +1681,21 @@ namespace StartMe
                     if (!hasStopSend)  // only ask for 2nd close window if not sending keys to window
                     {
                         // do it again -- seems like this message gets lost sometimes
-                        process[n].CloseMainWindow();
-                        Thread.Sleep(500);
-                        if (ProcessIsRunning(n))
+                        try
                         {
-                            process[n] = Process.GetProcessById(process[n].Id);
-                            process[n].CloseMainWindow();
+                            if (ProcessIsRunning(n))
+                            {
+                                process[n].CloseMainWindow();
+                                Thread.Sleep(500);
+                                process[n] = Process.GetProcessById(process[n].Id);
+                                process[n].CloseMainWindow();
+                            }
                         }
+                        catch (Exception)
+                        {
+                            // Nothing to do here if we get an error
+                        }
+                    
                         Application.DoEvents();
                         //Thread.Sleep(200);
                     }
@@ -1679,6 +1712,7 @@ namespace StartMe
                     {
                         labelStatusMessage.Text = "Task " + n + " stopped";
                         Application.DoEvents();
+                        timer1.Interval = timer1.Interval;
                         timer1.Start();
                         if (ourCursor) Application.UseWaitCursor = false;
                         SetPid(n, "");
@@ -1693,6 +1727,7 @@ namespace StartMe
                     {
                         process[n].Kill();
                         Thread.Sleep(1000);
+                        timer1.Interval = timer1.Interval;
                         timer1.Start();
                         if (ourCursor) Application.UseWaitCursor = false;
                         if (ProcessIsRunning(n))
@@ -1703,25 +1738,28 @@ namespace StartMe
                         return true;
                     }
                     Color labelColor = Color.Black;
-                    while (loops < sleep && ProcessIsRunning(n))
+                    Stopwatch timerHandle = new Stopwatch();
+                    timerHandle.Start();
+                    while (ProcessIsRunning(n) && (timerHandle.ElapsedMilliseconds < stopWait * 1000))
                     {
                         Thread.Sleep(1000);
                         if (labelColor == Color.Black) labelColor = Color.Red;
                         else labelColor = Color.Black;
                         labelStatusMessage.ForeColor = labelColor;
-                        labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting...";
+                        labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting..." + (stopWait - (timerHandle.ElapsedMilliseconds / 1000));
                         Application.DoEvents();
                         ++loops;
                     }
+                    if (timerHandle.ElapsedMilliseconds >= stopWait * 1000) timeout = true;
                     labelStatusMessage.ForeColor = Color.Black;
-                    labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting...";
-                    if (loops >= sleep) timeout = true;
+                    labelStatusMessage.Text = "Task " + n + " did not stop yet..waiting..."+(stopWait - (timerHandle.ElapsedMilliseconds / 1000));
                     //ProcessUpdate();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Problem stopping task#" + n + "\n" + ex.Message + "\n" + ex.StackTrace, "Error StartMe");
                     //timeout = true;
+                    timer1.Interval = timer1.Interval;
                     timer1.Start();
                     if (ourCursor) Application.UseWaitCursor = false;
                     return false;
@@ -1734,11 +1772,13 @@ namespace StartMe
                 MessageBox.Show("Task " + process[n].ProcessName + " did not terminate", "Warning StartMe", MessageBoxButtons.OK);
                 Application.UseWaitCursor = false;
                 labelStatusMessage.Text = "Task " + n + " did not stop?";
+                timer1.Interval = timer1.Interval;
                 timer1.Start();
                 if (ourCursor) Application.UseWaitCursor = false;
                 return false;
             }
             if (ourCursor) Application.UseWaitCursor = false;
+            timer1.Interval = timer1.Interval;
             timer1.Start();
             labelStatusMessage.Text = "Task " + n + " stopped";
             SetPid(n, "");
@@ -2090,6 +2130,7 @@ namespace StartMe
                 {
                     stopped = true;
                     ProcessStop(next, ModifierKeys);
+                    SetStartStop(next, true, false);
                     Application.DoEvents();
                 }
                 --next;
@@ -2115,6 +2156,7 @@ namespace StartMe
                 else
                 {
                     ProcessStop(next, ModifierKeys);
+                    SetStartStop(next, true, false);
                     Application.DoEvents();
                 }
                 --next;
@@ -2443,7 +2485,7 @@ namespace StartMe
             var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
             if (!File.Exists(userConfig))
             {
-                MessageBox.Show("Config file doesn't exist?\n" + userConfig, "Error StartMe");
+                //MessageBox.Show("Config file doesn't exist?\n" + userConfig, "Error StartMe");
                 return null;
             }
             FileBackup(userConfig);
@@ -2705,13 +2747,19 @@ namespace StartMe
             Properties.Settings.Default.Save();
         }
 
+        /*
+        private void MyCustomSettings_SettingsSaving(Object sender, SettingsSavingEventArgs e)
+        {
+            MessageBox.Show("Yup we're here", "StartMe Debug");
+        }
+        */
         private bool SettingsLoad(String key)
         {
             var userConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
 
             if (!(File.Exists(userConfig)))
             {
-                MessageBox.Show("Config file :" + key + "not found:\n" + userConfig, "Error StartMe");
+                //MessageBox.Show("Config file key '" + key + "' not found:\nCreating new config user.config" + userConfig, "Error StartMe");
                 return false;
             }
             if (key.Length == 0) key = "Default";
@@ -4803,6 +4851,7 @@ namespace StartMe
                 textBoxPath8.ContextMenu = MenuGen(8);
                 textBoxPath9.ContextMenu = MenuGen(9);
             }
+            timer1.Interval = timer1.Interval;
             timer1.Start();
         }
 
@@ -4888,6 +4937,21 @@ namespace StartMe
         private void Button1_Click(object sender, EventArgs e)
         {
             StartAll(true);
+        }
+
+        private void Form1_Validated(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Validated");
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }

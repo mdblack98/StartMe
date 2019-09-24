@@ -38,7 +38,7 @@ namespace StartMe
                     checkedListBox1.Items[i - 1] = fromFile + " - Not found";
                 }
             }
-            this.ShowDialog();
+            this.ShowDialog(); 
         }
 
         private void CheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)

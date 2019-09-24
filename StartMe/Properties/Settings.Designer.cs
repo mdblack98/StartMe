@@ -1789,7 +1789,7 @@ namespace StartMe.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 1354, 397")]
         public global::System.Drawing.Rectangle RestoreBounds {
             get {
                 return ((global::System.Drawing.Rectangle)(this["RestoreBounds"]));
@@ -2132,6 +2132,18 @@ namespace StartMe.Properties {
             }
             set {
                 this["KeepRunning9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UpgradeRequired {
+            get {
+                return ((bool)(this["UpgradeRequired"]));
+            }
+            set {
+                this["UpgradeRequired"] = value;
             }
         }
     }

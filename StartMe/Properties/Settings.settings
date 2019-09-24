@@ -444,7 +444,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="RestoreBounds" Type="System.Drawing.Rectangle" Scope="User">
-      <Value Profile="(Default)">0, 0, 0, 0</Value>
+      <Value Profile="(Default)">0, 0, 1354, 397</Value>
     </Setting>
     <Setting Name="labelMainWindowHandle1" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -529,6 +529,9 @@
     </Setting>
     <Setting Name="KeepRunning9" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
