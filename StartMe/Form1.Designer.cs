@@ -3204,7 +3204,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "StartMe v0.23";
+            this.Text = "StartMe v0.24";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1Closing);
             this.Load += new System.EventHandler(this.Form1_Load);

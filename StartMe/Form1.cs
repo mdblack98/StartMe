@@ -1381,10 +1381,29 @@ namespace StartMe
             ProcessStart(9, ModifierKeys);
             buttonStop9.Enabled = true;
         }
+
+        private bool SendBeforeExists()
+        {
+            bool exists =
+                textBoxStart1.Text.Length > 0
+                || textBoxStart2.Text.Length > 0
+                || textBoxStart3.Text.Length > 0
+                || textBoxStart4.Text.Length > 0
+                || textBoxStart5.Text.Length > 0
+                || textBoxStart6.Text.Length > 0
+                || textBoxStart7.Text.Length > 0
+                || textBoxStart8.Text.Length > 0
+                || textBoxStart9.Text.Length > 0;
+            return exists;
+        }
 #pragma warning disable IDE0060 // Remove unused parameter
         private void ProcessStart(int n, Keys modifierKeys)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
+            if (!SendBeforeExists())
+            {
+                this.Activate();
+            }
             timer1.Stop();
             labelStatusMessage.Text = "Starting task#" + n;
             Application.DoEvents();
@@ -1573,6 +1592,7 @@ namespace StartMe
             mycpupct1.Dispose();
             SetStartStop(n, false, true);
             labelStatusMessage.Text = "Task " + n + " started";
+            this.Activate();
             if (ourCursor) Application.UseWaitCursor = false;
             Application.DoEvents();
             timer1.Interval = timer1.Interval;
@@ -1955,6 +1975,7 @@ namespace StartMe
                 {
                     labelStatusMessage.Text = "All Tasks Started";
                     Cursor.Current = Cursors.Default;
+                    this.Activate();
                     return; // return if we stopped using sequence numbers
                 }
                 // Otherwise we just start them in sequence
