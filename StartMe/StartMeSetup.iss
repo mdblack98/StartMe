@@ -2,10 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "StartMe"
-#define MyAppVersion "0.21-x64"
+#define MyAppVersion "0.22-x64"
 #define MyAppPublisher "W9MDB"
 #define MyAppURL "https://www.qrz.com/db/w9mdb"
-#define MyAppExeName "StartMe.exe"
+#define MyAppExeName "StartMe-x64.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -19,13 +19,19 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={commonpf}\{#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe
 OutputBaseFilename=StartMe{#MyAppVersion}
 SetupIconFile=C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\Icon1.ico
 Compression=lzma
 SolidCompression=yes
+WizardStyle=modern
+; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
+; done in "64-bit mode" on x64, meaning it should use the native
+; 64-bit Program Files directory and the 64-bit view of the registry.
+; On all other architectures it will install in "32-bit mode".
+ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -34,11 +40,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.application"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.exe.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe.pdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe-x64.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe-x64.application"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe-x64.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe-x64.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMe-x64.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\StartMeHelp.htm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\ProcCmdLine64.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\ProcCmdLine32.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -48,6 +54,6 @@ Source: "C:\Users\mdbla\Dropbox\Projects\StartMe\StartMe\bin\x64\Release\ProcCmd
 Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
-[Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+; [Run]
+; Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 

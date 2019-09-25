@@ -1405,15 +1405,15 @@ namespace StartMe
             bool enabled = false;
             switch (n)
             {
-                case 1: processName = textBoxPath1.Text; sleepBefore = numericUpDownDelay1Before.Value; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; enabled = labelPath1.Enabled; break;
-                case 2: processName = textBoxPath2.Text; sleepBefore = numericUpDownDelay2Before.Value; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; enabled = labelPath2.Enabled; break;
-                case 3: processName = textBoxPath3.Text; sleepBefore = numericUpDownDelay3Before.Value; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; enabled = labelPath3.Enabled; break;
-                case 4: processName = textBoxPath4.Text; sleepBefore = numericUpDownDelay4Before.Value; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; enabled = labelPath4.Enabled; break;
-                case 5: processName = textBoxPath5.Text; sleepBefore = numericUpDownDelay5Before.Value; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; enabled = labelPath5.Enabled; break;
-                case 6: processName = textBoxPath6.Text; sleepBefore = numericUpDownDelay6Before.Value; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; enabled = labelPath6.Enabled; break;
-                case 7: processName = textBoxPath7.Text; sleepBefore = numericUpDownDelay7Before.Value; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; enabled = labelPath7.Enabled; break;
-                case 8: processName = textBoxPath8.Text; sleepBefore = numericUpDownDelay8Before.Value; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; enabled = labelPath8.Enabled; break;
-                case 9: processName = textBoxPath9.Text; sleepBefore = numericUpDownDelay9Before.Value; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; enabled = labelPath9.Enabled; break;
+                case 1: processName = textBoxPath1.Text; sleepBefore = numericUpDownDelay1Before.Value; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; enabled = textBoxPath1.Enabled; break;
+                case 2: processName = textBoxPath2.Text; sleepBefore = numericUpDownDelay2Before.Value; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; enabled = textBoxPath2.Enabled; break;
+                case 3: processName = textBoxPath3.Text; sleepBefore = numericUpDownDelay3Before.Value; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; enabled = textBoxPath3.Enabled; break;
+                case 4: processName = textBoxPath4.Text; sleepBefore = numericUpDownDelay4Before.Value; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; enabled = textBoxPath4.Enabled; break;
+                case 5: processName = textBoxPath5.Text; sleepBefore = numericUpDownDelay5Before.Value; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; enabled = textBoxPath5.Enabled; break;
+                case 6: processName = textBoxPath6.Text; sleepBefore = numericUpDownDelay6Before.Value; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; enabled = textBoxPath6.Enabled; break;
+                case 7: processName = textBoxPath7.Text; sleepBefore = numericUpDownDelay7Before.Value; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; enabled = textBoxPath7.Enabled; break;
+                case 8: processName = textBoxPath8.Text; sleepBefore = numericUpDownDelay8Before.Value; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; enabled = textBoxPath8.Enabled; break;
+                case 9: processName = textBoxPath9.Text; sleepBefore = numericUpDownDelay9Before.Value; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; enabled = textBoxPath9.Enabled; break;
             }
             if (process[n] == null)
             {
@@ -4277,6 +4277,57 @@ namespace StartMe
             box2.SelectedIndex = i;
 
         }
+
+        void SwapTaskEzName(int swap1, int swap2)
+        {
+            Label text1 = null, text2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    text1 = labelEZ1; break;
+                case 2:
+                    text1 = labelEZ2; break;
+                case 3:
+                    text1 = labelEZ3; break;
+                case 4:
+                    text1 = labelEZ4; break;
+                case 5:
+                    text1 = labelEZ5; break;
+                case 6:
+                    text1 = labelEZ6; break;
+                case 7:
+                    text1 = labelEZ7; break;
+                case 8:
+                    text1 = labelEZ8; break;
+                case 9:
+                    text1 = labelEZ9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    text2 = labelEZ1; break;
+                case 2:
+                    text2 = labelEZ2; break;
+                case 3:
+                    text2 = labelEZ3; break;
+                case 4:
+                    text2 = labelEZ4; break;
+                case 5:
+                    text2 = labelEZ5; break;
+                case 6:
+                    text2 = labelEZ6; break;
+                case 7:
+                    text2 = labelEZ7; break;
+                case 8:
+                    text2 = labelEZ8; break;
+                case 9:
+                    text2 = labelEZ9; break;
+
+            }
+            string s = text1.Text;
+            text1.Text = text2.Text;
+            text2.Text = s;
+        }
         void SwapTaskDelayBefore(int swap1, int swap2)
         {
             NumericUpDown box1 = null, box2 = null;
@@ -4577,6 +4628,58 @@ namespace StartMe
             text1.Text = text2.Text;
             text2.Text = s;
         }
+
+        void SwapTaskKeep(int swap1, int swap2)
+        {
+            CheckBox box1 = null, box2 = null;
+            switch (swap1)
+            {
+                case 1:
+                    box1 = checkBoxKeepRunning1; break;
+                case 2:
+                    box1 = checkBoxKeepRunning2; break;
+                case 3:
+                    box1 = checkBoxKeepRunning3; break;
+                case 4:
+                    box1 = checkBoxKeepRunning4; break;
+                case 5:
+                    box1 = checkBoxKeepRunning5; break;
+                case 6:
+                    box1 = checkBoxKeepRunning6; break;
+                case 7:
+                    box1 = checkBoxKeepRunning7; break;
+                case 8:
+                    box1 = checkBoxKeepRunning8; break;
+                case 9:
+                    box1 = checkBoxKeepRunning9; break;
+            }
+            switch (swap2)
+            {
+                case 1:
+                    box2 = checkBoxKeepRunning1; break;
+                case 2:
+                    box2 = checkBoxKeepRunning2; break;
+                case 3:
+                    box2 = checkBoxKeepRunning3; break;
+                case 4:
+                    box2 = checkBoxKeepRunning4; break;
+                case 5:
+                    box2 = checkBoxKeepRunning5; break;
+                case 6:
+                    box2 = checkBoxKeepRunning6; break;
+                case 7:
+                    box2 = checkBoxKeepRunning7; break;
+                case 8:
+                    box2 = checkBoxKeepRunning8; break;
+                case 9:
+                    box2 = checkBoxKeepRunning9; break;
+
+            }
+            bool b = box1.Checked;
+            box1.Checked = box2.Checked;
+            box2.Checked = b;
+
+        }
         void SwapTaskStopSequence(int swap1, int swap2)
         {
             MaskedTextBox text1 = null, text2 = null;
@@ -4824,11 +4927,13 @@ namespace StartMe
                 SwapTaskMinimize(selectedTask, task2);
                 SwapTaskAdmin(selectedTask, task2);
                 SwapTaskPriority(selectedTask, task2); //OK
+                SwapTaskEzName(selectedTask, task2);
                 SwapTaskDelayBefore(selectedTask, task2);
                 SwapTaskDelayAfter(selectedTask, task2);//OK
                 SwapTaskCPU(selectedTask, task2);
                 SwapTaskSendBefore(selectedTask, task2);
                 SwapTaskStartSequence(selectedTask, task2);
+                SwapTaskKeep(selectedTask, task2);
                 SwapTaskStopSequence(selectedTask, task2);
                 SwapTaskKill(selectedTask, task2);
                 SwapTaskStopWait(selectedTask, task2);
