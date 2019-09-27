@@ -235,16 +235,15 @@
             this.numericUpDownDelay1After = new System.Windows.Forms.NumericUpDown();
             this.labelStatusMessage = new System.Windows.Forms.Label();
             this.buttonStartAll = new System.Windows.Forms.Button();
-            this.labelEZ1 = new System.Windows.Forms.Label();
-            this.labelEZName = new System.Windows.Forms.Label();
-            this.labelEZ2 = new System.Windows.Forms.Label();
-            this.labelEZ3 = new System.Windows.Forms.Label();
-            this.labelEZ4 = new System.Windows.Forms.Label();
-            this.labelEZ5 = new System.Windows.Forms.Label();
-            this.labelEZ6 = new System.Windows.Forms.Label();
-            this.labelEZ7 = new System.Windows.Forms.Label();
-            this.labelEZ8 = new System.Windows.Forms.Label();
-            this.labelEZ9 = new System.Windows.Forms.Label();
+            this.textBoxEZName1 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName2 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName3 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName4 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName5 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName6 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName7 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName8 = new System.Windows.Forms.TextBox();
+            this.textBoxEZName9 = new System.Windows.Forms.TextBox();
             this.buttonBackups = new System.Windows.Forms.Button();
             this.buttonStartAuto = new System.Windows.Forms.Button();
             this.checkBoxStartup = new System.Windows.Forms.CheckBox();
@@ -267,6 +266,7 @@
             this.labelMainWindowHandle3 = new System.Windows.Forms.Label();
             this.labelMainWindowHandle2 = new System.Windows.Forms.Label();
             this.labelMainWindowHandle1 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelay1Before)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelayStop1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDelayStop6)).BeginInit();
@@ -2644,97 +2644,69 @@
             this.buttonStartAll.UseVisualStyleBackColor = true;
             this.buttonStartAll.Click += new System.EventHandler(this.ButtonStartAll_Click);
             // 
-            // labelEZ1
+            // textBoxEZName1
             // 
-            this.labelEZ1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ1.Location = new System.Drawing.Point(868, 28);
-            this.labelEZ1.Name = "labelEZ1";
-            this.labelEZ1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ1.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ1.TabIndex = 7;
+            this.textBoxEZName1.Location = new System.Drawing.Point(868, 28);
+            this.textBoxEZName1.Name = "textBoxEZName1";
+            this.textBoxEZName1.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName1.TabIndex = 7;
             // 
-            // labelEZName
+            // textBoxEZName2
             // 
-            this.labelEZName.AutoSize = true;
-            this.labelEZName.Location = new System.Drawing.Point(881, 6);
-            this.labelEZName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelEZName.Name = "labelEZName";
-            this.labelEZName.Size = new System.Drawing.Size(67, 17);
-            this.labelEZName.TabIndex = 216;
-            this.labelEZName.Text = "EZ Name";
+            this.textBoxEZName2.Location = new System.Drawing.Point(868, 69);
+            this.textBoxEZName2.Name = "textBoxEZName2";
+            this.textBoxEZName2.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName2.TabIndex = 26;
             // 
-            // labelEZ2
+            // textBoxEZName3
             // 
-            this.labelEZ2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ2.Location = new System.Drawing.Point(868, 69);
-            this.labelEZ2.Name = "labelEZ2";
-            this.labelEZ2.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ2.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ2.TabIndex = 26;
+            this.textBoxEZName3.Location = new System.Drawing.Point(868, 110);
+            this.textBoxEZName3.Name = "textBoxEZName3";
+            this.textBoxEZName3.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName3.TabIndex = 45;
             // 
-            // labelEZ3
+            // textBoxEZName4
             // 
-            this.labelEZ3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ3.Location = new System.Drawing.Point(868, 109);
-            this.labelEZ3.Name = "labelEZ3";
-            this.labelEZ3.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ3.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ3.TabIndex = 45;
+            this.textBoxEZName4.Location = new System.Drawing.Point(868, 151);
+            this.textBoxEZName4.Name = "textBoxEZName4";
+            this.textBoxEZName4.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName4.TabIndex = 64;
             // 
-            // labelEZ4
+            // textBoxEZName5
             // 
-            this.labelEZ4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ4.Location = new System.Drawing.Point(868, 150);
-            this.labelEZ4.Name = "labelEZ4";
-            this.labelEZ4.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ4.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ4.TabIndex = 64;
+            this.textBoxEZName5.Location = new System.Drawing.Point(868, 192);
+            this.textBoxEZName5.Name = "textBoxEZName5";
+            this.textBoxEZName5.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName5.TabIndex = 83;
             // 
-            // labelEZ5
+            // textBoxEZName6
             // 
-            this.labelEZ5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ5.Location = new System.Drawing.Point(868, 191);
-            this.labelEZ5.Name = "labelEZ5";
-            this.labelEZ5.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ5.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ5.TabIndex = 83;
+            this.textBoxEZName6.Location = new System.Drawing.Point(868, 233);
+            this.textBoxEZName6.Name = "textBoxEZName6";
+            this.textBoxEZName6.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName6.TabIndex = 102;
             // 
-            // labelEZ6
+            // textBoxEZName7
             // 
-            this.labelEZ6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ6.Location = new System.Drawing.Point(868, 232);
-            this.labelEZ6.Name = "labelEZ6";
-            this.labelEZ6.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ6.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ6.TabIndex = 102;
+            this.textBoxEZName7.Location = new System.Drawing.Point(868, 274);
+            this.textBoxEZName7.Name = "textBoxEZName7";
+            this.textBoxEZName7.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName7.TabIndex = 121;
             // 
-            // labelEZ7
+            // textBoxEZName8
             // 
-            this.labelEZ7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ7.Location = new System.Drawing.Point(868, 273);
-            this.labelEZ7.Name = "labelEZ7";
-            this.labelEZ7.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ7.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ7.TabIndex = 121;
+            this.textBoxEZName8.Location = new System.Drawing.Point(868, 315);
+            this.textBoxEZName8.Name = "textBoxEZName8";
+            this.textBoxEZName8.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName8.TabIndex = 140;
             // 
-            // labelEZ8
+            // textBoxEZName9
             // 
-            this.labelEZ8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ8.Location = new System.Drawing.Point(868, 314);
-            this.labelEZ8.Name = "labelEZ8";
-            this.labelEZ8.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ8.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ8.TabIndex = 140;
-            // 
-            // labelEZ9
-            // 
-            this.labelEZ9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelEZ9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelEZ9.Location = new System.Drawing.Point(868, 355);
-            this.labelEZ9.Name = "labelEZ9";
-            this.labelEZ9.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelEZ9.Size = new System.Drawing.Size(92, 23);
-            this.labelEZ9.TabIndex = 159;
+            this.textBoxEZName9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxEZName9.Location = new System.Drawing.Point(868, 356);
+            this.textBoxEZName9.Name = "textBoxEZName9";
+            this.textBoxEZName9.Size = new System.Drawing.Size(92, 22);
+            this.textBoxEZName9.TabIndex = 159;
             // 
             // buttonBackups
             // 
@@ -2960,11 +2932,22 @@
             this.labelMainWindowHandle1.TabIndex = 179;
             this.labelMainWindowHandle1.Text = global::StartMe.Properties.Settings.Default.labelMainWindowHandle1;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(883, 5);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(63, 17);
+            this.label18.TabIndex = 235;
+            this.label18.Text = "EZName";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1745, 432);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.checkBoxKeepRunning9);
             this.Controls.Add(this.checkBoxKeepRunning8);
@@ -2987,16 +2970,15 @@
             this.Controls.Add(this.labelMainWindowHandle3);
             this.Controls.Add(this.labelMainWindowHandle2);
             this.Controls.Add(this.labelMainWindowHandle1);
-            this.Controls.Add(this.labelEZ9);
-            this.Controls.Add(this.labelEZ8);
-            this.Controls.Add(this.labelEZ7);
-            this.Controls.Add(this.labelEZ6);
-            this.Controls.Add(this.labelEZ5);
-            this.Controls.Add(this.labelEZ4);
-            this.Controls.Add(this.labelEZ3);
-            this.Controls.Add(this.labelEZ2);
-            this.Controls.Add(this.labelEZName);
-            this.Controls.Add(this.labelEZ1);
+            this.Controls.Add(this.textBoxEZName9);
+            this.Controls.Add(this.textBoxEZName8);
+            this.Controls.Add(this.textBoxEZName7);
+            this.Controls.Add(this.textBoxEZName6);
+            this.Controls.Add(this.textBoxEZName5);
+            this.Controls.Add(this.textBoxEZName4);
+            this.Controls.Add(this.textBoxEZName3);
+            this.Controls.Add(this.textBoxEZName2);
+            this.Controls.Add(this.textBoxEZName1);
             this.Controls.Add(this.buttonStartAll);
             this.Controls.Add(this.labelStatusMessage);
             this.Controls.Add(this.label16);
@@ -3204,7 +3186,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "StartMe v0.24";
+            this.Text = "StartMe v0.25";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1Closing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -3458,16 +3440,15 @@
         private System.Windows.Forms.NumericUpDown numericUpDownDelay1After;
         private System.Windows.Forms.Label labelStatusMessage;
         private System.Windows.Forms.Button buttonStartAll;
-        private System.Windows.Forms.Label labelEZ1;
-        private System.Windows.Forms.Label labelEZName;
-        private System.Windows.Forms.Label labelEZ2;
-        private System.Windows.Forms.Label labelEZ3;
-        private System.Windows.Forms.Label labelEZ4;
-        private System.Windows.Forms.Label labelEZ5;
-        private System.Windows.Forms.Label labelEZ6;
-        private System.Windows.Forms.Label labelEZ7;
-        private System.Windows.Forms.Label labelEZ8;
-        private System.Windows.Forms.Label labelEZ9;
+        private System.Windows.Forms.TextBox textBoxEZName1;
+        private System.Windows.Forms.TextBox textBoxEZName2;
+        private System.Windows.Forms.TextBox textBoxEZName3;
+        private System.Windows.Forms.TextBox textBoxEZName4;
+        private System.Windows.Forms.TextBox textBoxEZName5;
+        private System.Windows.Forms.TextBox textBoxEZName6;
+        private System.Windows.Forms.TextBox textBoxEZName7;
+        private System.Windows.Forms.TextBox textBoxEZName8;
+        private System.Windows.Forms.TextBox textBoxEZName9;
         private System.Windows.Forms.Label labelMainWindowHandle1;
         private System.Windows.Forms.Label labelMainWindowHandle2;
         private System.Windows.Forms.Label labelMainWindowHandle3;
@@ -3490,6 +3471,7 @@
         private System.Windows.Forms.CheckBox checkBoxKeepRunning3;
         private System.Windows.Forms.CheckBox checkBoxKeepRunning2;
         private System.Windows.Forms.CheckBox checkBoxKeepRunning1;
+        private System.Windows.Forms.Label label18;
     }
 }
 

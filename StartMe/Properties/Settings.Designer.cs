@@ -2146,5 +2146,113 @@ namespace StartMe.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName1 {
+            get {
+                return ((string)(this["EZName1"]));
+            }
+            set {
+                this["EZName1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName2 {
+            get {
+                return ((string)(this["EZName2"]));
+            }
+            set {
+                this["EZName2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName3 {
+            get {
+                return ((string)(this["EZName3"]));
+            }
+            set {
+                this["EZName3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName4 {
+            get {
+                return ((string)(this["EZName4"]));
+            }
+            set {
+                this["EZName4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName5 {
+            get {
+                return ((string)(this["EZName5"]));
+            }
+            set {
+                this["EZName5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName6 {
+            get {
+                return ((string)(this["EZName6"]));
+            }
+            set {
+                this["EZName6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName7 {
+            get {
+                return ((string)(this["EZName7"]));
+            }
+            set {
+                this["EZName7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName8 {
+            get {
+                return ((string)(this["EZName8"]));
+            }
+            set {
+                this["EZName8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EZName9 {
+            get {
+                return ((string)(this["EZName9"]));
+            }
+            set {
+                this["EZName9"] = value;
+            }
+        }
     }
 }

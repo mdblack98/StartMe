@@ -904,26 +904,21 @@ namespace StartMe
             Process[] pName = Process.GetProcessesByName(exeName);
             return pName;
         }
-
-        void SetEZNames()
-        {
-            for (int i = 1; i <= 9; ++i) SetEZName(i);
-        }
         void SetEZName(int n, string newName = null)
         {
-            Label lbox = labelEZ1;
+            TextBox lbox = textBoxEZName1;
             string s = "!!Bug!!";
             switch (n)
             {
-                case 1: s = textBoxPath1.Text; lbox = labelEZ1; break;
-                case 2: s = textBoxPath2.Text; lbox = labelEZ2; break;
-                case 3: s = textBoxPath3.Text; lbox = labelEZ3; break;
-                case 4: s = textBoxPath4.Text; lbox = labelEZ4; break;
-                case 5: s = textBoxPath5.Text; lbox = labelEZ5; break;
-                case 6: s = textBoxPath6.Text; lbox = labelEZ6; break;
-                case 7: s = textBoxPath7.Text; lbox = labelEZ7; break;
-                case 8: s = textBoxPath8.Text; lbox = labelEZ8; break;
-                case 9: s = textBoxPath9.Text; lbox = labelEZ9; break;
+                case 1: s = textBoxPath1.Text; lbox = textBoxEZName1; break;
+                case 2: s = textBoxPath2.Text; lbox = textBoxEZName2; break;
+                case 3: s = textBoxPath3.Text; lbox = textBoxEZName3; break;
+                case 4: s = textBoxPath4.Text; lbox = textBoxEZName4; break;
+                case 5: s = textBoxPath5.Text; lbox = textBoxEZName5; break;
+                case 6: s = textBoxPath6.Text; lbox = textBoxEZName6; break;
+                case 7: s = textBoxPath7.Text; lbox = textBoxEZName7; break;
+                case 8: s = textBoxPath8.Text; lbox = textBoxEZName8; break;
+                case 9: s = textBoxPath9.Text; lbox = textBoxEZName9; break;
             }
             if (newName != null) // then we're forcing the name
             {
@@ -958,7 +953,6 @@ namespace StartMe
             ProcessFindName(textBoxPath7.Text, textBoxArgs7.Text, 7, ref pid7);
             ProcessFindName(textBoxPath8.Text, textBoxArgs8.Text, 8, ref pid8);
             ProcessFindName(textBoxPath9.Text, textBoxArgs9.Text, 9, ref pid9);
-            SetEZNames();
             return;
 
         }
@@ -984,7 +978,6 @@ namespace StartMe
                 return false;
             }
             SetPathColor(n, Color.Black);
-            SetEZName(n);
             try
             {
                 Process p1 = GetProcessByFileName(n);
@@ -2198,12 +2191,13 @@ namespace StartMe
         {
         }
 
-        private String FileGet()
+        private String FileGet(string path)
         {
             FileDialog fileDialog = new OpenFileDialog
             {
                 CheckFileExists = true,
-                Filter = "Executables (*.exe *.bat, *.cmd)|*.exe;*.bat;*.cmd|All Files (*.*) |*.*"
+                Filter = "Executables (*.exe *.bat, *.cmd)|*.exe;*.bat;*.cmd|All Files (*.*) |*.*",
+                InitialDirectory = Path.GetDirectoryName(path)
             };
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -2216,44 +2210,48 @@ namespace StartMe
 
         private void ButtonFile1_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath1.Text);
             if (file != null)
             {
                 textBoxPath1.Text = file;
                 SetPathColor(1, Color.Black);
+                SetEZName(1);
                 ProcessIsRunning(1);
             }
         }
 
         private void ButtonFile2_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath2.Text);
             if (file != null)
             {
                 textBoxPath2.Text = file;
                 SetPathColor(2, Color.Black);
+                SetEZName(2);
                 ProcessIsRunning(2);
             }
         }
 
         private void ButtonFile3_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath3.Text);
             if (file != null)
             {
                 textBoxPath3.Text = file;
                 SetPathColor(3, Color.Black);
+                SetEZName(3);
                 ProcessIsRunning(3);
             }
         }
 
         private void ButtonFile4_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath4.Text);
             if (file != null)
             {
                 textBoxPath4.Text = file;
                 SetPathColor(4, Color.Black);
+                SetEZName(4);
                 ProcessIsRunning(4);
 
             }
@@ -2261,55 +2259,60 @@ namespace StartMe
 
         private void ButtonFile5_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath5.Text);
             if (file != null)
             {
                 textBoxPath5.Text = file;
                 SetPathColor(5, Color.Black);
+                SetEZName(5);
                 ProcessIsRunning(5);
             }
         }
 
         private void ButtonFile6_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath6.Text);
             if (file != null)
             {
                 textBoxPath6.Text = file;
                 SetPathColor(6, Color.Black);
+                SetEZName(6);
                 ProcessIsRunning(6);
             }
         }
 
         private void ButtonFile7_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath7.Text);
             if (file != null)
             {
                 textBoxPath7.Text = file;
                 SetPathColor(7, Color.Black);
+                SetEZName(7);
                 ProcessIsRunning(7);
             }
         }
 
         private void ButtonFile8_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath8.Text);
             if (file != null)
             {
                 textBoxPath8.Text = file;
                 SetPathColor(8, Color.Black);
+                SetEZName(8);
                 ProcessIsRunning(8);
             }
         }
 
         private void ButtonFile9_Click(object sender, EventArgs e)
         {
-            String file = FileGet();
+            String file = FileGet(textBoxPath9.Text);
             if (file != null)
             {
                 textBoxPath9.Text = file;
                 SetPathColor(9, Color.Black);
+                SetEZName(9);
                 ProcessIsRunning(9);
             }
         }
@@ -2628,6 +2631,17 @@ namespace StartMe
             Properties.Settings.Default.Priority9 = comboBoxPriority9.SelectedIndex;
 
             //7
+            Properties.Settings.Default.EZName1 = textBoxEZName1.Text;
+            Properties.Settings.Default.EZName2 = textBoxEZName2.Text;
+            Properties.Settings.Default.EZName3 = textBoxEZName3.Text;
+            Properties.Settings.Default.EZName4 = textBoxEZName4.Text;
+            Properties.Settings.Default.EZName5 = textBoxEZName5.Text;
+            Properties.Settings.Default.EZName6 = textBoxEZName6.Text;
+            Properties.Settings.Default.EZName7 = textBoxEZName7.Text;
+            Properties.Settings.Default.EZName8 = textBoxEZName8.Text;
+            Properties.Settings.Default.EZName9 = textBoxEZName9.Text;
+
+            //8
             Properties.Settings.Default.StartDelay1Before = numericUpDownDelay1Before.Value;
             Properties.Settings.Default.StartDelay2Before = numericUpDownDelay2Before.Value;
             Properties.Settings.Default.StartDelay3Before = numericUpDownDelay3Before.Value;
@@ -2638,7 +2652,7 @@ namespace StartMe
             Properties.Settings.Default.StartDelay8Before = numericUpDownDelay8Before.Value;
             Properties.Settings.Default.StartDelay9Before = numericUpDownDelay9Before.Value;
 
-            //8
+            //9
             Properties.Settings.Default.CPU1 = numericUpDownCPU1.Value;
             Properties.Settings.Default.CPU2 = numericUpDownCPU2.Value;
             Properties.Settings.Default.CPU3 = numericUpDownCPU3.Value;
@@ -2649,7 +2663,7 @@ namespace StartMe
             Properties.Settings.Default.CPU8 = numericUpDownCPU8.Value;
             Properties.Settings.Default.CPU9 = numericUpDownCPU9.Value;
 
-            //9
+            //10
             Properties.Settings.Default.KeysStart1 = textBoxStart1.Text;
             Properties.Settings.Default.KeysStart2 = textBoxStart2.Text;
             Properties.Settings.Default.KeysStart3 = textBoxStart3.Text;
@@ -2660,7 +2674,7 @@ namespace StartMe
             Properties.Settings.Default.KeysStart8 = textBoxStart8.Text;
             Properties.Settings.Default.KeysStart9 = textBoxStart9.Text;
 
-            //10
+            //11
             Properties.Settings.Default.Start1Next = textBoxStart1Sequence.Text;
             Properties.Settings.Default.Start2Next = textBoxStart2Sequence.Text;
             Properties.Settings.Default.Start3Next = textBoxStart3Sequence.Text;
@@ -2671,7 +2685,7 @@ namespace StartMe
             Properties.Settings.Default.Start8Next = textBoxStart8Sequence.Text;
             Properties.Settings.Default.Start9Next = textBoxStart9Sequence.Text;
 
-            //11
+            //12
             Properties.Settings.Default.Start1Stop = textBoxStart1Stop.Text;
             Properties.Settings.Default.Start2Stop = textBoxStart2Stop.Text;
             Properties.Settings.Default.Start3Stop = textBoxStart3Stop.Text;
@@ -2682,7 +2696,7 @@ namespace StartMe
             Properties.Settings.Default.Start8Stop = textBoxStart8Stop.Text;
             Properties.Settings.Default.Start9Stop = textBoxStart9Stop.Text;
 
-            //12
+            //13
             Properties.Settings.Default.StopDelay1 = numericUpDownDelayStop1.Value;
             Properties.Settings.Default.StopDelay2 = numericUpDownDelayStop2.Value;
             Properties.Settings.Default.StopDelay3 = numericUpDownDelayStop3.Value;
@@ -2693,7 +2707,7 @@ namespace StartMe
             Properties.Settings.Default.StopDelay8 = numericUpDownDelayStop8.Value;
             Properties.Settings.Default.StopDelay9 = numericUpDownDelayStop9.Value;
 
-            //13
+            //14
             Properties.Settings.Default.KeysStop1 = textBoxStop1.Text;
             Properties.Settings.Default.KeysStop2 = textBoxStop2.Text;
             Properties.Settings.Default.KeysStop3 = textBoxStop3.Text;
@@ -2704,7 +2718,7 @@ namespace StartMe
             Properties.Settings.Default.KeysStop8 = textBoxStop8.Text;
             Properties.Settings.Default.KeysStop9 = textBoxStop9.Text;
 
-            //14
+            //15
             Properties.Settings.Default.Kill1 = checkBoxKill1.Checked;
             Properties.Settings.Default.Kill2 = checkBoxKill2.Checked;
             Properties.Settings.Default.Kill3 = checkBoxKill3.Checked;
@@ -2715,7 +2729,7 @@ namespace StartMe
             Properties.Settings.Default.Kill8 = checkBoxKill8.Checked;
             Properties.Settings.Default.Kill9 = checkBoxKill9.Checked;
 
-            //15
+            //16
             Properties.Settings.Default.StartDelay1After = numericUpDownDelay1After.Value;
             Properties.Settings.Default.StartDelay2After = numericUpDownDelay2After.Value;
             Properties.Settings.Default.StartDelay3After = numericUpDownDelay3After.Value;
@@ -2726,7 +2740,7 @@ namespace StartMe
             Properties.Settings.Default.StartDelay8After = numericUpDownDelay8After.Value;
             Properties.Settings.Default.StartDelay9After = numericUpDownDelay9After.Value;
 
-            //16
+            //17
             Properties.Settings.Default.Path1Enabled = textBoxPath1.Enabled;
             Properties.Settings.Default.Path2Enabled = textBoxPath2.Enabled;
             Properties.Settings.Default.Path3Enabled = textBoxPath3.Enabled;
@@ -2737,7 +2751,7 @@ namespace StartMe
             Properties.Settings.Default.Path8Enabled = textBoxPath8.Enabled;
             Properties.Settings.Default.Path9Enabled = textBoxPath9.Enabled;
 
-            //17
+            //18
             Properties.Settings.Default.KeepRunning1 = checkBoxKeepRunning1.Checked;
             Properties.Settings.Default.KeepRunning2 = checkBoxKeepRunning2.Checked;
             Properties.Settings.Default.KeepRunning3 = checkBoxKeepRunning3.Checked;
@@ -2899,6 +2913,17 @@ namespace StartMe
             comboBoxPriority9.Enabled = true;
 
             //7
+            textBoxEZName1.Text = Properties.Settings.Default.EZName1;
+            textBoxEZName2.Text = Properties.Settings.Default.EZName2;
+            textBoxEZName3.Text = Properties.Settings.Default.EZName3;
+            textBoxEZName4.Text = Properties.Settings.Default.EZName4;
+            textBoxEZName5.Text = Properties.Settings.Default.EZName5;
+            textBoxEZName6.Text = Properties.Settings.Default.EZName6;
+            textBoxEZName7.Text = Properties.Settings.Default.EZName7;
+            textBoxEZName8.Text = Properties.Settings.Default.EZName8;
+            textBoxEZName9.Text = Properties.Settings.Default.EZName9;
+
+            //8
             numericUpDownDelay1Before.Value = Properties.Settings.Default.StartDelay1Before;
             numericUpDownDelay2Before.Value = Properties.Settings.Default.StartDelay2Before;
             numericUpDownDelay3Before.Value = Properties.Settings.Default.StartDelay3Before;
@@ -2909,7 +2934,7 @@ namespace StartMe
             numericUpDownDelay8Before.Value = Properties.Settings.Default.StartDelay8Before;
             numericUpDownDelay9Before.Value = Properties.Settings.Default.StartDelay9Before;
 
-            //8
+            //9
             numericUpDownCPU1.Value = Properties.Settings.Default.CPU1;
             numericUpDownCPU2.Value = Properties.Settings.Default.CPU2;
             numericUpDownCPU3.Value = Properties.Settings.Default.CPU3;
@@ -2920,7 +2945,7 @@ namespace StartMe
             numericUpDownCPU8.Value = Properties.Settings.Default.CPU8;
             numericUpDownCPU9.Value = Properties.Settings.Default.CPU9;
 
-            //9
+            //10
             textBoxStart1.Text = Properties.Settings.Default.KeysStart1;
             textBoxStart2.Text = Properties.Settings.Default.KeysStart2;
             textBoxStart3.Text = Properties.Settings.Default.KeysStart3;
@@ -2931,7 +2956,7 @@ namespace StartMe
             textBoxStart8.Text = Properties.Settings.Default.KeysStart8;
             textBoxStart9.Text = Properties.Settings.Default.KeysStart9;
 
-            //10
+            //11
             textBoxStart1Sequence.Text = Properties.Settings.Default.Start1Next;
             textBoxStart2Sequence.Text = Properties.Settings.Default.Start2Next;
             textBoxStart3Sequence.Text = Properties.Settings.Default.Start3Next;
@@ -2942,7 +2967,7 @@ namespace StartMe
             textBoxStart8Sequence.Text = Properties.Settings.Default.Start8Next;
             textBoxStart9Sequence.Text = Properties.Settings.Default.Start9Next;
 
-            //11
+            //12
             textBoxStart1Stop.Text = Properties.Settings.Default.Start1Stop;
             textBoxStart2Stop.Text = Properties.Settings.Default.Start2Stop;
             textBoxStart3Stop.Text = Properties.Settings.Default.Start3Stop;
@@ -2953,7 +2978,7 @@ namespace StartMe
             textBoxStart8Stop.Text = Properties.Settings.Default.Start8Stop;
             textBoxStart9Stop.Text = Properties.Settings.Default.Start9Stop;
 
-            //12
+            //13
             numericUpDownDelayStop1.Value = Properties.Settings.Default.StopDelay1;
             numericUpDownDelayStop2.Value = Properties.Settings.Default.StopDelay2;
             numericUpDownDelayStop3.Value = Properties.Settings.Default.StopDelay3;
@@ -2964,7 +2989,7 @@ namespace StartMe
             numericUpDownDelayStop8.Value = Properties.Settings.Default.StopDelay8;
             numericUpDownDelayStop9.Value = Properties.Settings.Default.StopDelay9;
 
-            //13
+            //14
             textBoxStop1.Text = Properties.Settings.Default.KeysStop1;
             textBoxStop2.Text = Properties.Settings.Default.KeysStop2;
             textBoxStop3.Text = Properties.Settings.Default.KeysStop3;
@@ -2975,7 +3000,7 @@ namespace StartMe
             textBoxStop8.Text = Properties.Settings.Default.KeysStop8;
             textBoxStop9.Text = Properties.Settings.Default.KeysStop9;
 
-            //14
+            //15
             checkBoxKill1.Checked = Properties.Settings.Default.Kill1;
             checkBoxKill2.Checked = Properties.Settings.Default.Kill2;
             checkBoxKill3.Checked = Properties.Settings.Default.Kill3;
@@ -2986,7 +3011,7 @@ namespace StartMe
             checkBoxKill8.Checked = Properties.Settings.Default.Kill8;
             checkBoxKill9.Checked = Properties.Settings.Default.Kill9;
 
-            //15
+            //16
             numericUpDownDelay1After.Value = Properties.Settings.Default.StartDelay1After;
             numericUpDownDelay2After.Value = Properties.Settings.Default.StartDelay2After;
             numericUpDownDelay3After.Value = Properties.Settings.Default.StartDelay3After;
@@ -2997,7 +3022,7 @@ namespace StartMe
             numericUpDownDelay8After.Value = Properties.Settings.Default.StartDelay8After;
             numericUpDownDelay9After.Value = Properties.Settings.Default.StartDelay9After;
 
-            //16
+            //17
             textBoxPath1.Enabled = buttonStart1.Enabled = Properties.Settings.Default.Path1Enabled;
             textBoxPath2.Enabled = buttonStart2.Enabled = Properties.Settings.Default.Path2Enabled;
             textBoxPath3.Enabled = buttonStart3.Enabled = Properties.Settings.Default.Path3Enabled;
@@ -3008,7 +3033,7 @@ namespace StartMe
             textBoxPath8.Enabled = buttonStart8.Enabled = Properties.Settings.Default.Path8Enabled;
             textBoxPath9.Enabled = buttonStart9.Enabled = Properties.Settings.Default.Path9Enabled;
 
-            //17
+            //18
             checkBoxKeepRunning1.Checked = Properties.Settings.Default.KeepRunning1;
             checkBoxKeepRunning2.Checked = Properties.Settings.Default.KeepRunning2;
             checkBoxKeepRunning3.Checked = Properties.Settings.Default.KeepRunning3;
@@ -4301,48 +4326,48 @@ namespace StartMe
 
         void SwapTaskEzName(int swap1, int swap2)
         {
-            Label text1 = null, text2 = null;
+            TextBox text1 = null, text2 = null;
             switch (swap1)
             {
                 case 1:
-                    text1 = labelEZ1; break;
+                    text1 = textBoxEZName1; break;
                 case 2:
-                    text1 = labelEZ2; break;
+                    text1 = textBoxEZName2; break;
                 case 3:
-                    text1 = labelEZ3; break;
+                    text1 = textBoxEZName3; break;
                 case 4:
-                    text1 = labelEZ4; break;
+                    text1 = textBoxEZName4; break;
                 case 5:
-                    text1 = labelEZ5; break;
+                    text1 = textBoxEZName5; break;
                 case 6:
-                    text1 = labelEZ6; break;
+                    text1 = textBoxEZName6; break;
                 case 7:
-                    text1 = labelEZ7; break;
+                    text1 = textBoxEZName7; break;
                 case 8:
-                    text1 = labelEZ8; break;
+                    text1 = textBoxEZName8; break;
                 case 9:
-                    text1 = labelEZ9; break;
+                    text1 = textBoxEZName9; break;
             }
             switch (swap2)
             {
                 case 1:
-                    text2 = labelEZ1; break;
+                    text2 = textBoxEZName1; break;
                 case 2:
-                    text2 = labelEZ2; break;
+                    text2 = textBoxEZName2; break;
                 case 3:
-                    text2 = labelEZ3; break;
+                    text2 = textBoxEZName3; break;
                 case 4:
-                    text2 = labelEZ4; break;
+                    text2 = textBoxEZName4; break;
                 case 5:
-                    text2 = labelEZ5; break;
+                    text2 = textBoxEZName5; break;
                 case 6:
-                    text2 = labelEZ6; break;
+                    text2 = textBoxEZName6; break;
                 case 7:
-                    text2 = labelEZ7; break;
+                    text2 = textBoxEZName7; break;
                 case 8:
-                    text2 = labelEZ8; break;
+                    text2 = textBoxEZName8; break;
                 case 9:
-                    text2 = labelEZ9; break;
+                    text2 = textBoxEZName9; break;
 
             }
             string s = text1.Text;
