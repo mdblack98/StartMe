@@ -89,12 +89,10 @@ namespace StartMe
         List<String> settingsKeys = new List<string>();
         readonly String[] processArgs = new string[10];
         readonly Process[] process = new Process[10]; // we use 1-9
-        //int[] processID = new int[10];
-        //String[] windowTitle = new string[10];
-        static int jtalerts = 0;
         private int selectedTask;
         readonly bool settingsSave = false;
         private bool backedUp = false;
+        private bool noAuto = false;
 
         public HelpForm Help { get; } = new HelpForm();
 
@@ -406,34 +404,28 @@ namespace StartMe
 
 
             ToolTip.SetToolTip(checkBoxMinimize, "Minimize StartMe window after startup");
-            ToolTip.SetToolTip(buttonStartAll, "Start all tasks now");
+            ToolTip.SetToolTip(buttonStartAll, "Start all tasks now\nShift-click to start all configs");
             ToolTip.SetToolTip(buttonStopAll, "Stop all tasks now");
             ToolTip.SetToolTip(checkBoxStopAll, "Stop all tasks when program exits");
-            ToolTip.SetToolTip(buttonStartAuto, "Start all tasks with Auto checked");
+            ToolTip.SetToolTip(buttonStartAuto, "Start all tasks with Auto checked\nShift-click to start all configs");
             ToolTip.SetToolTip(checkBoxStartup, "Start all auto tasks at startup");
             String[] args = Environment.GetCommandLineArgs();
-            //if (args.Length > 1 && args[1].Equals("-noauto"))
-            //{
-            //    noauto = false;
-            //}
-            if (args.Length > 2)
+            for(int i=1;i<args.Length;++i)
             {
-                MessageBox.Show("Only one argument (i.e. configname) expected", "Error StartMe");
-                return;
-            }
-            if (args.Length == 2)
-            {
-                SettingsLoad(args[1]);
-            }
-            else
-            {
-                //SettingsLoad("Default");
+                if (args[i].Equals("-noauto"))
+                {
+                    noAuto = true;
+                }
+                else
+                {
+                    SettingsLoad(args[i]);
+                }
             }
             settingsSave = true;
 
             var t = Task.Run(async delegate
             {
-                await Task.Delay(TimeSpan.FromSeconds(5));
+                await Task.Delay(TimeSpan.FromSeconds(3));
                 //MessageBox.Show("Task Delayed");
             });
         }
@@ -609,10 +601,6 @@ namespace StartMe
                     fileName = fileName + " " + args.Split(']').First();
                 }
             }
-            else if (fileName.ToLower().Contains("jtalert"))
-            {
-                fileName = process[n].MainWindowTitle.Split(']').First();
-            }
             return fileName;
         }
 
@@ -666,7 +654,7 @@ namespace StartMe
 
             if (!File.Exists(name))
             {
-                MessageBox.Show("Tasks #" + n + " file does not exist\n" + name, "Error StartMe");
+               //MessageBox.Show("Tasks #" + n + " file does not exist\n" + name, "Error StartMe");
                 SetPathColor(n, Color.Red);
                 processId.Text = "0";
                 SetStartStop(n, false, false);
@@ -688,11 +676,17 @@ namespace StartMe
                 try
                 {
                     Process myprocess = Process.GetProcessById(pid);
+                    myprocess.StartInfo.Arguments = CommandLineUtilities.getCommandLines(myprocess);
+                    String cmdLine = "\"" + name + "\" " + args;
                     if (name.Equals(myprocess.MainModule.FileName))
                     {
                         SetStartStop(n, false, true);
                         process[n] = myprocess;
                         return true;
+                    }
+                    else
+                    {
+                        process[n] = null; ;
                     }
                 }
                 catch (Exception ex)
@@ -709,66 +703,11 @@ namespace StartMe
                 SetStartStop(n, true, false);
                 return false;
             }
-            //if (processNameIsUnique(name))
-            {
-                //String windowTitle = "";
-                process[n] = p2;
-                //                processID[n] = process[n].Id;
-                processId.Text = process[n].Id.ToString();
-                ProcessSetId(n, process[n].Id);
-                // MDB temp for debugging
-                if (name.ToLower().Contains("jtalert"))
-                {
-                    //char[] split = { ',' };
-                    //string[] tokens = name.Split(split);
-                    //string title = "JTALert"+tokens[4].Substring(0, 2);
-                    //labelWindowTitle.Text = p2.MainWindowTitle;
-                }
-                else if (name.ToLower().Contains("wsjtx"))
-                {
-                    //labelWindowTitle.Text = p2.MainWindowTitle;
-                }
-                SetStartStop(n, false, true);
-                return true;
-            }
-            /*
-            // Not a unique process so what do we do now?
-            Process[] pAll = getProcessesByFileName(name);
-            List<int> indexes = new List<int>();
-            String sx = textBoxPath5.Text.Split('\\').Last().Split('.').First();
-            if (textBoxPath1.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(1);
-            if (textBoxPath2.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(2);
-            if (textBoxPath3.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(3);
-            if (textBoxPath4.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(4);
-            if (textBoxPath5.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(5);
-            if (textBoxPath6.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(6);
-            if (textBoxPath7.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(7);
-            if (textBoxPath8.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(8);
-            if (textBoxPath9.Text.Split('\\').Last().Split('.').First().Equals(pAll[0].ProcessName)) indexes.Add(9);
-            List<int>.Enumerator eIndexes = indexes.GetEnumerator();
-
-            for (int i = 0; i < pAll.Count(); ++i)
-            {
-                eIndexes.MoveNext();
-                int index = eIndexes.Current;
-                switch (index)
-                {
-                    case 1: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid1.Text = pAll[i].Id.ToString(); break;
-                    case 2: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid2.Text = pAll[i].Id.ToString(); break;
-                    case 3: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid3.Text = pAll[i].Id.ToString(); break;
-                    case 4: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid4.Text = pAll[i].Id.ToString(); break;
-                    case 5: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid5.Text = pAll[i].Id.ToString(); break;
-                    case 6: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid6.Text = pAll[i].Id.ToString(); break;
-                    case 7: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid7.Text = pAll[i].Id.ToString(); break;
-                    case 8: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid8.Text = pAll[i].Id.ToString(); break;
-                    case 9: labelWindowTitle.Text = pAll[i].MainWindowTitle; pid9.Text = pAll[i].Id.ToString(); break;
-                }
-                //labelWindowTitle.Text = pAll[i].MainWindowTitle;
-
-            }
-            
-            return false;
-            */
+            process[n] = p2;
+            processId.Text = process[n].Id.ToString();
+            ProcessSetId(n, process[n].Id);
+            SetStartStop(n, false, true);
+            return true;
         }
 
         private String GetPath(int n)
@@ -817,36 +756,25 @@ namespace StartMe
             bool adminNeeded = false;
             String exeName = fileName.Substring(index + 1).Replace(".exe", "");
             Process[] pName = Process.GetProcessesByName(exeName);
-            if (exeName.ToLower().Contains("jtalert")) ++jtalerts;
             foreach (Process p in pName)
             {
-                if (p.MainWindowTitle.ToLower().Contains("jtalert"))
+                if (p != null)
                 {
-                    // get the instance#
-                    String sInstance = p.MainWindowTitle.Split('#').Last().Split(']').First();
-                    if (sInstance.Length == 0)
-                    {
-                        return null;
-                    }
-                    try
-                    {
-                        int instance = Convert.ToInt16(sInstance);
-                        if (jtalerts == instance) return p;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Debug StartMe");
-                        return null;
-                    }
+                    processArgs = CommandLineUtilities.getCommandLines(p);
                 }
-                processArgs = ProcCmdLine.GetCommandLineOfProcessIgnoreFirst(p);
 
                 ++i;
                 try
                 {
                     //if (p.HasExited) return null;
-                    if (fileName.Equals(p.MainModule.FileName) && processArgs.Equals(fileArgs))
-                        break; // find the first one
+                    if (fileName != null && p != null && p.MainModule != null)
+                    {
+                        String compare1 = "\"" + p.MainModule.FileName + "\" ";
+                        String s2 = compare1 + fileArgs;
+                        if (fileName.Equals(p.MainModule.FileName) && processArgs.Equals(s2))
+                            break; // find the first one
+                    }
+                    else return null;
                 }
                 catch (Win32Exception)
                 {
@@ -860,7 +788,8 @@ namespace StartMe
             {
                 try
                 {
-                    if (i >= 0 && fileName.Equals(pName[i].MainModule.FileName) && fileArgs.Equals(processArgs))
+                    String compare1 = "\"" + fileName + "\" " + fileArgs;
+                    if (i >= 0 && fileName.Equals(pName[i].MainModule.FileName) && compare1.Equals(processArgs))
                     {
                         return pName[i];
                     }
@@ -944,6 +873,15 @@ namespace StartMe
 
         private void ProcessInit()
         {
+            process[0] = null;
+            process[1] = null;
+            process[2] = null;
+            process[3] = null;
+            process[4] = null;
+            process[5] = null;
+            process[6] = null;
+            process[7] = null;
+            process[8] = null;
             ProcessFindName(textBoxPath1.Text, textBoxArgs1.Text, 1, ref pid1);
             ProcessFindName(textBoxPath2.Text, textBoxArgs2.Text, 2, ref pid2);
             ProcessFindName(textBoxPath3.Text, textBoxArgs3.Text, 3, ref pid3);
@@ -982,7 +920,7 @@ namespace StartMe
             {
                 Process p1 = GetProcessByFileName(n);
 
-                if (process[n] != null && process[n].Id > 0)
+                if (p1 != null && process[n] != null && process[n].Id > 0)
                 {
                     int pid = 0;
                     switch (n)
@@ -1019,6 +957,11 @@ namespace StartMe
                         // if we get exception than it's not running anymore
                         SetStartStop(n, enabled, false);
                     }
+                }
+                else {
+                    //process[n] = new Process();
+                    SetStartStop(n, enabled, false);
+                    return false;
                 }
             }
             catch (Exception)
@@ -1163,19 +1106,20 @@ namespace StartMe
                     case "ALT+F4":
                         key = "(%{F4})";
                         break;
+                    case "LWIN":
+                        key = "{LWIN}";
+                        break;
+                    case "RWIN":
+                        key = "{RWIN}";
+                        break;
                     default:
                         key = s;
                         break;
                 }
                 if (key.Length > 0)
                 {
-                    // JTAlert V2 does funky thinks with the SendMessage on the title bar
-                    //if (windowName.Contains("JTAlert"))
-                    //{
                     SendKeys.SendWait(key);
-                    //}
-                    //else
-                    //{
+                    //{  Another way if needed?
                     //    _ = SendMessage(h.First(), 0x000c, (IntPtr)0, key);
                     //}
                     Thread.Sleep(100);
@@ -1478,16 +1422,17 @@ namespace StartMe
                 Thread.Sleep(500);
                 IntPtr mainWindowHandle;
                 Stopwatch timerHandle = new Stopwatch();
-                timerHandle.Restart();
                 timerHandle.Start();
                 int timeout = 30; // seconds
                 labelStatusMessage.Text = "Waiting for task#" + n + " window handle";
                 do
                 {
                     mainWindowHandle = process[n].MainWindowHandle;
-                    Thread.Sleep(100);
-                    labelStatusMessage.Text = "Waiting for task#" + n + " window handle " + (timeout - (timerHandle.ElapsedMilliseconds / 1000));
+                    long myTime = timeout - (timerHandle.ElapsedMilliseconds / 1000);
+                    labelStatusMessage.Text = "Waiting for task#" + n + " window handle " + myTime;
+                    labelStatusMessage.Refresh();
                     Application.DoEvents();
+                    Thread.Sleep(200);
                 } while (timerHandle.ElapsedMilliseconds < timeout * 1000 && mainWindowHandle == (IntPtr)0);
                 if (mainWindowHandle == null)
                 {
@@ -1535,6 +1480,7 @@ namespace StartMe
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error setting priority?  Administrator needed?\n" + ex.StackTrace, "Error StartMe");
+                    gotit = true; // just to get out of the loop
                 }
             } while (gotit == false);
 
@@ -1916,27 +1862,32 @@ namespace StartMe
             }
         }
 
-        private void StartAllAuto()
+        private void StartAllConfigs(bool autoOnly = false)
         {
-            int next = 1;
-            bool started = false;
+            int next;
+            bool started;
 
-            // Only do auto start if checkBoxStartup is checked
-            if (!checkBoxStartup.Checked) return;
             List<string> settingsKeys = new List<string>();
-            if (settingsKey == "") // then will will autostart all settings
-            {
+            //if (settingsKey == "") // then will will autostart all settings
+            //{
                 settingsKeys = SettingsGetKeys();
-            }
-            else // we will only start the settings passed in
-            {
-                settingsKeys.Add(settingsKey);
-            }
+            //}
+            //else // we will only start the settings passed in
+            //{
+            //    settingsKeys.Add(settingsKey);
+            //}
 
             foreach (string settings in settingsKeys)
             {
-                if (SettingsLoad(settings) == false) return;
-
+                if (SettingsLoad(settings) == false)
+                {
+                    MessageBox.Show("Unable to load settings for " + settings);
+                    continue;
+                }
+                ProcessInit();
+                Application.DoEvents(); // let the controls update
+                next = 1;
+                started = false;
                 while (next <= 9)
                 {
                     this.BringToFront();
@@ -1957,7 +1908,12 @@ namespace StartMe
                         default: checkBox = false; textBox = null; break;
 
                     }
-                    if (checkBox == true && textBox.Equals(snext))
+                    if (autoOnly == true && checkBox == true && textBox.Equals(snext))
+                    {
+                        ProcessStart(next, ModifierKeys);
+                        started = true;
+                    }
+                    else if (autoOnly == false && textBox.Equals(snext))
                     {
                         ProcessStart(next, ModifierKeys);
                         started = true;
@@ -1967,7 +1923,7 @@ namespace StartMe
                 if (started)
                 {
                     labelStatusMessage.Text = "All Tasks Started";
-                    Cursor.Current = Cursors.Default;
+                    Application.UseWaitCursor = false;
                     this.Activate();
                     return; // return if we stopped using sequence numbers
                 }
@@ -1975,89 +1931,85 @@ namespace StartMe
                 next = 1;
                 while (next <= 9)
                 {
-                    bool checkBox;
-                    switch (next)
+                    var checkBox = next switch
                     {
-                        case 1: checkBox = checkBoxAutoStart1.Checked; break;
-                        case 2: checkBox = checkBoxAutoStart2.Checked; break;
-                        case 3: checkBox = checkBoxAutoStart3.Checked; break;
-                        case 4: checkBox = checkBoxAutoStart4.Checked; break;
-                        case 5: checkBox = checkBoxAutoStart5.Checked; break;
-                        case 6: checkBox = checkBoxAutoStart6.Checked; break;
-                        case 7: checkBox = checkBoxAutoStart7.Checked; break;
-                        case 8: checkBox = checkBoxAutoStart8.Checked; break;
-                        case 9: checkBox = checkBoxAutoStart9.Checked; break;
-                        default: checkBox = false; break;
-
-                    }
-                    if (checkBox == true)
+                        1 => checkBoxAutoStart1.Checked,
+                        2 => checkBoxAutoStart2.Checked,
+                        3 => checkBoxAutoStart3.Checked,
+                        4 => checkBoxAutoStart4.Checked,
+                        5 => checkBoxAutoStart5.Checked,
+                        6 => checkBoxAutoStart6.Checked,
+                        7 => checkBoxAutoStart7.Checked,
+                        8 => checkBoxAutoStart8.Checked,
+                        9 => checkBoxAutoStart9.Checked,
+                        _ => false,
+                    };
+                    // If autoOnly requested then just them, or if not autoOnly then anybody can start here
+                    if ((autoOnly == true && checkBox == true) || autoOnly == false)
                     {
-                        ProcessStart(next, ModifierKeys);
+                        if (!ProcessIsRunning(next))
+                            ProcessStart(next, ModifierKeys);
+                        started = true;
                     }
                     ++next;
                 }
             }
+            Application.UseWaitCursor = false;
             SettingsLoad("Default");
         }
 
         string GetStartSequence(int n)
         {
-            string textBox;
-            switch (n)
+            var textBox = n switch
             {
-                case 1: textBox = textBoxStart1Sequence.Text; break;
-                case 2: textBox = textBoxStart2Sequence.Text; break;
-                case 3: textBox = textBoxStart3Sequence.Text; break;
-                case 4: textBox = textBoxStart4Sequence.Text; break;
-                case 5: textBox = textBoxStart5Sequence.Text; break;
-                case 6: textBox = textBoxStart6Sequence.Text; break;
-                case 7: textBox = textBoxStart7Sequence.Text; break;
-                case 8: textBox = textBoxStart8Sequence.Text; break;
-                case 9: textBox = textBoxStart9Sequence.Text; break;
-                default: textBox = null; break;
-
-            }
+                1 => textBoxStart1Sequence.Text,
+                2 => textBoxStart2Sequence.Text,
+                3 => textBoxStart3Sequence.Text,
+                4 => textBoxStart4Sequence.Text,
+                5 => textBoxStart5Sequence.Text,
+                6 => textBoxStart6Sequence.Text,
+                7 => textBoxStart7Sequence.Text,
+                8 => textBoxStart8Sequence.Text,
+                9 => textBoxStart9Sequence.Text,
+                _ => null,
+            };
             return textBox;
         }
         string GetStartStopSequence(int n)
         {
-            string textBox;
-            switch (n)
+            var textBox = n switch
             {
-                case 1: textBox = textBoxStart1Stop.Text; break;
-                case 2: textBox = textBoxStart2Stop.Text; break;
-                case 3: textBox = textBoxStart3Stop.Text; break;
-                case 4: textBox = textBoxStart4Stop.Text; break;
-                case 5: textBox = textBoxStart5Stop.Text; break;
-                case 6: textBox = textBoxStart6Stop.Text; break;
-                case 7: textBox = textBoxStart7Stop.Text; break;
-                case 8: textBox = textBoxStart8Stop.Text; break;
-                case 9: textBox = textBoxStart9Stop.Text; break;
-                default: textBox = null; break;
-
-            }
+                1 => textBoxStart1Stop.Text,
+                2 => textBoxStart2Stop.Text,
+                3 => textBoxStart3Stop.Text,
+                4 => textBoxStart4Stop.Text,
+                5 => textBoxStart5Stop.Text,
+                6 => textBoxStart6Stop.Text,
+                7 => textBoxStart7Stop.Text,
+                8 => textBoxStart8Stop.Text,
+                9 => textBoxStart9Stop.Text,
+                _ => null,
+            };
             return textBox;
         }
         bool GetAutoStart(int n)
         {
-            bool autoStart;
-            switch (n)
+            var autoStart = n switch
             {
-                case 1: autoStart = checkBoxAutoStart1.Checked; break;
-                case 2: autoStart = checkBoxAutoStart2.Checked; break;
-                case 3: autoStart = checkBoxAutoStart3.Checked; break;
-                case 4: autoStart = checkBoxAutoStart4.Checked; break;
-                case 5: autoStart = checkBoxAutoStart5.Checked; break;
-                case 6: autoStart = checkBoxAutoStart6.Checked; break;
-                case 7: autoStart = checkBoxAutoStart7.Checked; break;
-                case 8: autoStart = checkBoxAutoStart8.Checked; break;
-                case 9: autoStart = checkBoxAutoStart9.Checked; break;
-                default: autoStart = false; break;
-
-            }
+                1 => checkBoxAutoStart1.Checked,
+                2 => checkBoxAutoStart2.Checked,
+                3 => checkBoxAutoStart3.Checked,
+                4 => checkBoxAutoStart4.Checked,
+                5 => checkBoxAutoStart5.Checked,
+                6 => checkBoxAutoStart6.Checked,
+                7 => checkBoxAutoStart7.Checked,
+                8 => checkBoxAutoStart8.Checked,
+                9 => checkBoxAutoStart9.Checked,
+                _ => false,
+            };
             return autoStart;
         }
-        private void StartAll(bool auto = false)
+        private void StartAll(bool autoOnly = false)
         {
             bool started = false;
             int next = 1;
@@ -2069,7 +2021,7 @@ namespace StartMe
                 String snext = next.ToString();
                 string textBox = GetStartSequence(next);
                 bool autoStart = GetAutoStart(next);
-                bool doWeStart = (auto == true && autoStart) || auto == false;
+                bool doWeStart = (autoOnly == true && autoStart) || autoOnly == false;
                 if (snext != null && textBox.Equals(snext) && doWeStart)
                 {
                     ProcessStart(next, ModifierKeys);
@@ -2088,7 +2040,7 @@ namespace StartMe
             while (next <= 9)
             {
                 bool autoStart = GetAutoStart(next);
-                bool doWeStart = (auto == true && autoStart) || auto == false;
+                bool doWeStart = (autoOnly == true && autoStart) || autoOnly == false;
                 if (doWeStart)
                 {
                     ProcessStart(next, ModifierKeys);
@@ -2187,18 +2139,17 @@ namespace StartMe
             StopAll();
         }
 
-        private void TextBoxPath1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private String FileGet(string path)
+        private string FileGet(string path)
         {
             FileDialog fileDialog = new OpenFileDialog
             {
                 CheckFileExists = true,
                 Filter = "Executables (*.exe *.bat, *.cmd)|*.exe;*.bat;*.cmd|All Files (*.*) |*.*",
-                InitialDirectory = Path.GetDirectoryName(path)
             };
+            if (path.Length > 0)
+            {
+                fileDialog.InitialDirectory = Path.GetDirectoryName(path);
+            }
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 fileDialog.Dispose();
@@ -2324,38 +2275,36 @@ namespace StartMe
 
         private bool GetKeep(int n)
         {
-            bool keepRunning;
-            switch(n)
+            var keepRunning = n switch
             {
-                case 1: keepRunning = checkBoxKeepRunning1.Checked; break;
-                case 2: keepRunning = checkBoxKeepRunning2.Checked; break;
-                case 3: keepRunning = checkBoxKeepRunning3.Checked; break;
-                case 4: keepRunning = checkBoxKeepRunning4.Checked; break;
-                case 5: keepRunning = checkBoxKeepRunning5.Checked; break;
-                case 6: keepRunning = checkBoxKeepRunning6.Checked; break;
-                case 7: keepRunning = checkBoxKeepRunning7.Checked; break;
-                case 8: keepRunning = checkBoxKeepRunning8.Checked; break;
-                case 9: keepRunning = checkBoxKeepRunning9.Checked; break;
-                default: keepRunning = false; break;
-            }
+                1 => checkBoxKeepRunning1.Checked,
+                2 => checkBoxKeepRunning2.Checked,
+                3 => checkBoxKeepRunning3.Checked,
+                4 => checkBoxKeepRunning4.Checked,
+                5 => checkBoxKeepRunning5.Checked,
+                6 => checkBoxKeepRunning6.Checked,
+                7 => checkBoxKeepRunning7.Checked,
+                8 => checkBoxKeepRunning8.Checked,
+                9 => checkBoxKeepRunning9.Checked,
+                _ => false,
+            };
             return keepRunning;
         }
         private Int64 GetPid(int n)
         {
-            string pid;
-            switch(n)
+            var pid = n switch
             {
-                case 1: pid = pid1.Text; break;
-                case 2: pid = pid2.Text; break;
-                case 3: pid = pid3.Text; break;
-                case 4: pid = pid4.Text; break;
-                case 5: pid = pid5.Text; break;
-                case 6: pid = pid6.Text; break;
-                case 7: pid = pid7.Text; break;
-                case 8: pid = pid8.Text; break;
-                case 9: pid = pid9.Text; break;
-                default: pid = ""; break;
-            }
+                1 => pid1.Text,
+                2 => pid2.Text,
+                3 => pid3.Text,
+                4 => pid4.Text,
+                5 => pid5.Text,
+                6 => pid6.Text,
+                7 => pid7.Text,
+                8 => pid8.Text,
+                9 => pid9.Text,
+                _ => "",
+            };
             if (pid.Length == 0) return 0;
             return Int64.Parse(pid);
         }
@@ -2460,50 +2409,46 @@ namespace StartMe
         {
             if (backedUp) return; // we only do this once per run
             backedUp = true;
-            using (var md5Now = MD5.Create())
+            using var md5Now = MD5.Create();
+            using var md5Previous = MD5.Create();
+            using (var stream = File.OpenRead(fileNow))
             {
-                using (var md5Previous = MD5.Create())
-                {
-                    using (var stream = File.OpenRead(fileNow))
-                    {
-                        md5Now.ComputeHash(stream);
-                    }
-                    string filePrevious = fileNow + ".1";
+                md5Now.ComputeHash(stream);
+            }
+            string filePrevious = fileNow + ".1";
 
-                    // If we've never backed it up just do it and be done
-                    if (!File.Exists(filePrevious))
+            // If we've never backed it up just do it and be done
+            if (!File.Exists(filePrevious))
+            {
+                File.Copy(fileNow, filePrevious);
+                string msg = "Your user.config was backed up -- Click Backups to manage";
+                labelStatusMessage.Text = msg;
+                return;
+            }
+            // Otherwise we'll get the MD5 of the backup and see if things changed
+            using (var stream = File.OpenRead(filePrevious))
+            {
+                md5Previous.ComputeHash(stream);
+            }
+            string hashNow = BytesToString(md5Now.Hash);
+            string hashPrevious = BytesToString(md5Previous.Hash);
+            if (!hashNow.Equals(hashPrevious))
+            {
+                string msg = "Your user.config was backed up -- Click Backups to manage";
+                // Move 1-4 to 2-5 rolling backup
+                for (int i = 4; i >= 1; --i)
+                {
+                    string fileFrom = fileNow + "." + i;
+                    string fileTo = fileNow + "." + (i + 1);
+                    if (File.Exists(fileFrom))
                     {
-                        File.Copy(fileNow, filePrevious);
-                        string msg = "Your user.config was backed up -- Click Backups to manage";
-                        labelStatusMessage.Text = msg;
-                        return;
-                    }
-                    // Otherwise we'll get the MD5 of the backup and see if things changed
-                    using (var stream = File.OpenRead(filePrevious))
-                    {
-                        md5Previous.ComputeHash(stream);
-                    }
-                    string hashNow = BytesToString(md5Now.Hash);
-                    string hashPrevious = BytesToString(md5Previous.Hash);
-                    if (!hashNow.Equals(hashPrevious))
-                    {
-                        string msg = "Your user.config was backed up -- Click Backups to manage";
-                        // Move 1-4 to 2-5 rolling backup
-                        for (int i = 4; i >= 1; --i)
-                        {
-                            string fileFrom = fileNow + "." + i;
-                            string fileTo = fileNow + "." + (i + 1);
-                            if (File.Exists(fileFrom))
-                            {
-                                File.Delete(fileTo);
-                                File.Move(fileFrom, fileTo);
-                            }
-                        }
-                        // Copy our existing user.config
-                        File.Copy(fileNow, fileNow + ".1", true);
-                        labelStatusMessage.Text = msg;
+                        File.Delete(fileTo);
+                        File.Move(fileFrom, fileTo);
                     }
                 }
+                // Copy our existing user.config
+                File.Copy(fileNow, fileNow + ".1", true);
+                labelStatusMessage.Text = msg;
             }
         }
         private List<String> SettingsGetKeys()
@@ -3044,40 +2989,6 @@ namespace StartMe
             checkBoxKeepRunning8.Checked = Properties.Settings.Default.KeepRunning8;
             checkBoxKeepRunning9.Checked = Properties.Settings.Default.KeepRunning9;
 
-            //pid1.Text = Properties.Settings.Default.Pid1.ToString();
-            //pid2.Text = Properties.Settings.Default.Pid2.ToString();
-            //pid3.Text = Properties.Settings.Default.Pid3.ToString();
-            //pid4.Text = Properties.Settings.Default.Pid4.ToString();
-            //pid5.Text = Properties.Settings.Default.Pid5.ToString();
-            //pid6.Text = Properties.Settings.Default.Pid6.ToString();
-            //pid7.Text = Properties.Settings.Default.Pid7.ToString();
-            //pid8.Text = Properties.Settings.Default.Pid8.ToString();
-            //pid9.Text = Properties.Settings.Default.Pid9.ToString();
-
-            /*
-            if (textBoxPath1.Text.Length == 0)
-            {
-                // FLrig example
-                //textBoxPath1.Text = "C:\\Program Files (x86)\\flrig-1.3.40.34\\flrig.exe";
-                //numericUpDownDelay1Before.Value = 5;
-                //textBoxStart1Sequence.Text = "2";
-
-                // rigctld
-                textBoxPath2.Text = "C:\\WSJT\\wsjtx\\bin\\rigctld-wsjtx.exe";
-                textBoxArgs2.Text = "-m 4 -vvv";
-                textBoxStart2Sequence.Text = "3";
-
-                // 
-                textBoxPath3.Text = "C:\\Program Files (x86)\\IW3HMH\\Log4OM\\LogOMUI.exe";
-                textBoxStop3.Text = "\"Awaiting Confirmation\" ENTER ";
-                textBoxStart3Sequence.Text = "4";
-
-                textBoxPath4.Text = "C:\\Program Files (x86)\\HamApps\\JTAlert\\JTAlert.exe";
-                textBoxArgs4.Text = "/wsjtx";
-
-                textBoxPath4.Text = "C:\\Program Files (x86)\\Fldigi-4.0.8\\fldigi.exe";
-            }
-            */
             this.Activated += AfterLoading;
             return true;
         }
@@ -3085,12 +2996,13 @@ namespace StartMe
         void AfterLoading(object sender, EventArgs e)
         {
             this.Activated -= AfterLoading;
-            //ProcessUpdate();
-            //MessageBox.Show("Timer");
-            if (autoStartDone == false)
+            if (autoStartDone == false && noAuto == false)
             {
                 autoStartDone = true;
-                StartAllAuto();
+                if (checkBoxStartup.Checked)
+                {
+                    StartAllConfigs(true);
+                }
             }
             timer1.Interval = 2000;
             timer1.Enabled = true;
@@ -3110,12 +3022,16 @@ namespace StartMe
                 }
                 return;
             }
-            if (MessageBox.Show("Do you want to add a new configuration?", "Config StartMe", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show("Do you want to add a new configuration called " + item + "?", "Config StartMe", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 if (item == "Default") item = "";
                 Properties.Settings.Default.SettingsKeyCurrent = item;
-                Properties.Settings.Default.Reset();
-                SettingsLoad(Properties.Settings.Default.SettingsKeyCurrent);
+                if (MessageBox.Show("Click OK to keep copy old task info to new copy, click Cancel to start with empty tasks", "Config StartMe", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Properties.Settings.Default.Reset();
+                }
+                Properties.Settings.Default.Save();
+                SettingsSave(item);
             }
 
         }
@@ -3129,6 +3045,8 @@ namespace StartMe
                 }
             }
             SettingsAdd(comboBoxSettingsKey.Text);
+            Application.DoEvents();
+            ProcessInit();
         }
 
         private void ComboBoxSettingsName_Leave(object sender, EventArgs e)
@@ -3937,7 +3855,14 @@ namespace StartMe
         {
             if (!CheckStartSeqOK()) return;
             timer1.Enabled = false;
-            StartAll();
+            if (ModifierKeys.HasFlag(Keys.Shift))
+            {
+                StartAllConfigs(true);
+            }
+            else
+            {
+                StartAll();
+            }
             timer1.Enabled = true;
         }
 
@@ -5080,9 +5005,16 @@ namespace StartMe
             buttonStart9.Enabled = textBoxPath9.Enabled;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonStartAuto_Click(object sender, EventArgs e)
         {
-            StartAll(true);
+            if (ModifierKeys.HasFlag(Keys.Shift))
+            {
+                StartAllConfigs(true);
+            }
+            else
+            {
+                StartAll(true);
+            }
         }
 
         private void Form1_Activated(object sender, EventArgs e)
@@ -5093,6 +5025,11 @@ namespace StartMe
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.Save();
             }
+        }
+
+        private void CheckBoxStartup_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
