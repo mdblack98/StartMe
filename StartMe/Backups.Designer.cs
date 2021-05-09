@@ -43,18 +43,24 @@
             "user.config.2",
             "user.config.3",
             "user.config.4",
-            "user.config.5"});
-            this.checkedListBox1.Location = new System.Drawing.Point(67, 12);
+            "user.config.5",
+            "user.config.6",
+            "user.config.7",
+            "user.config.8",
+            "user.config.9"});
+            this.checkedListBox1.Location = new System.Drawing.Point(50, 10);
+            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(271, 106);
+            this.checkedListBox1.Size = new System.Drawing.Size(204, 79);
             this.checkedListBox1.TabIndex = 0;
             this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.CheckedListBox1_SelectedIndexChanged);
             // 
             // buttonRestore
             // 
-            this.buttonRestore.Location = new System.Drawing.Point(113, 132);
+            this.buttonRestore.Location = new System.Drawing.Point(85, 107);
+            this.buttonRestore.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonRestore.Name = "buttonRestore";
-            this.buttonRestore.Size = new System.Drawing.Size(75, 32);
+            this.buttonRestore.Size = new System.Drawing.Size(56, 26);
             this.buttonRestore.TabIndex = 1;
             this.buttonRestore.Text = "Restore";
             this.buttonRestore.UseVisualStyleBackColor = true;
@@ -62,9 +68,10 @@
             // 
             // buttonQuit
             // 
-            this.buttonQuit.Location = new System.Drawing.Point(219, 132);
+            this.buttonQuit.Location = new System.Drawing.Point(164, 107);
+            this.buttonQuit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonQuit.Name = "buttonQuit";
-            this.buttonQuit.Size = new System.Drawing.Size(75, 32);
+            this.buttonQuit.Size = new System.Drawing.Size(56, 26);
             this.buttonQuit.TabIndex = 2;
             this.buttonQuit.Text = "Quit";
             this.buttonQuit.UseVisualStyleBackColor = true;
@@ -73,21 +80,23 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 170);
+            this.label1.Location = new System.Drawing.Point(9, 138);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(435, 136);
+            this.label1.Size = new System.Drawing.Size(331, 104);
             this.label1.TabIndex = 3;
             this.label1.Text = resources.GetString("label1.Text");
             // 
             // Backups
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 315);
+            this.ClientSize = new System.Drawing.Size(352, 256);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonQuit);
             this.Controls.Add(this.buttonRestore);
             this.Controls.Add(this.checkedListBox1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Backups";
             this.Text = "Backups";
             this.Load += new System.EventHandler(this.Backups_Load);

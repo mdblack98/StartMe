@@ -6,7 +6,7 @@ using System.Management;
 // https://stackoverflow.com/questions/2633628/can-i-get-command-line-arguments-of-other-processes-from-net-c
 public abstract class CommandLineUtilities
 {
-    public static String getCommandLines(Process processs)
+    public static String GetCommandLines(Process processs)
     {
         ManagementObjectSearcher commandLineSearcher = new ManagementObjectSearcher(
             "SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + processs.Id);
@@ -18,9 +18,9 @@ public abstract class CommandLineUtilities
         return commandLine;
     }
 
-    public static String[] getCommandLinesParsed(Process process)
+    public static String[] GetCommandLinesParsed(Process process)
     {
-        return (parseCommandLine(getCommandLines(process)));
+        return (ParseCommandLine(GetCommandLines(process)));
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public abstract class CommandLineUtilities
     /// </summary>
     /// <param name="commandLine"></param>
     /// <returns>String array</returns>
-    public static String[] parseCommandLine(String commandLine)
+    public static String[] ParseCommandLine(String commandLine)
     {
         List<String> arguments = new List<String>();
 

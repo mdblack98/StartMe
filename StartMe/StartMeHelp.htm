@@ -15,16 +15,16 @@ xmlns="http://www.w3.org/TR/REC-html40">
  <o:DocumentProperties>
   <o:Author>Black</o:Author>
   <o:LastAuthor>Michael Black</o:LastAuthor>
-  <o:Revision>10</o:Revision>
-  <o:TotalTime>19580</o:TotalTime>
+  <o:Revision>19</o:Revision>
+  <o:TotalTime>19583</o:TotalTime>
   <o:Created>2020-11-22T13:37:00Z</o:Created>
-  <o:LastSaved>2020-11-26T05:26:00Z</o:LastSaved>
-  <o:Pages>4</o:Pages>
-  <o:Words>974</o:Words>
-  <o:Characters>5555</o:Characters>
-  <o:Lines>46</o:Lines>
+  <o:LastSaved>2021-05-08T16:23:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>999</o:Words>
+  <o:Characters>5699</o:Characters>
+  <o:Lines>47</o:Lines>
   <o:Paragraphs>13</o:Paragraphs>
-  <o:CharactersWithSpaces>6516</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>6685</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -36,8 +36,6 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
   <w:View>Print</w:View>
-  <w:SpellingState>Clean</w:SpellingState>
-  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -1062,12 +1060,6 @@ span.TitleChar
 	mso-themeshade:191;
 	letter-spacing:.25pt;
 	mso-font-kerning:14.0pt;}
-span.SpellE
-	{mso-style-name:"";
-	mso-spl-e:yes;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -1337,7 +1329,7 @@ break-word'>
 <div style='mso-element:para-border-div;border:none;border-bottom:solid #4F81BD 1.0pt;
 mso-border-bottom-themecolor:accent1;padding:0in 0in 4.0pt 0in'>
 
-<p class=MsoTitle>StartMe 1.0</p>
+<p class=MsoTitle>StartMe 1.1</p>
 
 </div>
 
@@ -1382,7 +1374,7 @@ Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Delay before startup</p>
+</span></span></span><![endif]>Wait for window handle</p>
 
 <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo2'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
@@ -1458,17 +1450,17 @@ after shutdown.<span style='mso-spacerun:yes'>  </span>Sometimes a program may
 need some extra time before starting another dependent program or may take a
 while to shut down, so you don’t get a “failed shutdown” message.<span
 style='mso-spacerun:yes'>  </span>The start Delay is the maximum time before it
-will continue starting tasks.<span style='mso-spacerun:yes'>  </span>The stop Delay
-is the maximum time for shutdown before an error message is displayed.</p>
+will continue starting tasks.<span style='mso-spacerun:yes'>  </span>The stop
+Delay is the maximum time for shutdown before an error message is displayed.</p>
 
-<span style='font-size:14.0pt;line-height:115%;font-family:"Cambria",serif;
+<b><span style='font-size:14.0pt;line-height:115%;font-family:"Cambria",serif;
 mso-ascii-theme-font:major-latin;mso-fareast-font-family:"Times New Roman";
 mso-fareast-theme-font:major-fareast;mso-hansi-theme-font:major-latin;
 mso-bidi-font-family:"Times New Roman";mso-bidi-theme-font:major-bidi;
 color:#365F91;mso-themecolor:accent1;mso-themeshade:191;mso-ansi-language:EN-US;
 mso-fareast-language:EN-US;mso-bidi-language:AR-SA'><br clear=all
 style='page-break-before:always'>
-</span>
+</span></b>
 
 <h1>Key entries</h1>
 
@@ -1477,8 +1469,7 @@ style='page-break-before:always'>
 <p class=MsoNormal>A limited set of key entries can be made to any window
 during startup or shutdown using this format:</p>
 
-<p class=MsoNormal>“WindowName” KEY <span class=SpellE>KEY</span> <span
-class=SpellE>KEY</span> KEY<span class=GramE>…..</span></p>
+<p class=MsoNormal>“WindowName” KEY KEY KEY KEY…..</p>
 
 <p class=MsoNormal>“WindowName” must be the starting characters of any window
 enough to make it unique.</p>
@@ -1492,7 +1483,7 @@ and require keystrokes to shut down politely or must activate certain windows.</
 Log4OM2 - &quot;Awaiting confirmation&quot; DELAY ENTER</p>
 
 <p class=MsoNormal><span style='mso-tab-count:1'>                </span>For
-FLRig - &quot;<span class=SpellE>flrig</span>&quot; ALT+F x</p>
+FLRig - &quot;flrig&quot; ALT+F x</p>
 
 <p class=MsoNormal><span style='mso-tab-count:1'>                </span>Note:
 As of JTAlert 2.3.14 these keystrokes are no longer needed<span
@@ -1569,14 +1560,14 @@ as-is</p>
 
 <p class=MsoNormal>You can have multiple “Settings” to allow many more than 9
 tasks.<span style='mso-spacerun:yes'>  </span>Each setting will have its own
-page of 9 tasks.<span style='mso-spacerun:yes'>  </span>During <span
-class=GramE>startup</span> all settings pages will be examined to the Startup
-checkbox. If it is on the then tasks will be examined for autostart and the
-first setting name will be made the visible one after all tasks have been
-started.<span style='mso-spacerun:yes'>  </span>You can switch between settings
-from the “Settings Name” pulldown.<span style='mso-spacerun:yes'>  </span>If
-you pass a setting name as an argument to StartMe only that setting will be
-loaded, and other settings will be ignored.</p>
+page of 9 tasks.<span style='mso-spacerun:yes'>  </span>During startup all
+settings pages will be examined to the Startup checkbox. If it is on the then
+tasks will be examined for autostart and the first setting name will be made
+the visible one after all tasks have been started.<span
+style='mso-spacerun:yes'>  </span>You can switch between settings from the
+“Settings Name” pulldown.<span style='mso-spacerun:yes'>  </span>If you pass a
+setting name as an argument to StartMe only that setting will be loaded, and
+other settings will be ignored.</p>
 
 <p class=MsoNormal>To create a new settings page just type a name in the
 Settings Name box and hit enter.</p>
@@ -1593,12 +1584,11 @@ style='mso-spacerun:yes'>  </span>All settings will be swapped between them.</p>
 Start checkbox and autostart items by default.<span style='mso-spacerun:yes'> 
 </span>You can override this behavior by passing a configuration name (case
 sensitive) as an argument to StartMe.<span style='mso-spacerun:yes'> 
-</span>You can suppress autostart by adding a command line switch -<span
-class=SpellE>noauto</span>.</p>
+</span>You can suppress autostart by adding a command line switch -noauto.</p>
 
 <p class=MsoNormal>You can start as many configurations as you want.<span
-style='mso-spacerun:yes'>  </span>So “<span class=SpellE>Startme</span> Config1
-Config2 Icom” would start all three settings named Config1, Config2, and Icom.</p>
+style='mso-spacerun:yes'>  </span>So “Startme Config1 Config2 Icom” would start
+all three settings named Config1, Config2, and Icom.</p>
 
 <h1>Tasks</h1>
 
@@ -1659,15 +1649,31 @@ href="https://github.com/mdblack98/StartMe.git">https://github.com/mdblack98/Sta
 
 <h1>Change Log</h1>
 
-<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l2 level1 lfo6'><![if !supportLists]><span
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l2 level1 lfo6'><![if !supportLists]><span
 style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
 Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>N/A until after release 1.0</p>
+</span></span></span><![endif]>1.1</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l2 level2 lfo6'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]>Removed Delay Before and added WinWait – speeds up
+startup when not needing to wait for window handle</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l2 level2 lfo6'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]>Replace user.config with json config files for
+each page</p>
 
 <h1>Error Reporting</h1>
 
 <p class=MsoNormal>All error should generate a dialog box which you can email
 to me for debugging.</p>
+
+<p class=MsoNormal>Here’s what my setup looks like</p>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 

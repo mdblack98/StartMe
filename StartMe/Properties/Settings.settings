@@ -29,33 +29,6 @@
     <Setting Name="Path9" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="StartDelay1Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay2Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay3Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay4Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay5Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay6Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay7Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay8Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="StartDelay9Before" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
     <Setting Name="StopDelay1" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
@@ -559,6 +532,60 @@
     </Setting>
     <Setting Name="EZName9" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="WinWait1" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait2" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait3" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait4" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait5" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait6" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait7" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait8" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WinWait9" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore7" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore8" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
+    </Setting>
+    <Setting Name="StartDelayBefore9" Type="System.String" Scope="User">
+      <Value Profile="(Default)">deprecated</Value>
     </Setting>
   </Settings>
 </SettingsFile>

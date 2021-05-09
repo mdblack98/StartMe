@@ -122,10 +122,9 @@
 user.config.1 will be the settings you had when StartMe started.
 If you make changes while runing StartMe and want to "undo" 
 them you can restore user.config.1.
-user.config 2-5 are older backups that can be restored.
+user.config 2-9 are older backups that can be restored.
 When you restore a backup only user.config will be overwritten. 
 So you can test the user.config backups to see which one you want.
-The next time StartMe is run it will get backed up again.
-</value>
+The next time StartMe is run it will get backed up again.</value>
   </data>
 </root>

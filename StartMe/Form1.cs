@@ -22,6 +22,7 @@ namespace StartMe
 {
     public sealed partial class Form1 : Form
     {
+        private static readonly Mutex mut = new Mutex();
         internal static class SafeNativeMethods
         {
             public enum ShowWindowEnum
@@ -90,9 +91,9 @@ namespace StartMe
         readonly String[] processArgs = new string[10];
         readonly Process[] process = new Process[10]; // we use 1-9
         private int selectedTask;
-        readonly bool settingsSave = false;
+        bool settingsSave = false;
         private bool backedUp = false;
-        private bool noAuto = false;
+        private readonly bool noAuto = false;
 
         public HelpForm Help { get; } = new HelpForm();
 
@@ -247,16 +248,16 @@ namespace StartMe
             ToolTip.SetToolTip(buttonStart8, tip);
             ToolTip.SetToolTip(buttonStart9, tip);
 
-            tip = "Delay before startup";
-            ToolTip.SetToolTip(numericUpDownDelay1Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay2Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay3Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay4Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay5Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay6Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay7Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay8Before, tip);
-            ToolTip.SetToolTip(numericUpDownDelay9Before, tip);
+            tip = "Wait for window handle";
+            ToolTip.SetToolTip(checkBoxWinWait1, tip);
+            ToolTip.SetToolTip(checkBoxWinWait2, tip);
+            ToolTip.SetToolTip(checkBoxWinWait3, tip);
+            ToolTip.SetToolTip(checkBoxWinWait4, tip);
+            ToolTip.SetToolTip(checkBoxWinWait5, tip);
+            ToolTip.SetToolTip(checkBoxWinWait6, tip);
+            ToolTip.SetToolTip(checkBoxWinWait7, tip);
+            ToolTip.SetToolTip(checkBoxWinWait8, tip);
+            ToolTip.SetToolTip(checkBoxWinWait9, tip);
 
             tip = "Delay after startup";
             ToolTip.SetToolTip(numericUpDownDelay1After, tip);
@@ -433,13 +434,17 @@ namespace StartMe
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            mut.WaitOne();
             ToolTip.Dispose();
             if (checkBoxStopAll.Checked)
             {
                 StopAll();
             }
             Application.Exit();
+            settingsSave = false;
+            mut.ReleaseMutex();
             base.OnFormClosing(e);
+            settingsSave = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -642,9 +647,7 @@ namespace StartMe
         }
         */
 
-#pragma warning disable IDE0060 // Remove unused parameter
         private bool ProcessFindName(String name, String args, int n, ref Label processId)
-#pragma warning restore IDE0060 // Remove unused parameter
         {
             if (name.Length == 0)
             {
@@ -676,7 +679,7 @@ namespace StartMe
                 try
                 {
                     Process myprocess = Process.GetProcessById(pid);
-                    myprocess.StartInfo.Arguments = CommandLineUtilities.getCommandLines(myprocess);
+                    myprocess.StartInfo.Arguments = CommandLineUtilities.GetCommandLines(myprocess);
                     String cmdLine = "\"" + name + "\" " + args;
                     if (name.Equals(myprocess.MainModule.FileName))
                     {
@@ -760,7 +763,7 @@ namespace StartMe
             {
                 if (p != null)
                 {
-                    processArgs = CommandLineUtilities.getCommandLines(p);
+                    processArgs = CommandLineUtilities.GetCommandLines(p);
                 }
 
                 ++i;
@@ -813,9 +816,7 @@ namespace StartMe
 
         }
 #pragma warning disable IDE0051 // Remove unused private members
-#pragma warning disable IDE0060 // Remove unused parameter
-        private Process GetProcessByFileName(String fileName, ref String windowTitle)
-#pragma warning restore IDE0060 // Remove unused parameter
+        private Process GetProcessByFileName(String fileName)
 #pragma warning restore IDE0051 // Remove unused private members
         {
             int index = fileName.LastIndexOf('\\');
@@ -882,6 +883,7 @@ namespace StartMe
             process[6] = null;
             process[7] = null;
             process[8] = null;
+            settingsSave = false;
             ProcessFindName(textBoxPath1.Text, textBoxArgs1.Text, 1, ref pid1);
             ProcessFindName(textBoxPath2.Text, textBoxArgs2.Text, 2, ref pid2);
             ProcessFindName(textBoxPath3.Text, textBoxArgs3.Text, 3, ref pid3);
@@ -891,13 +893,12 @@ namespace StartMe
             ProcessFindName(textBoxPath7.Text, textBoxArgs7.Text, 7, ref pid7);
             ProcessFindName(textBoxPath8.Text, textBoxArgs8.Text, 8, ref pid8);
             ProcessFindName(textBoxPath9.Text, textBoxArgs9.Text, 9, ref pid9);
+            settingsSave = true;
             return;
 
         }
 
-#pragma warning disable IDE0060 // Remove unused parameter
         private bool ProcessIsRunning(string path, bool enabled, string args, int n, ref Process myProcess)
-#pragma warning restore IDE0060 // Remove unused parameter
         {
             // we will use our current pid
             if (path.Length == 0)
@@ -1066,7 +1067,7 @@ namespace StartMe
                 // Ctrl = "^"
                 // Alt = "%";
                 // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.sendkeys?view=netframework-4.8
-                String key = "";
+                String key;
                 switch (s.ToUpper())
                 {
                     case "DOWN":
@@ -1333,9 +1334,8 @@ namespace StartMe
                 || textBoxStart9.Text.Length > 0;
             return exists;
         }
-#pragma warning disable IDE0060 // Remove unused parameter
+
         private void ProcessStart(int n, Keys modifierKeys)
-#pragma warning restore IDE0060 // Remove unused parameter
         {
             if (!SendBeforeExists())
             {
@@ -1353,7 +1353,7 @@ namespace StartMe
             //Application.DoEvents();
             String processName = "";
             String args = "";
-            decimal sleepBefore = 0;
+            bool winWait = false;
             decimal sleepAfter = 0;
             decimal cpu = 0;
             bool minimize = false;
@@ -1361,15 +1361,15 @@ namespace StartMe
             bool enabled = false;
             switch (n)
             {
-                case 1: processName = textBoxPath1.Text; sleepBefore = numericUpDownDelay1Before.Value; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; enabled = textBoxPath1.Enabled; break;
-                case 2: processName = textBoxPath2.Text; sleepBefore = numericUpDownDelay2Before.Value; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; enabled = textBoxPath2.Enabled; break;
-                case 3: processName = textBoxPath3.Text; sleepBefore = numericUpDownDelay3Before.Value; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; enabled = textBoxPath3.Enabled; break;
-                case 4: processName = textBoxPath4.Text; sleepBefore = numericUpDownDelay4Before.Value; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; enabled = textBoxPath4.Enabled; break;
-                case 5: processName = textBoxPath5.Text; sleepBefore = numericUpDownDelay5Before.Value; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; enabled = textBoxPath5.Enabled; break;
-                case 6: processName = textBoxPath6.Text; sleepBefore = numericUpDownDelay6Before.Value; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; enabled = textBoxPath6.Enabled; break;
-                case 7: processName = textBoxPath7.Text; sleepBefore = numericUpDownDelay7Before.Value; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; enabled = textBoxPath7.Enabled; break;
-                case 8: processName = textBoxPath8.Text; sleepBefore = numericUpDownDelay8Before.Value; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; enabled = textBoxPath8.Enabled; break;
-                case 9: processName = textBoxPath9.Text; sleepBefore = numericUpDownDelay9Before.Value; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; enabled = textBoxPath9.Enabled; break;
+                case 1: processName = textBoxPath1.Text; winWait = checkBoxWinWait1.Checked; sleepAfter = numericUpDownDelay1After.Value; cpu = numericUpDownCPU1.Value; args = processArgs[n] = textBoxArgs1.Text; minimize = checkBoxMinimize1.Checked; priority = comboBoxPriority1.SelectedIndex; enabled = textBoxPath1.Enabled; break;
+                case 2: processName = textBoxPath2.Text; winWait = checkBoxWinWait2.Checked; sleepAfter = numericUpDownDelay2After.Value; cpu = numericUpDownCPU2.Value; args = processArgs[n] = textBoxArgs2.Text; minimize = checkBoxMinimize2.Checked; priority = comboBoxPriority2.SelectedIndex; enabled = textBoxPath2.Enabled; break;
+                case 3: processName = textBoxPath3.Text; winWait = checkBoxWinWait3.Checked; sleepAfter = numericUpDownDelay3After.Value; cpu = numericUpDownCPU3.Value; args = processArgs[n] = textBoxArgs3.Text; minimize = checkBoxMinimize3.Checked; priority = comboBoxPriority3.SelectedIndex; enabled = textBoxPath3.Enabled; break;
+                case 4: processName = textBoxPath4.Text; winWait = checkBoxWinWait4.Checked; sleepAfter = numericUpDownDelay4After.Value; cpu = numericUpDownCPU4.Value; args = processArgs[n] = textBoxArgs4.Text; minimize = checkBoxMinimize4.Checked; priority = comboBoxPriority4.SelectedIndex; enabled = textBoxPath4.Enabled; break;
+                case 5: processName = textBoxPath5.Text; winWait = checkBoxWinWait5.Checked; sleepAfter = numericUpDownDelay5After.Value; cpu = numericUpDownCPU5.Value; args = processArgs[n] = textBoxArgs5.Text; minimize = checkBoxMinimize5.Checked; priority = comboBoxPriority5.SelectedIndex; enabled = textBoxPath5.Enabled; break;
+                case 6: processName = textBoxPath6.Text; winWait = checkBoxWinWait6.Checked; sleepAfter = numericUpDownDelay6After.Value; cpu = numericUpDownCPU6.Value; args = processArgs[n] = textBoxArgs6.Text; minimize = checkBoxMinimize6.Checked; priority = comboBoxPriority6.SelectedIndex; enabled = textBoxPath6.Enabled; break;
+                case 7: processName = textBoxPath7.Text; winWait = checkBoxWinWait6.Checked; sleepAfter = numericUpDownDelay7After.Value; cpu = numericUpDownCPU7.Value; args = processArgs[n] = textBoxArgs7.Text; minimize = checkBoxMinimize7.Checked; priority = comboBoxPriority7.SelectedIndex; enabled = textBoxPath7.Enabled; break;
+                case 8: processName = textBoxPath8.Text; winWait = checkBoxWinWait7.Checked; sleepAfter = numericUpDownDelay8After.Value; cpu = numericUpDownCPU8.Value; args = processArgs[n] = textBoxArgs8.Text; minimize = checkBoxMinimize8.Checked; priority = comboBoxPriority8.SelectedIndex; enabled = textBoxPath8.Enabled; break;
+                case 9: processName = textBoxPath9.Text; winWait = checkBoxWinWait8.Checked; sleepAfter = numericUpDownDelay9After.Value; cpu = numericUpDownCPU9.Value; args = processArgs[n] = textBoxArgs9.Text; minimize = checkBoxMinimize9.Checked; priority = comboBoxPriority9.SelectedIndex; enabled = textBoxPath9.Enabled; break;
             }
             if (process[n] == null)
             {
@@ -1411,7 +1411,6 @@ namespace StartMe
                 timer1.Start();
                 return; // already running
             }
-            Thread.Sleep((int)sleepBefore * 1000);
             if (minimize)
             {
                 process[n].StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
@@ -1429,15 +1428,20 @@ namespace StartMe
                 {
                     mainWindowHandle = process[n].MainWindowHandle;
                     long myTime = timeout - (timerHandle.ElapsedMilliseconds / 1000);
+                    Color labelColor = labelStatusMessage.ForeColor;
+                    if (labelColor == Color.Black) labelColor = Color.Red; else labelColor = Color.Black;
+                    labelStatusMessage.ForeColor = labelColor;
                     labelStatusMessage.Text = "Waiting for task#" + n + " window handle " + myTime;
                     labelStatusMessage.Refresh();
                     Application.DoEvents();
                     Thread.Sleep(200);
-                } while (timerHandle.ElapsedMilliseconds < timeout * 1000 && mainWindowHandle == (IntPtr)0);
-                if (mainWindowHandle == null)
-                {
-                    MessageBox.Show("No main window handle??", "Debug StartMe");
-                }
+                } while (winWait && timerHandle.ElapsedMilliseconds < timeout * 1000 && mainWindowHandle == (IntPtr)0);
+                labelStatusMessage.ForeColor = Color.Black;
+
+                //if (mainWindowHandle == null)
+                //{
+                //    MessageBox.Show("No main window handle??", "Debug StartMe");
+                //}
                 timerHandle.Stop();
                 ProcessSetMainWindowHandle(n, mainWindowHandle);
             }
@@ -1450,7 +1454,12 @@ namespace StartMe
                 return;
             }
             //processID[n] = process[n].Id;
-            if (sleepAfter > 0) Thread.Sleep((int)sleepAfter * 1000);
+            do
+            {
+                Thread.Sleep(1000);
+                labelStatusMessage.Text = "After task#" + n + " sleeping " + sleepAfter;
+                Application.DoEvents();
+            } while (--sleepAfter > 0);
             try
             {
                 labelStatusMessage.Text = "Task " + n + " waiting for input idle";
@@ -1466,7 +1475,7 @@ namespace StartMe
             {
                 MessageBox.Show("RealTime priority requires runnig as Admin.  Will run as High instead", "Info StartMe");
             }
-            bool gotit = false;
+            bool gotit;
             do
             {
                 try
@@ -1867,7 +1876,7 @@ namespace StartMe
             int next;
             bool started;
 
-            List<string> settingsKeys = new List<string>();
+            List<string> settingsKeys;
             //if (settingsKey == "") // then will will autostart all settings
             //{
                 settingsKeys = SettingsGetKeys();
@@ -2166,7 +2175,7 @@ namespace StartMe
             {
                 textBoxPath1.Text = file;
                 SetPathColor(1, Color.Black);
-                SetEZName(1);
+                //SetEZName(1);
                 ProcessIsRunning(1);
             }
         }
@@ -2178,7 +2187,7 @@ namespace StartMe
             {
                 textBoxPath2.Text = file;
                 SetPathColor(2, Color.Black);
-                SetEZName(2);
+                //SetEZName(2);
                 ProcessIsRunning(2);
             }
         }
@@ -2190,7 +2199,7 @@ namespace StartMe
             {
                 textBoxPath3.Text = file;
                 SetPathColor(3, Color.Black);
-                SetEZName(3);
+                //SetEZName(3);
                 ProcessIsRunning(3);
             }
         }
@@ -2202,7 +2211,7 @@ namespace StartMe
             {
                 textBoxPath4.Text = file;
                 SetPathColor(4, Color.Black);
-                SetEZName(4);
+                //SetEZName(4);
                 ProcessIsRunning(4);
 
             }
@@ -2215,7 +2224,7 @@ namespace StartMe
             {
                 textBoxPath5.Text = file;
                 SetPathColor(5, Color.Black);
-                SetEZName(5);
+                //SetEZName(5);
                 ProcessIsRunning(5);
             }
         }
@@ -2227,7 +2236,7 @@ namespace StartMe
             {
                 textBoxPath6.Text = file;
                 SetPathColor(6, Color.Black);
-                SetEZName(6);
+                //SetEZName(6);
                 ProcessIsRunning(6);
             }
         }
@@ -2239,7 +2248,7 @@ namespace StartMe
             {
                 textBoxPath7.Text = file;
                 SetPathColor(7, Color.Black);
-                SetEZName(7);
+                //SetEZName(7);
                 ProcessIsRunning(7);
             }
         }
@@ -2251,7 +2260,7 @@ namespace StartMe
             {
                 textBoxPath8.Text = file;
                 SetPathColor(8, Color.Black);
-                SetEZName(8);
+                //SetEZName(8);
                 ProcessIsRunning(8);
             }
         }
@@ -2263,14 +2272,18 @@ namespace StartMe
             {
                 textBoxPath9.Text = file;
                 SetPathColor(9, Color.Black);
-                SetEZName(9);
+                //SetEZName(9);
                 ProcessIsRunning(9);
             }
         }
 
         private void Form1Closing(object sender, FormClosingEventArgs e)
         {
+            mut.WaitOne();
+            settingsSave = true;
             SettingsSave(Properties.Settings.Default.SettingsKeyCurrent);
+            settingsSave = false;
+            mut.ReleaseMutex();
         }
 
         private bool GetKeep(int n)
@@ -2436,7 +2449,7 @@ namespace StartMe
             {
                 string msg = "Your user.config was backed up -- Click Backups to manage";
                 // Move 1-4 to 2-5 rolling backup
-                for (int i = 4; i >= 1; --i)
+                for (int i = 8; i >= 1; --i)
                 {
                     string fileFrom = fileNow + "." + i;
                     string fileTo = fileNow + "." + (i + 1);
@@ -2587,15 +2600,15 @@ namespace StartMe
             Properties.Settings.Default.EZName9 = textBoxEZName9.Text;
 
             //8
-            Properties.Settings.Default.StartDelay1Before = numericUpDownDelay1Before.Value;
-            Properties.Settings.Default.StartDelay2Before = numericUpDownDelay2Before.Value;
-            Properties.Settings.Default.StartDelay3Before = numericUpDownDelay3Before.Value;
-            Properties.Settings.Default.StartDelay4Before = numericUpDownDelay4Before.Value;
-            Properties.Settings.Default.StartDelay5Before = numericUpDownDelay5Before.Value;
-            Properties.Settings.Default.StartDelay6Before = numericUpDownDelay6Before.Value;
-            Properties.Settings.Default.StartDelay7Before = numericUpDownDelay7Before.Value;
-            Properties.Settings.Default.StartDelay8Before = numericUpDownDelay8Before.Value;
-            Properties.Settings.Default.StartDelay9Before = numericUpDownDelay9Before.Value;
+            Properties.Settings.Default.WinWait1 = checkBoxWinWait1.Checked;
+            Properties.Settings.Default.WinWait2 = checkBoxWinWait2.Checked;
+            Properties.Settings.Default.WinWait3 = checkBoxWinWait3.Checked;
+            Properties.Settings.Default.WinWait4 = checkBoxWinWait4.Checked;
+            Properties.Settings.Default.WinWait5 = checkBoxWinWait5.Checked;
+            Properties.Settings.Default.WinWait6 = checkBoxWinWait6.Checked;
+            Properties.Settings.Default.WinWait7 = checkBoxWinWait7.Checked;
+            Properties.Settings.Default.WinWait8 = checkBoxWinWait8.Checked;
+            Properties.Settings.Default.WinWait9 = checkBoxWinWait9.Checked;
 
             //9
             Properties.Settings.Default.CPU1 = numericUpDownCPU1.Value;
@@ -2869,16 +2882,15 @@ namespace StartMe
             textBoxEZName9.Text = Properties.Settings.Default.EZName9;
 
             //8
-            numericUpDownDelay1Before.Value = Properties.Settings.Default.StartDelay1Before;
-            numericUpDownDelay2Before.Value = Properties.Settings.Default.StartDelay2Before;
-            numericUpDownDelay3Before.Value = Properties.Settings.Default.StartDelay3Before;
-            numericUpDownDelay4Before.Value = Properties.Settings.Default.StartDelay4Before;
-            numericUpDownDelay5Before.Value = Properties.Settings.Default.StartDelay5Before;
-            numericUpDownDelay6Before.Value = Properties.Settings.Default.StartDelay6Before;
-            numericUpDownDelay7Before.Value = Properties.Settings.Default.StartDelay7Before;
-            numericUpDownDelay8Before.Value = Properties.Settings.Default.StartDelay8Before;
-            numericUpDownDelay9Before.Value = Properties.Settings.Default.StartDelay9Before;
-
+            checkBoxWinWait1.Checked = Properties.Settings.Default.WinWait1;
+            checkBoxWinWait2.Checked = Properties.Settings.Default.WinWait2;
+            checkBoxWinWait3.Checked = Properties.Settings.Default.WinWait3;
+            checkBoxWinWait4.Checked = Properties.Settings.Default.WinWait4;
+            checkBoxWinWait5.Checked = Properties.Settings.Default.WinWait5;
+            checkBoxWinWait6.Checked = Properties.Settings.Default.WinWait6;
+            checkBoxWinWait7.Checked = Properties.Settings.Default.WinWait7;
+            checkBoxWinWait8.Checked = Properties.Settings.Default.WinWait8;
+            checkBoxWinWait9.Checked = Properties.Settings.Default.WinWait9;
             //9
             numericUpDownCPU1.Value = Properties.Settings.Default.CPU1;
             numericUpDownCPU2.Value = Properties.Settings.Default.CPU2;
@@ -4299,55 +4311,55 @@ namespace StartMe
             text1.Text = text2.Text;
             text2.Text = s;
         }
-        void SwapTaskDelayBefore(int swap1, int swap2)
+        void SwapTaskWinWait(int swap1, int swap2)
         {
-            NumericUpDown box1 = null, box2 = null;
+            CheckBox box1 = null, box2 = null;
             switch (swap1)
             {
                 case 1:
-                    box1 = numericUpDownDelay1Before; break;
+                    box1 = checkBoxWinWait1; break;
                 case 2:
-                    box1 = numericUpDownDelay2Before; break;
+                    box1 = checkBoxWinWait2; break;
                 case 3:
-                    box1 = numericUpDownDelay3Before; break;
+                    box1 = checkBoxWinWait3; break;
                 case 4:
-                    box1 = numericUpDownDelay4Before; break;
+                    box1 = checkBoxWinWait4; break;
                 case 5:
-                    box1 = numericUpDownDelay5Before; break;
+                    box1 = checkBoxWinWait5; break;
                 case 6:
-                    box1 = numericUpDownDelay6Before; break;
+                    box1 = checkBoxWinWait6; break;
                 case 7:
-                    box1 = numericUpDownDelay7Before; break;
+                    box1 = checkBoxWinWait7; break;
                 case 8:
-                    box1 = numericUpDownDelay8Before; break;
+                    box1 = checkBoxWinWait8; break;
                 case 9:
-                    box1 = numericUpDownDelay9Before; break;
+                    box1 = checkBoxWinWait9; break;
             }
             switch (swap2)
             {
                 case 1:
-                    box2 = numericUpDownDelay1Before; break;
+                    box2 = checkBoxWinWait1; break;
                 case 2:
-                    box2 = numericUpDownDelay2Before; break;
+                    box2 = checkBoxWinWait2; break;
                 case 3:
-                    box2 = numericUpDownDelay3Before; break;
+                    box2 = checkBoxWinWait3; break;
                 case 4:
-                    box2 = numericUpDownDelay4Before; break;
+                    box2 = checkBoxWinWait4; break;
                 case 5:
-                    box2 = numericUpDownDelay5Before; break;
+                    box2 = checkBoxWinWait5; break;
                 case 6:
-                    box2 = numericUpDownDelay6Before; break;
+                    box2 = checkBoxWinWait6; break;
                 case 7:
-                    box2 = numericUpDownDelay7Before; break;
+                    box2 = checkBoxWinWait7; break;
                 case 8:
-                    box2 = numericUpDownDelay8Before; break;
+                    box2 = checkBoxWinWait8; break;
                 case 9:
-                    box2 = numericUpDownDelay9Before; break;
+                    box2 = checkBoxWinWait9; break;
 
             }
-            decimal d = box1.Value;
-            box1.Value = box2.Value;
-            box2.Value = d;
+            bool b = box1.Checked;
+            box1.Checked = box2.Checked;
+            box2.Checked = b;
         }
         void SwapTaskDelayAfter(int swap1, int swap2)
         {
@@ -4899,7 +4911,7 @@ namespace StartMe
                 SwapTaskAdmin(selectedTask, task2);
                 SwapTaskPriority(selectedTask, task2); //OK
                 SwapTaskEzName(selectedTask, task2);
-                SwapTaskDelayBefore(selectedTask, task2);
+                SwapTaskWinWait(selectedTask, task2);
                 SwapTaskDelayAfter(selectedTask, task2);//OK
                 SwapTaskCPU(selectedTask, task2);
                 SwapTaskSendBefore(selectedTask, task2);
@@ -5007,6 +5019,7 @@ namespace StartMe
 
         private void ButtonStartAuto_Click(object sender, EventArgs e)
         {
+            mut.WaitOne();
             if (ModifierKeys.HasFlag(Keys.Shift))
             {
                 StartAllConfigs(true);
@@ -5015,6 +5028,7 @@ namespace StartMe
             {
                 StartAll(true);
             }
+            mut.ReleaseMutex();
         }
 
         private void Form1_Activated(object sender, EventArgs e)

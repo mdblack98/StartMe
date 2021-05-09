@@ -25,7 +25,7 @@ namespace StartMe
         {
             userConfigFile = filepath;
             string path = Path.GetDirectoryName(userConfigFile);
-            for (int i = 1; i <= 5; ++i) {
+            for (int i = 1; i <= 9; ++i) {
                 string fromFile = "user.config." + i;
                 string fromFilePath = path + "\\" + fromFile;
                 if (File.Exists(fromFilePath))
@@ -50,6 +50,11 @@ namespace StartMe
             checkedListBox1.SetItemChecked(2, false);
             checkedListBox1.SetItemChecked(3, false);
             checkedListBox1.SetItemChecked(4, false);
+            checkedListBox1.SetItemChecked(5, false);
+            checkedListBox1.SetItemChecked(6, false);
+            checkedListBox1.SetItemChecked(7, false);
+            checkedListBox1.SetItemChecked(8, false);
+            //checkedListBox1.SetItemChecked(9, false);
 
             checkedListBox1.SetItemChecked(i, true);
             buttonRestore.Enabled = true;
@@ -84,6 +89,7 @@ namespace StartMe
             {
                 File.Copy(fromFile, userConfigFile, true);
                 MessageBox.Show("user.config restored from backup#" + (i + 1));
+                this.Close();
             }
         }
     }
