@@ -2908,7 +2908,7 @@
             this.Controls.Add(this.textBoxPath1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "StartMe v1.1 20210509";
+            this.Text = "StartMe v1.0.1 20220215";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1Closing);
             this.Load += new System.EventHandler(this.Form1_Load);

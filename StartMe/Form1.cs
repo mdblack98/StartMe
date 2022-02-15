@@ -493,14 +493,14 @@ namespace StartMe
                 this.Height = 100;
                 this.Width = 500;
             }
-            if (this.Top > Screen.PrimaryScreen.WorkingArea.Height)
-            {
-                this.Top = 0;
-            }
-            if (this.Left > Screen.PrimaryScreen.WorkingArea.Width)
-            {
-                this.Left = 0;
-            }
+            //if (this.Top > Screen.PrimaryScreen.WorkingArea.Height)
+            //{
+            //    this.Top = 0;
+            //}
+            //if (this.Left > Screen.PrimaryScreen.WorkingArea.Width)
+            //{
+            //    this.Left = 0;
+            //}
 
             if (checkBoxMinimize.Checked) this.WindowState = FormWindowState.Minimized;
             ProcessInit();
@@ -611,6 +611,7 @@ namespace StartMe
 
         private void SetPathColor(int n, Color c)
         {
+            textBoxPath1.ForeColor = c;
             switch (n)
             {
                 case 1: textBoxPath1.ForeColor = c; break;

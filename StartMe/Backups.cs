@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StartMe
@@ -55,8 +49,13 @@ namespace StartMe
             checkedListBox1.SetItemChecked(7, false);
             checkedListBox1.SetItemChecked(8, false);
             //checkedListBox1.SetItemChecked(9, false);
-
-            checkedListBox1.SetItemChecked(i, true);
+            try
+            {
+                checkedListBox1.SetItemChecked(i, true);
+            }
+            catch { 
+                //continue
+            }
             buttonRestore.Enabled = true;
         }
 
