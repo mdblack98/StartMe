@@ -764,7 +764,14 @@ namespace StartMe
             {
                 if (p != null)
                 {
-                    processArgs = CommandLineUtilities.GetCommandLines(p);
+                    try
+                    {
+                        processArgs = CommandLineUtilities.GetCommandLines(p);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Unable to get command line for task#" + n + ":" + fileName + "\n" + ex.Message);    
+                    }
                 }
 
                 ++i;
